@@ -1,21 +1,21 @@
-import { BaseModel } from "../fox/core/src/module/utils/base.model"
 import type { IBaseModel } from "../fox/core/src/module/utils/interfaces/interface.baseModel"
 
-export class Main implements IBaseModel {
-    protected baseModel: BaseModel;
+export class Main<P extends Record<string, unknown>> implements IBaseModel {
+    protected baseModel: IBaseModel;
+    protected props: P;
 
-    constructor(element: string, template: string) {
-        this.baseModel = new BaseModel(element, template);
+    constructor(baseModel: IBaseModel, props: P) {
+        this.baseModel = baseModel;
+        this.props = props;
+        this.addProps(this.props);
     }
 
-    addProps(props: { [key: string]: unknown; }) {
+    addProps<T extends Record<string, unknown>>(props: T) {
         return this.baseModel.addProps(props);
-
     }
 
     addComponent(component: { [key: string]: string; }) {
         return this.baseModel.addComponent(component);
-
     }
 
     getHTML(): string {
@@ -23,7 +23,6 @@ export class Main implements IBaseModel {
     }
 
     mount(parent: HTMLElement): void {
-        this.baseModel.mount(parent);
+        this.baseModel.mount?.(parent);
     }
 }
-

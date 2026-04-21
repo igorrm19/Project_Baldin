@@ -1,5 +1,6 @@
-
 import { CardLogin } from "../features/login/ui/cardLogin/card";
+import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
+import { html } from "../features/login/ui/cardLogin/card";
 
 export class MainPage {
     container: HTMLDivElement;
@@ -13,13 +14,12 @@ export class MainPage {
         parent.appendChild(this.container);
 
 
-        const card = new CardLogin() // creates a div
+        const card = new CardLogin(new BaseModel("div", html), {}) // creates a div
         const loginHTML = card.mountCardLogin(this.container)
         card.addComponent({
             primary_component: loginHTML,
         })
         card.mount(this.container) // mounts on the screen
     }
-
 }
 
