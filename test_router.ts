@@ -14,9 +14,15 @@ const historyMock = {
     pushState: () => { },
 };
 
-(globalThis as any).document = documentMock;
-(globalThis as any).window = windowMock;
-(globalThis as any).history = historyMock;
+const globalContext = globalThis as unknown as {
+    document: typeof documentMock;
+    window: typeof windowMock;
+    history: typeof historyMock;
+};
+
+globalContext.document = documentMock;
+globalContext.window = windowMock;
+globalContext.history = historyMock;
 
 import { FoxRouter, Page } from "./fox/core/src/module/router/router";
 

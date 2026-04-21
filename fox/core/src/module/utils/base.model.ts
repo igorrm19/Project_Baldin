@@ -2,7 +2,7 @@
 export class BaseModel {
     private html: string
     private element: HTMLElement
-    private context: Record<string, any> = {}
+    private context: Record<string, unknown> = {}
     private axe: Record<string, string> = {}
 
     constructor(element: string, template: string) {
@@ -41,7 +41,7 @@ export class BaseModel {
     }
 
 
-    public addProps(context: Record<string, any>) {
+    public addProps(context: Record<string, unknown>) {
         this.context = { ...this.context, ...context }
     }
 

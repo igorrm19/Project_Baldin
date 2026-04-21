@@ -2,14 +2,14 @@ export type ActionItem = {
     button: string | HTMLElement
     id: string
     class: string
-    style: string | HTMLElement | any
-    children: string | HTMLElement | any
-    parent: string | HTMLElement | any
-    onClick: string | Function | any
+    style: CSSStyleDeclaration | string
+    children: HTMLCollection
+    parent: HTMLElement | null
+    onClick: string | null
     text: string | null
 }
 
-export function parseButton(html: string): Record<string, any> {
+export function parseButton(html: string): ActionItem[] {
     // Use DOMParser to convert HTML string to an HTML document
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')

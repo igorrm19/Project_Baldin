@@ -1,6 +1,6 @@
 export interface IBaseModel {
-    addProps(props: { [key: string]: any }): void;
-    addComponent(component: { [key: string]: any }): void;
-    getHTML(): HTMLElement;
+    addProps(props: { [key: string]: unknown }): void;
+    addComponent(component: { [key: string]: string }): void;
+    getHTML(): string;
     mount?(parent: HTMLElement): void;
 }
