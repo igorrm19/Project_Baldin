@@ -1,56 +1,78 @@
-# Fox Framework - Project Baldim
+# Fox Framework - Technical Specification
 
-## Overview
-Fox Framework is a lightweight, component-based TypeScript frontend framework designed for building modular web applications. It features a custom directive system, a centralized router, and an action stack for state management and DOM interaction. This project follows a structured architecture to ensure scalability and maintainability.
+## Abstract
+The Fox Framework is a zero-dependency, component-driven architecture engineered for high-performance web applications. It provides a robust abstraction layer over the native DOM, implementing a proprietary template compilation engine, a declarative component composition model, and a synchronized routing layer. Built with TypeScript, it ensures static type safety and architectural rigidity across large-scale deployments.
 
-## Project Structure
-The project is organized into several key modules:
-- **fox/core**: Contains the framework logic, including the DOM parser, component base classes, and routing mechanism.
-- **src/App**: Contains the application-specific components, features, and pages.
-- **src/shared**: Global components and utilities used across the application.
-- **public**: Static assets and public resources.
+## Architectural Philosophy
+At its core, the framework operates on the principle of predictable DOM reconciliation through a centralized compilation pipeline. Unlike traditional virtual DOM implementations, Fox Framework utilizes a direct-to-DOM compilation strategy, minimizing overhead and maximizing execution speed. The architecture is strictly modular, enforcing a separation of concerns between core engine logic and application-level implementation.
 
-## Core Components
-### BaseModel
-The `BaseModel` class is the foundation for all components. It handles template compilation, variable interpolation, and component mounting.
-- `addProps(context)`: Adds data context to the component for interpolation.
-- `addComponent(component)`: Registers sub-components (Axes) within the component.
-- `mount(parent)`: Attaches the component to the DOM.
+## Core Engine Dynamics
 
-### FoxRouter
-Integrated routing system that manages navigation and page mounting.
-- `navigate(path)`: Navigates to a specific route.
-- `start()`: Initializes the router based on the current URL.
+### BaseModel Infrastructure
+The `BaseModel` class serves as the primary execution context for all framework components. It manages the lifecycle of a component from instantiation to DOM attachment.
 
-### Action Stack
-A centralized stack used for tracking and managing user actions and DOM events during the parsing process.
+- **Interpolation Engine**: Implements a regex-based parser for the `{{ value }}` syntax, providing safe variable injection with built-in XSS mitigation via HTML entity encoding.
+- **Context Management**: Utilizes an internal dictionary for prop resolution, ensuring that data flow remains unidirectional and predictable.
+- **Lifecycle Management**: Components follow a strict `init -> compile -> mount` sequence, ensuring stable state before DOM projection.
 
-## Getting Started
+### Component Composition (Axe Architecture)
+Composition is handled via the "Axe" mechanism, a declarative strategy for nesting components. This system identifies `<Axe />` markers within templates and replaces them with compiled component instances during the recursive parsing phase.
+
+## Routing Synchronization Layer
+
+The `FoxRouter` manages the application state relative to the browser's navigation history. 
+
+- **State Synchronization**: Hooks into the `popstate` event for seamless integration with browser navigation controls.
+- **Modular Mounting**: Implements a dedicated container-mounting strategy, where views are swapped within a defined `#app` entry point without full-page reloads.
+- **Type-Safe Routing**: Leverages TypeScript constructors (`PageClass`) to guarantee that all routed targets implement the required `mount` interface.
+
+## Technical Stack
+The development ecosystem is optimized for modern performance standards:
+- **Language**: TypeScript (v5.8+) for advanced type inference and architectural integrity.
+- **Build System**: Vite (v7.1+) leveraging ESM-native HMR (Hot Module Replacement).
+- **Styling**: TailwindCSS (v3.4+) for utility-first responsive design.
+- **Environment**: Node.js v18+ environment requirements.
+
+## Implementation Standard
+
 ### Prerequisites
-- Node.js (version 18 or higher recommended)
-- npm or yarn
+- Node.js Performance Environment (v18.x or greater)
+- Package Manager: npm or yarn
 
-### Installation
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### Installation and Initialization
+Initialize the project environment by resolving dependencies:
+```bash
+npm install
+```
 
-### Development
-To start the development server with Vite:
+### Execution Environments
+
+#### Development
+Spawns a local development server with real-time module updates:
 ```bash
 npm run dev
 ```
 
-### Production Build
-To build the project for production:
+#### Production Compilation
+Executes the TypeScript compiler followed by the Vite optimization pipeline to generate a minified, production-ready bundle:
 ```bash
 npm run build
 ```
 
-## Implementation Details
-The framework utilizes a custom parsing engine that identifies specific tags (e.g., `<Axe />`) and replaces them with component instances. It also supports double-curly brace interpolation `{{ variable }}` for dynamic content.
+## Internal Architecture Overview
+```text
+fox/
+├── core/
+│   └── src/
+│       └── module/
+│           ├── router/     (Navigation Engine)
+│           ├── utils/      (Base Engines & Interfaces)
+│           └── dom/        (DOM Abstractions)
+src/
+├── App/            (Feature Implementation)
+├── action.stack.ts (Decoupled State Management)
+└── main.ts         (Entry Point)
+```
 
-## License
-This project is proprietary. All rights reserved.
+## Compliance and Licensing
+This project is proprietary software. Unauthorized distribution, modification, or reproduction is strictly prohibited. All intellectual property rights are reserved.
