@@ -1,6 +1,6 @@
 import { Main } from "../../../../../../../fox/main"
 import { TextHTML } from "../../../../components/Text/text"
-import type { IBaseModel } from "../../../../../../../fox/core/src/module/utils/interfaces/interface.baseModel"
+import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 
 export interface LoginProps extends Record<string, unknown> {
     h1_primaryText: string;

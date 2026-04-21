@@ -1,13 +1,6 @@
 // 
 
-export type ActionItem = {
-    div: string | HTMLElement
-    id: string
-    class: string
-    style: CSSStyleDeclaration | string
-    children: HTMLCollection
-    parent: HTMLElement | null
-}
+import type { ActionItem } from "./@types/dom.types"
 
 export function parseHTML(html: string): ActionItem[] {
     // Use DOMParser to convert HTML string to an HTML document

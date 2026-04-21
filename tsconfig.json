@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "fox/core/src/module/utils/base.model.ts"]
+  "include": ["src", "fox"]
 }

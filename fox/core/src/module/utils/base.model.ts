@@ -1,9 +1,10 @@
+import type { IBaseModel, ComponentMap } from "../../@types/base.model.interface"
 
-export class BaseModel {
+export class BaseModel implements IBaseModel {
     private html: string
     private element: HTMLElement
     private context: Record<string, unknown> = {}
-    private axe: Record<string, string> = {}
+    private axe: ComponentMap = {}
 
     constructor(element: string, template: string) {
         this.element = document.createElement(element)
@@ -45,8 +46,8 @@ export class BaseModel {
         this.context = { ...this.context, ...context }
     }
 
-    public addComponent(axe: Record<string, string>) {
-        return this.axe = { ...this.axe, ...axe }
+    public addComponent(axe: ComponentMap) {
+        this.axe = { ...this.axe, ...axe }
     }
 
 
