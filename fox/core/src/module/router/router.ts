@@ -1,12 +1,14 @@
-import type { PageClass } from "./@types/router.types"
+import type { Page, PageClass } from "./@types/router.types";
 
 export class FoxRouter {
     private routes: Record<string, PageClass>;
-    private containerId: string;
+    private containerSelector: string;
+    private containerElement: HTMLElement | null = null;
+    private currentPage: Page | null = null;
 
-    constructor(routes: Record<string, PageClass>, containerId: string = "#app") {
+    constructor(routes: Record<string, PageClass>, containerSelector: string = "#app") {
         this.routes = routes;
-        this.containerId = containerId;
+        this.containerSelector = containerSelector;
 
         window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
     }
@@ -24,16 +26,41 @@ export class FoxRouter {
             return;
         }
 
+        if (this.currentPage && this.currentPage.unmount) {
+            this.currentPage.unmount();
+        }
+
         const instance = new PageCtor();
+        this.currentPage = instance;
 
-        const container = document.querySelector(this.containerId) as HTMLElement | null;
-        if (!container) throw new Error(`${this.containerId} not found in DOM`);
+        if (!this.containerElement) {
+            this.containerElement = document.querySelector(this.containerSelector) as HTMLElement | null;
+            if (!this.containerElement) throw new Error(`${this.containerSelector} not found in DOM`);
+        }
 
-        container.innerHTML = "";
-        instance.mount(container);
+        this.containerElement.innerHTML = "";
+        instance.mount(this.containerElement);
+    }
+
+    private setupLinkInterception() {
+        document.addEventListener("click", (event) => {
+            const target = event.target as HTMLElement;
+            const anchor = target.closest("a");
+
+            if (anchor && anchor.href) {
+                const url = new URL(anchor.href);
+                const isInternal = url.origin === window.location.origin;
+
+                if (isInternal) {
+                    event.preventDefault();
+                    this.navigate(url.pathname);
+                }
+            }
+        });
     }
 
     public start() {
+        this.setupLinkInterception();
         this.loadRoute(window.location.pathname);
     }
 }

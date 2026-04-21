@@ -5,13 +5,13 @@ import { AboutPage } from './App/shared/pages/aboutPage';
 import { test } from './convert.stringtoobject.test';
 import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
-import { parseButton } from '../fox/core/src/module/dom/parseButton';
+
 
 
 import { actionStack } from './action.stack';
 
 console.log(parseHTML(html))
-console.log(parseButton(html))
+// console.log(parseButton(html))
 test()
 
 // Listen for global actions

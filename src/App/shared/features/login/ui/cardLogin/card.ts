@@ -5,21 +5,22 @@ import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.m
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import loginTemplate from "../login/login.html?raw"
 import template from "./card.html?raw"
+import { parseHTML } from "../../../../../../../fox/core/src/module/dom/parserDiv"
 export const html = template
 
 export interface CardProps extends Record<string, unknown> { }
 
 export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement
+    private loginInstance: Login | null = null
+    nome: string = ""
 
     constructor(baseModel: IBaseModel, props: CardProps) {
         super(baseModel, props)
         this.containerCardLogin = document.createElement("div")
     }
 
-    mountCardLogin(parent: HTMLElement): string {
-        parent.appendChild(this.containerCardLogin)
-
+    mountCardLogin(): string {
         const props: LoginProps = {
             h1_primaryText: "Fox",
             h3_secondaryText: "Please login to continue",
@@ -28,14 +29,25 @@ export class CardLogin extends Main<CardProps> {
         };
 
         const login = new Login(new BaseModel("form", loginTemplate), props)
+        login.mountLogin()
 
-        login.mountLogin(this.containerCardLogin)
+        // Guarda a instância para usar no bindLoginButtons
+        this.loginInstance = login
 
         const loginHTML = login.getHTML()
+        // Teste do parseHTML movido para dentro do método (não pode ficar solto na classe)
+        parseHTML("<div>igor</div>").forEach(div => {
+            console.log(div.parent?.innerText)
+            this.nome = div.parent?.innerText || ""
+
+        })
 
         return loginHTML
     }
 
-
+    bindLoginButtons(domContainer: HTMLElement) {
+        if (this.loginInstance) {
+            this.loginInstance.bindButtons(domContainer)
+        }
+    }
 }
-

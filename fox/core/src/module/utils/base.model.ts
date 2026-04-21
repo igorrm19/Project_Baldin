@@ -5,6 +5,7 @@ export class BaseModel implements IBaseModel {
     private element: HTMLElement
     private context: Record<string, unknown> = {}
     private axe: ComponentMap = {}
+    private mounted = false
 
     constructor(element: string, template: string) {
         this.element = document.createElement(element)
@@ -59,7 +60,12 @@ export class BaseModel implements IBaseModel {
 
 
     public mount(parent: HTMLElement) {
-        this.loadTemplate() // mount the html
-        parent.appendChild(this.element.cloneNode(true))
+        if (this.mounted) {
+            console.warn("[BaseModel] mount() was called more than once. Skipping duplicate render.");
+            return;
+        }
+        this.mounted = true;
+        this.loadTemplate();
+        parent.appendChild(this.element.cloneNode(true));
     }
 }
