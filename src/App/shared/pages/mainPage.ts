@@ -14,12 +14,13 @@ export class MainPage {
         parent.appendChild(this.container);
 
 
-        const card = new CardLogin(new BaseModel("div", html), {}) // creates a div
-        const loginHTML = card.mountCardLogin(this.container)
+        const card = new CardLogin(new BaseModel("div", html), {})
+        const loginHTML = card.mountCardLogin()
         card.addComponent({
             primary_component: loginHTML,
         })
         card.mount(this.container) // mounts on the screen
+        card.bindLoginButtons(this.container) // vincula event listeners nos botões do DOM real
     }
 }
 

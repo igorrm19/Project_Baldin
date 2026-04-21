@@ -30,7 +30,7 @@ class AboutPage {
         parent.appendChild(this.container);
 
         const card = new CardLogin(new BaseModel("div", html), {});
-        const loginHTML = card.mountCardLogin(this.container);
+        const loginHTML = card.mountCardLogin();
 
         card.addComponent({
             primary_component: loginHTML,
