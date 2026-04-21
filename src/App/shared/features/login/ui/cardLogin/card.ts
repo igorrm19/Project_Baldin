@@ -1,39 +1,35 @@
-
-import template from "./card.html?raw"
-//import { ContrutorCardLogin } from "./construtor"
 import { Login } from "../login/login"
+import type { LoginProps } from "../login/login"
 import { Main } from "../../../../../../../fox/main"
-
-// responsavel por implementar outros componentes
-
-export interface Template {
-    template: string
-}
-
+import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.model"
+import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
+import loginTemplate from "../login/login.html?raw"
+import template from "./card.html?raw"
 export const html = template
 
-export class CardLogin extends Main {
+export interface CardProps extends Record<string, unknown> { }
+
+export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement
 
-    constructor() {
-        super("div", template)
+    constructor(baseModel: IBaseModel, props: CardProps) {
+        super(baseModel, props)
         this.containerCardLogin = document.createElement("div")
     }
 
     mountCardLogin(parent: HTMLElement): string {
         parent.appendChild(this.containerCardLogin)
 
-        const login = new Login()
-
-        login.addProps({
+        const props: LoginProps = {
             h1_primaryText: "Fox",
             h3_secondaryText: "Please login to continue",
             label_thirdText: "Email",
             label_fourthText: "Password",
-        })
+        };
+
+        const login = new Login(new BaseModel("form", loginTemplate), props)
 
         login.mountLogin(this.containerCardLogin)
-
 
         const loginHTML = login.getHTML()
 

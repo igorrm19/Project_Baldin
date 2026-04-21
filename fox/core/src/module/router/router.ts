@@ -1,9 +1,4 @@
-
-export interface Page {
-    mount(parent: HTMLElement): void;
-}
-
-export type PageClass = new () => Page;
+import type { PageClass } from "./@types/router.types"
 
 export class FoxRouter {
     private routes: Record<string, PageClass>;

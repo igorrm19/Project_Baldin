@@ -1,15 +1,8 @@
 // 
 
-export type ActionItem = {
-    div: string | HTMLElement
-    id: string
-    class: string
-    style: string | HTMLElement | any
-    children: string | HTMLElement | any
-    parent: string | HTMLElement | any
-}
+import type { ActionItem } from "./@types/dom.types"
 
-export function parseHTML(html: string): Record<string, any> {
+export function parseHTML(html: string): ActionItem[] {
     // Use DOMParser to convert HTML string to an HTML document
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')

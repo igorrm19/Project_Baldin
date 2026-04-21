@@ -8,9 +8,18 @@ import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
 import { parseButton } from '../fox/core/src/module/dom/parseButton';
 
 
+import { actionStack } from './action.stack';
+
 console.log(parseHTML(html))
 console.log(parseButton(html))
 test()
+
+// Listen for global actions
+actionStack.subscribe((item) => {
+  if (item.action === 'click') {
+    alert(`Action Triggered: ${item.action} on ${item.tagName} (ID: ${item.id})`);
+  }
+});
 
 
 const routes = {

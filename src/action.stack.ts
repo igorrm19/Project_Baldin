@@ -7,9 +7,18 @@ export interface ActionItem {
 
 class ActionStack {
     private stack: ActionItem[] = [];
+    private listeners: ((item: ActionItem) => void)[] = [];
 
     push(item: ActionItem) {
         this.stack.push(item);
+        this.listeners.forEach(listener => listener(item));
+    }
+
+    subscribe(listener: (item: ActionItem) => void) {
+        this.listeners.push(listener);
+        return () => {
+            this.listeners = this.listeners.filter(l => l !== listener);
+        };
     }
 
     pop(): ActionItem | undefined {

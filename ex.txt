@@ -1,25 +1,29 @@
+import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
+import { CardLogin, html } from "../features/login/ui/cardLogin/card";
 
-//import { Button } from './components/Button.ts';
+class AboutPage {
+    private readonly container: HTMLElement //| null = document.getElementById('app');
 
-console.log("aqui funciona 1")
-
-// const app = document.querySelector<HTMLDivElement>('#app')!
-// const myButton = new Button("Enviar", () => {
-//   alert("dados enviados")
-// });
-
-
-// myButton.mount(app)
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   const app = document.querySelector<HTMLDivElement>('#app')!
-//   const myButton = new Button("Clique aqui 🚀", () => alert("Botão clicado!"))
-//   myButton.mount(app)
-// })
+    constructor() {
+        this.container!.innerHTML = "<h1> About Page </h1>";
+        this.container!.style.cssText = "height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #1a1a1a, #ff6600, #ff9900); color: white; font-family: Arial, sans-serif;";
+        
+    }
 
 
-// document.querySelector<HTMLDivElement>('#main')!.innerHTML = `
-//  <h1 class="text-red-900">Hello word</h1>
-// `
+    mount(parent: HTMLElement) {
+        parent.appendChild(this.container!);
 
+
+        const card = new CardLogin(new BaseModel("div", html), {}) // creates a div
+        const loginHTML = card.mountCardLogin(this.container)
+        card.addComponent({
+            primary_component: loginHTML,
+        })
+        card.mount(this.container) // mounts on the screen
+
+    }
+}
+
+export { AboutPage }
 
