@@ -35,5 +35,8 @@ export class CadastroPage extends Main<CadastroProps> {
 
         // 3. Renderiza o card, que já contém o cadastro lá dentro, no DOM
         cardLogin.mount(this.container);
+
+        // 4. Vincula os botões renderizados no DOM às funções mapeadas pelo componente
+        cadastro.bindButtons(this.container);
     }
 }

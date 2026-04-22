@@ -18,12 +18,10 @@ export class Login extends Main<LoginProps> {
         this.containerLogin = document.createElement("div")
     }
 
-    // Recebe o container do DOM real para poder appendar dentro dele
-    myButton(domContainer: HTMLElement) {
-        const sucesso = document.createElement("p")
-        sucesso.textContent = "Sucesso"
-        sucesso.className = "text-green-500"
-        domContainer.appendChild(sucesso)
+    // Evento de clique real para navegação SPA (Login)
+    myButton() {
+        history.pushState({}, "", "/about")
+        window.dispatchEvent(new Event('popstate'))
     }
 
     myButton2(domContainer: HTMLElement) {
@@ -47,7 +45,7 @@ export class Login extends Main<LoginProps> {
      */
     bindButtons(domContainer: HTMLElement) {
         parseButton(domContainer, [
-            this.myButton.bind(this, domContainer),
+            this.myButton.bind(this),
             this.myButton2.bind(this, domContainer)
         ])
     }
