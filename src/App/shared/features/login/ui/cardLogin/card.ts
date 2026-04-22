@@ -22,7 +22,7 @@ export class CardLogin extends Main<CardProps> {
 
     mountCardLogin(): string {
         const props: LoginProps = {
-            h1_primaryText: "Fox",
+            h1_primaryText: `Fox ${this.nome}`,
             h3_secondaryText: "Please login to continue",
             label_thirdText: "Email",
             label_fourthText: "Password",
@@ -36,7 +36,7 @@ export class CardLogin extends Main<CardProps> {
 
         const loginHTML = login.getHTML()
         // Teste do parseHTML movido para dentro do método (não pode ficar solto na classe)
-        parseHTML("<div>igor</div>").forEach(div => {
+        parseHTML(loginHTML).forEach(div => {
             console.log(div.parent?.innerText)
             this.nome = div.parent?.innerText || ""
 

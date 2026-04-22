@@ -13,17 +13,7 @@ class AboutPage {
     }
 
     private setupStyles() {
-        this.container.style.cssText = `
-            height: 100vh; 
-            width: 100vw; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center; 
-            background: linear-gradient(135deg, #1a1a1a, #ff6600, #ff9900); 
-            color: white; 
-            font-family: Arial, sans-serif;
-        `;
+        this.container.classList.add("h-screen", "w-screen", "bg-gradient-to-br", "from-neutral-950", "via-orange-800", "to-orange-600", "flex", "items-center", "justify-center", "flex-col");
     }
 
     mount(parent: HTMLElement) {
