@@ -1,7 +1,7 @@
-import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
-import { CardLogin, html } from "../features/login/ui/cardLogin/card";
-import type { ActionItem } from "../../../action.stack";
-import { actionStack } from "../../../action.stack";
+import { InputHTML } from "../components/input/input";
+import { ButtonHTML } from "../components/button/button";
+import { ImageHTML } from "../components/image/image";
+import { TextHTML } from "../components/Text/text";
 
 class AboutPage {
     // Em vez de pegar o 'app', criamos um container próprio para a página
@@ -13,44 +13,55 @@ class AboutPage {
     }
 
     private setupStyles() {
-        this.container.style.cssText = `
-            height: 100vh; 
-            width: 100vw; 
-            display: flex; 
-            flex-direction: column;
-            justify-content: center; 
-            align-items: center; 
-            background: linear-gradient(135deg, #1a1a1a, #ff6600, #ff9900); 
-            color: white; 
-            font-family: Arial, sans-serif;
-        `;
+        this.container.classList.add("h-screen", "w-screen", "bg-gradient-to-br", "from-neutral-950", "via-orange-800", "to-orange-600", "flex", "items-center", "justify-center", "flex-col");
     }
 
     mount(parent: HTMLElement) {
         parent.appendChild(this.container);
 
-        const card = new CardLogin(new BaseModel("div", html), {});
-        const loginHTML = card.mountCardLogin();
+        // Formulário central (Card)
+        const formBox = document.createElement("div");
+        formBox.className = "bg-slate-50 rounded-2xl shadow-2xl p-8 w-[65vh] space-y-5 flex flex-col justify-center";
 
-        card.addComponent({
-            primary_component: loginHTML,
-        });
+        // Header integrado dentro do Card
+        const header = document.createElement("div");
+        header.className = "flex items-center justify-center flex-col";
 
-        card.mount(this.container);
+        const logo = new ImageHTML("/Rosto Geométrico de Raposa (1).png", "raposa svg");
+        logo.mountImage(header);
 
-        const button = document.createElement("button")
-        button.textContent = "Click"
-        button.className = "bg-blue-600 text-white px-4 py-2 mt-4 cursor-pointer hover:bg-blue-700 transition-colors rounded-full w-[15vh] h-[5vh]"
-        button.onclick = () => {
-            const actionItem: ActionItem = {
-                id: "primary_component",
-                action: "click",
-                tagName: "button"
-            }
-            actionStack.push(actionItem)
-            console.log(actionStack.getAll())
-        }
-        this.container.appendChild(button)
+        const titleHeader = document.createElement("div");
+        titleHeader.className = "flex";
+
+        const textH1 = new TextHTML("Create", "text-4xl text-orange-700 mb-1 font-medium");
+        textH1.mountText(titleHeader);
+
+        const spanH1 = new TextHTML("Mother", "text-4xl text-amber-900 mb-1 font-medium");
+        spanH1.mountText(titleHeader);
+
+        header.appendChild(titleHeader);
+
+        const subtitle = new TextHTML("Modify your preferences", "text-zinc-600 font-serif text-lg");
+        subtitle.mountText(header);
+
+        formBox.appendChild(header);
+
+        // Inputs dentro do Card
+        const emailInput = new InputHTML("email", "email", "Email Address", "EMAIL_ADDRESS");
+        const passInput = new InputHTML("password", "password", "Password", "********");
+
+        emailInput.mountInput(formBox);
+        passInput.mountInput(formBox);
+
+        // O nosso botão
+        const loginButton = new ButtonHTML("Save Settings", "button_save", "submit");
+        loginButton.mountButton(formBox);
+
+        // Anexa o card contendo tudo na tela principal
+        this.container.appendChild(formBox);
+
+        // Click debugger original: adaptado para o novo botão manual (opcional)
+        // loginButton já renderizou o botão completo no dom via innerHTML do container dele
     }
 }
 

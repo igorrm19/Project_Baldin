@@ -7,7 +7,11 @@ export class MainPage {
 
     constructor() {
         this.container = document.createElement("div");
-        this.container.className = "h-screen w-screen bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex items-center justify-center flex-col";
+        this.setupStyles();
+    }
+
+    setupStyles() {
+        this.container.classList.add("h-screen", "w-screen", "bg-gradient-to-br", "from-neutral-950", "via-orange-800", "to-orange-600", "flex", "items-center", "justify-center", "flex-col");
     }
 
     mount(parent: HTMLElement) {

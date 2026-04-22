@@ -22,9 +22,12 @@ actionStack.subscribe((item) => {
 });
 
 
+import { CadastroPage } from './App/shared/pages/cadastroPage';
+
 const routes = {
   "/": MainPage,
   "/about": AboutPage,
+  "/cadastro": CadastroPage,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
