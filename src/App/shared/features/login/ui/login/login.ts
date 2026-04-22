@@ -32,7 +32,7 @@ export class Login extends Main<LoginProps> {
     }
 
     mountLogin() {
-        const text = new TextHTML()
+        const text = new TextHTML("")
         text.addProps({ text: "" })
         text.addComponent({ par: text.getHTML() })
         text.mount(this.containerLogin)

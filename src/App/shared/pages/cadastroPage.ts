@@ -1,6 +1,7 @@
 import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
 import { Cadastro, html as cadastroHTML } from "../features/login/ui/cadastro/cadastro";
 import { CardLogin, html as cardHTML } from "../features/login/ui/cardLogin/card";
+import { TextHTML } from "../components/Text/text";
 import { Main } from "../../../../fox/main";
 
 export interface CadastroProps extends Record<string, unknown> { }
@@ -26,11 +27,15 @@ export class CadastroPage extends Main<CadastroProps> {
         const cadastro = new Cadastro(new BaseModel("div", cadastroHTML), {});
         cadastro.mountCadastro();
 
+        const subtitle = new TextHTML("Modify your preferences", "text-zinc-600 font-serif text-lg");
+        subtitle.mountText(this.container);
+
         // 2. Instancia o invólucro (Card wrapper) e substitui o conteúdo interno dele
         // chamando addComponent e injetando o HTML do cadastro lá dentro
         const cardLogin = new CardLogin(new BaseModel("div", cardHTML), {});
         cardLogin.addComponent({
             primary_component: cadastro.getHTML(),
+            secondary_component: subtitle.getHTML(),
         });
 
         // 3. Renderiza o card, que já contém o cadastro lá dentro, no DOM
