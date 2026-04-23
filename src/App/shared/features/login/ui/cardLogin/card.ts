@@ -8,7 +8,7 @@ import template from "./card.html?raw"
 import { parseHTML } from "../../../../../../../fox/core/src/module/dom/parserDiv"
 export const html = template
 
-export interface CardProps extends Record<string, unknown> { }
+export type CardProps = Record<string, unknown>;
 
 export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement

@@ -4,7 +4,7 @@ import { CardLogin, html as cardHTML } from "../features/login/ui/cardLogin/card
 import { TextHTML } from "../components/Text/text";
 import { Main } from "../../../../fox/main";
 
-export interface CadastroProps extends Record<string, unknown> { }
+export type CadastroProps = Record<string, unknown>;
 
 export class CadastroPage extends Main<CadastroProps> {
     private readonly container: HTMLDivElement;

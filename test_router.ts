@@ -1,15 +1,15 @@
 
 // Mock DOM
 const documentMock = {
-    querySelector: (selector: string) => ({
+    querySelector: () => ({
         innerHTML: "",
         appendChild: () => { },
     }),
-    addEventListener: (type: string, listener: any) => { },
+    addEventListener: () => { },
 };
 const windowMock = {
     location: { pathname: "/", origin: "http://localhost" },
-    addEventListener: (type: string, listener: any) => { },
+    addEventListener: () => { },
 };
 const historyMock = {
     pushState: () => { },
@@ -33,7 +33,7 @@ import { Page } from "./fox/core/src/module/router/@types/router.types";
 let unmountCalled = false;
 
 class MockPage implements Page {
-    mount(parent: HTMLElement) {
+    mount() {
         console.log("MockPage mounted!");
     }
     unmount() {
@@ -43,7 +43,7 @@ class MockPage implements Page {
 }
 
 class AnotherPage implements Page {
-    mount(parent: HTMLElement) {
+    mount() {
         console.log("AnotherPage mounted!");
     }
 }

@@ -5,7 +5,7 @@ import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseB
 
 export const html = template
 
-export interface CardProps extends Record<string, unknown> { }
+export type CardProps = Record<string, unknown>;
 
 export class Cadastro extends Main<CardProps> {
     containerCadastro: HTMLElement
