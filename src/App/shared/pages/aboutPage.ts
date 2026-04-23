@@ -4,7 +4,6 @@ import { ImageHTML } from "../components/image/image";
 import { TextHTML } from "../components/Text/text";
 
 class AboutPage {
-    // Em vez de pegar o 'app', criamos um container próprio para a página
     private readonly container: HTMLElement;
 
     constructor() {
@@ -19,11 +18,9 @@ class AboutPage {
     mount(parent: HTMLElement) {
         parent.appendChild(this.container);
 
-        // Formulário central (Card)
         const formBox = document.createElement("div");
         formBox.className = "bg-slate-50 rounded-2xl shadow-2xl p-8 w-[65vh] space-y-5 flex flex-col justify-center";
 
-        // Header integrado dentro do Card
         const header = document.createElement("div");
         header.className = "flex items-center justify-center flex-col";
 
@@ -46,22 +43,16 @@ class AboutPage {
 
         formBox.appendChild(header);
 
-        // Inputs dentro do Card
         const emailInput = new InputHTML("email", "email", "Email Address", "EMAIL_ADDRESS");
         const passInput = new InputHTML("password", "password", "Password", "********");
 
         emailInput.mountInput(formBox);
         passInput.mountInput(formBox);
 
-        // O nosso botão
         const loginButton = new ButtonHTML("Save Settings", "button_save", "submit");
         loginButton.mountButton(formBox);
 
-        // Anexa o card contendo tudo na tela principal
         this.container.appendChild(formBox);
-
-        // Click debugger original: adaptado para o novo botão manual (opcional)
-        // loginButton já renderizou o botão completo no dom via innerHTML do container dele
     }
 }
 

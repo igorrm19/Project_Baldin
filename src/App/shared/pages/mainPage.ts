@@ -23,8 +23,8 @@ export class MainPage {
         card.addComponent({
             primary_component: loginHTML,
         })
-        card.mount(this.container) // mounts on the screen
-        card.bindLoginButtons(this.container) // vincula event listeners nos botões do DOM real
+        card.mount(this.container)
+        card.bindLoginButtons(this.container)
     }
 }
 
