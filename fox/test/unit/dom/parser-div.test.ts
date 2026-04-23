@@ -1,18 +1,13 @@
-import { htmlStringToObject } from './convert.stringtoobject';
+import { parseHTML } from '../../../core/src/module/dom/parserDiv';
 
-describe('htmlStringToObject', () => {
-  it('parses a simple HTML fragment into object nodes', () => {
-    const result = htmlStringToObject('<div id="test"><span>Hi</span></div>');
+describe('parseHTML', () => {
+  it('returns a stack of divs with correct parent references', () => {
+    const html = '<div id="outer"><div id="inner"></div></div><div id="sibling"></div>';
+    const result = parseHTML(html);
 
-    expect(result).toHaveLength(1);
-    expect(result[0]).toMatchObject({
-      type: 'element',
-      tagName: 'div',
-      attributes: { id: 'test' },
-    });
-    expect(result[0].children?.[0]).toMatchObject({
-      type: 'element',
-      tagName: 'span',
-    });
+    expect(result).toHaveLength(3);
+    expect(result.map(item => item.id)).toEqual(['outer', 'inner', 'sibling']);
+    const innerNode = result.find(item => item.id === 'inner');
+    expect(innerNode?.parent?.id).toBe('outer');
   });
 });
