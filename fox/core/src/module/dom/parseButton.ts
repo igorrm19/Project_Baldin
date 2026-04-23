@@ -12,7 +12,7 @@ import type { ActionItem } from "./@types/dom.types"
  * @param container - Elemento HTML já inserido no DOM real
  * @param externalFunctions - Funções a serem vinculadas (use .bind(this) ao passar)
  */
-export function parseButton(container: HTMLElement, externalFunctions: Function[] = []): ActionItem[] {
+export function parseButton(container: HTMLElement, externalFunctions: Array<() => void> = []): ActionItem[] {
     const buttons = container.querySelectorAll('button')
 
     const stack: ActionItem[] = []
