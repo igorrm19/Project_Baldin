@@ -7,7 +7,7 @@ import { Main } from "../../../../fox/main";
 export interface CadastroProps extends Record<string, unknown> { }
 
 export class CadastroPage extends Main<CadastroProps> {
-    container: HTMLDivElement;
+    private readonly container: HTMLDivElement;
 
     constructor() {
         super(new BaseModel("div", ""), {});

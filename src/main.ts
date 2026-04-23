@@ -23,11 +23,13 @@ actionStack.subscribe((item) => {
 
 
 import { CadastroPage } from './App/shared/pages/cadastroPage';
+import { HomePage } from './App/shared/pages/homePage';
 
 const routes = {
   "/": MainPage,
   "/about": AboutPage,
   "/cadastro": CadastroPage,
+  "/home": HomePage,
 };
 
 document.addEventListener('DOMContentLoaded', () => {
