@@ -22,7 +22,7 @@ export class Login extends Main<LoginProps> {
     }
 
     myButton() {
-        history.pushState({}, "", "/about")
+        history.pushState({}, "", "/home")
         window.dispatchEvent(new Event('popstate'))
 
         fetch("http://localhost:3000/login", {
@@ -35,7 +35,7 @@ export class Login extends Main<LoginProps> {
                 password: this.valuePassword
             })
         }).then((response) => {
-            console.log(response)
+            console.log(this.valueEmail, this.valuePassword)
             if (response.ok) {
                 console.log("Login successful")
             } else {
@@ -86,3 +86,5 @@ export class Login extends Main<LoginProps> {
         })
     }
 }
+
+
