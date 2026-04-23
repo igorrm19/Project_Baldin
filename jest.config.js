@@ -11,6 +11,9 @@ export default {
         '!fox/**/test/**',
         '!fox/core/src/@types/**/*.ts',
     ],
+    coverageDirectory: 'coverage',
+    coverageReporters: ['text', 'lcov'],
+    coveragePathIgnorePatterns: ['/fox/test/', '/fox/core/src/@types/'],
     transform: {
         '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }]
     },
