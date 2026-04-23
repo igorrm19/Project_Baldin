@@ -9,18 +9,15 @@ export interface HtmlNodeDetail {
 }
 
 export function htmlStringToObject(html: string): HtmlNodeDetail[] {
-    actionStack.clear(); // Clear stack before new parse
+    actionStack.clear();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    // We iterate over the body's children to avoid getting the <html>, <head>, and <body> tags themselves
-    // unless the user input specifically contains them. 
-    // For partial HTML fragments, body.childNodes is usually what we want.
     return Array.from(doc.body.childNodes).map(node => domNodeToObject(node));
 }
 
 function domNodeToObject(node: Node): HtmlNodeDetail {
     const detail: HtmlNodeDetail = {
-        type: 'element' // default, will be overwritten
+        type: 'element'
     };
 
     if (node.nodeType === Node.ELEMENT_NODE) {
@@ -35,11 +32,8 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
                 detail.attributes[attr.name] = attr.value;
             }
 
-            // Check for onclick and add to stack
             if (detail.attributes['onclick']) {
                 const action = detail.attributes['onclick'];
-                // Ensure element has an ID for reference, or use a generated one if you prefer not to mutate DOM
-                // For this example, we'll just use the existing ID or "unknown"
                 const id = detail.attributes['id'] || `generated-${Math.random().toString(36).substr(2, 9)}`;
 
                 actionStack.push({
@@ -56,8 +50,6 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
     } else if (node.nodeType === Node.TEXT_NODE) {
         detail.type = 'text';
         detail.content = node.textContent?.trim() || '';
-        // If text node is empty (just whitespace), we might want to ignore it or keep it. 
-        // For "detailed" view, keeping it is safer, but trimming helps readability.
     } else if (node.nodeType === Node.COMMENT_NODE) {
         detail.type = 'comment';
         detail.content = node.textContent || '';
