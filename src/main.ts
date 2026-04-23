@@ -8,7 +8,7 @@ import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
 
 
 
-import { actionStack } from './action.stack';
+import { actionStack } from '../fox/action.stack';
 
 console.log(parseHTML(html))
 // console.log(parseButton(html))

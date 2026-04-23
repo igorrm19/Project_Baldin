@@ -1,4 +1,4 @@
-import { actionStack } from './action.stack';
+import { actionStack } from '../fox/action.stack';
 
 export interface HtmlNodeDetail {
     type: 'element' | 'text' | 'comment';
