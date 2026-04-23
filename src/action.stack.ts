@@ -3,6 +3,14 @@ export interface ActionItem {
     id: string;
     action: string;
     tagName: string;
+    value: string | null;
+    placeholder: string | null;
+    name: string | null;
+    parent: HTMLElement | null;
+    children: HTMLCollection;
+    type: string;
+    style: string;
+    class: string;
 }
 
 class ActionStack {

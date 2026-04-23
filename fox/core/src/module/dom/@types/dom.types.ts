@@ -8,4 +8,9 @@ export interface ActionItem {
     parent: HTMLElement | null;
     onClick?: string | null;
     text?: string | null;
+    value?: string | null;
+    placeholder?: string | null;
+    name?: string | null;
+    type?: string | null;
+    action?: string | null;
 }
