@@ -6,13 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "jest": "^29.7.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.21.0",
+    "ts-jest": "^29.4.9",
+    "@types/jest": "^29.5.14",
+    "jest-environment-jsdom": "^29.7.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.7"
   }

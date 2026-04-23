@@ -1,29 +1,33 @@
-import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
-import { CardLogin, html } from "../features/login/ui/cardLogin/card";
+name: Codecov
 
-class AboutPage {
-    private readonly container: HTMLElement //| null = document.getElementById('app');
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-    constructor() {
-        this.container!.innerHTML = "<h1> About Page </h1>";
-        this.container!.style.cssText = "height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #1a1a1a, #ff6600, #ff9900); color: white; font-family: Arial, sans-serif;";
-        
-    }
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
 
-    mount(parent: HTMLElement) {
-        parent.appendChild(this.container!);
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
+      - name: Instalar dependências
+        run: npm install
 
-        const card = new CardLogin(new BaseModel("div", html), {}) // creates a div
-        const loginHTML = card.mountCardLogin(this.container)
-        card.addComponent({
-            primary_component: loginHTML,
-        })
-        card.mount(this.container) // mounts on the screen
+      - name: Rodar testes com cobertura
+        run: npm run test
 
-    }
-}
-
-export { AboutPage }
-
+      - name: Enviar cobertura para Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          fail_ci_if_error: true
