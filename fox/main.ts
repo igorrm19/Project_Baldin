@@ -8,6 +8,7 @@ export class Main<P extends Record<string, unknown>> implements IBaseModel {
         baseModel: IBaseModel,
         props: P
     ) {
+        /* istanbul ignore next */
         if (baseModel === this) {
             throw new Error("Main cannot receive itself as a baseModel to avoid infinite recursion.");
         }

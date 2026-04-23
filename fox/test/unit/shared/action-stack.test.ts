@@ -1,4 +1,4 @@
-import { actionStack } from '../fox/action.stack';
+import { actionStack } from '../../../action.stack';
 
 describe('actionStack', () => {
   beforeEach(() => {

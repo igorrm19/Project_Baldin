@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest --coverage",
+    "test:ci": "jest --coverage --coverageReporters=text --coverageReporters=lcov",
     "coverage": "jest --coverage",
     "lint": "eslint ."
   },
