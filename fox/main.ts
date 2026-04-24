@@ -1,5 +1,9 @@
 import type { IBaseModel, ComponentMap } from "./core/src/@types/base.model.interface";
 
+export interface IMainProps extends Record<string, unknown> {
+    value?: unknown;
+}
+
 export class Main<P extends Record<string, unknown>> implements IBaseModel {
     protected readonly baseModel: IBaseModel;
     protected readonly props: P;

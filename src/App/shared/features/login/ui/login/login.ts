@@ -3,13 +3,8 @@ import { TextHTML } from "../../../../components/Text/text"
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseButton"
 import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
-
-export interface LoginProps extends Record<string, unknown> {
-    h1_primaryText: string;
-    h3_secondaryText: string;
-    label_thirdText: string;
-    label_fourthText: string;
-}
+import { LoginServices } from "../../services/loginServices"
+import type { LoginProps } from "../../@types/LoginProps"
 
 export class Login extends Main<LoginProps> {
     protected readonly containerLogin: HTMLElement
@@ -25,23 +20,8 @@ export class Login extends Main<LoginProps> {
         history.pushState({}, "", "/home")
         window.dispatchEvent(new Event('popstate'))
 
-        fetch("http://localhost:3000/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: this.valueEmail,
-                password: this.valuePassword
-            })
-        }).then((response) => {
-            console.log(this.valueEmail, this.valuePassword)
-            if (response.ok) {
-                console.log("Login successful")
-            } else {
-                console.log("Login failed")
-            }
-        })
+        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+        loginServices.putUser()
     }
 
     myButton2(domContainer: HTMLElement) {
