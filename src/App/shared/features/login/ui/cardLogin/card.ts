@@ -1,5 +1,5 @@
 import { Login } from "../login/login"
-import type { LoginProps } from "../login/login"
+import type { LoginProps } from "../../@types/LoginProps"
 import { Main } from "../../../../../../../fox/main"
 import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.model"
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
