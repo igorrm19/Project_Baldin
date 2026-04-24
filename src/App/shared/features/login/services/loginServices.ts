@@ -13,84 +13,81 @@ export class LoginServices implements ILoginServices {
     }
 
     async getUser() {
-        await fetch(this.url).then((response) => {
+        try {
+            const response = await fetch(this.url);
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            const data = response.json();
-            return data;
-
-        }).catch((error) => {
+            return await response.json();
+        } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
-        });
+        }
     }
 
     async postUser() {
-
-        await fetch(this.url, {
-            method: "POST",
-            headers: {
-                'Content-Type': servicesHeaders.contentType,
-            },
-            body: JSON.stringify({
-                email: this.email,
-                password: this.password
-            }),
-        }).then((response) => {
+        try {
+            const response = await fetch(this.url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': servicesHeaders.contentType,
+                },
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                }),
+            });
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            const data = response.json();
-            return data;
-        }).catch((error) => {
+            return await response.json();
+        } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
-        });
-
+        }
     }
 
     async putUser() {
-        await fetch(this.url, {
-            method: "PUT",
-            headers: {
-                'Content-Type': servicesHeaders.contentType,
-            },
-            body: JSON.stringify({
-                email: this.email,
-                password: this.password
-            }),
-        }).then((response) => {
+        try {
+            const response = await fetch(this.url, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': servicesHeaders.contentType,
+                },
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                }),
+            });
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            const data = response.json();
-            return data;
-        }).catch((error) => {
+            return await response.json();
+        } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
-        });
+        }
     }
 
     async deleteUser() {
-        await fetch(this.url, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': servicesHeaders.contentType,
-            },
-            body: JSON.stringify({
-                email: this.email,
-                password: this.password
-            }),
-        }).then((response) => {
+        try {
+            const response = await fetch(this.url, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': servicesHeaders.contentType,
+                },
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                }),
+            });
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            const data = response.json();
-            return data;
-        }).catch((error) => {
+            return await response.json();
+        } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
-        });
+        }
     }
 }
