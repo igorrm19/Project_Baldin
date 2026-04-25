@@ -9,7 +9,7 @@ describe('FoxRouter', () => {
 
   it('initializes with default container selector', () => {
     const router = new FoxRouter({});
-    expect((router as any).containerSelector).toBe('#app');
+    expect((router as unknown as { containerSelector: string }).containerSelector).toBe('#app');
   });
 
   it('loads the initial route and navigates to another route', () => {
