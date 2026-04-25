@@ -31,9 +31,9 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
             );
 
             const action = detail.attributes['onclick'];
-            const id = detail.attributes['id'] || `generated-${Math.random().toString(36).substr(2, 9)}`;
+            const id = detail.attributes['id'] ?? `generated-${Math.random().toString(36).substr(2, 9)}`;
 
-            if (action) {
+            if (typeof action === 'string' && action.length > 0) {
                 actionStack.push({
                     id: id,
                     action: action,
@@ -47,10 +47,10 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
         }
     } else if (node.nodeType === Node.TEXT_NODE) {
         detail.type = 'text';
-        detail.content = node.textContent?.trim() || '';
+        detail.content = node.textContent?.trim() ?? '';
     } else if (node.nodeType === Node.COMMENT_NODE) {
         detail.type = 'comment';
-        detail.content = node.textContent || '';
+        detail.content = node.textContent ?? '';
     }
 
     return detail;

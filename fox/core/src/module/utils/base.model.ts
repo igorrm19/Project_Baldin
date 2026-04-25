@@ -13,7 +13,7 @@ export class BaseModel implements IBaseModel {
     }
 
     private escapeHtml(text: string): string {
-        if (typeof text !== 'string') return text;
+        if (typeof text !== "string") return text;
         return text
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -23,22 +23,26 @@ export class BaseModel implements IBaseModel {
     }
 
     private compileEngine(html: string): string {
-        return html.replace(/{{\s*(.*?)\s*}}/g, (_, key) => {
-            const value = this.context.get(key) ?? "";
-            return this.escapeHtml(String(value));
+        return html.replace(/{{\s*(.*?)\s*}}/g, (_, key: string) => {
+            const value = this.context.get(key);
+            const safeValue =
+                typeof value === "string" ? value :
+                typeof value === "number" || typeof value === "boolean" ? String(value) :
+                "";
+            return this.escapeHtml(safeValue);
         })
     }
     
     private compileChild(html: string): string {
-        return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key) => {
+        return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key: string) => {
             return this.axe.get(key) ?? ""
         })
     }
 
     private loadTemplate() {
-        let html = this.element.innerHTML = this.compileEngine(this.html)  // template = ``
-        html = this.compileChild(html)
-        this.element.innerHTML = html
+        const html = this.compileChild(this.compileEngine(this.html));
+        const documentFragment = new DOMParser().parseFromString(html, 'text/html').body;
+        this.element.replaceChildren(...Array.from(documentFragment.childNodes));
     }
 
 

@@ -16,6 +16,8 @@ export class Cadastro extends Main<CardProps> {
     }
 
     mountCadastro() {
+        // The template comes from a static HTML asset imported at build time.
+        // eslint-disable-next-line no-unsanitized/property
         this.containerCadastro.innerHTML = html
     }
 

@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "html-validate:recommended"
+  ],
+  "rules": {
+    "attribute-allowed-values": "off",
+    "no-unknown-elements": "off",
+    "element-case": "off",
+    "element-name": "off",
+    "input-attributes": "off",
+    "valid-id": "off",
+    "wcag/h32": "off"
+  }
+}

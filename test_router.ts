@@ -28,7 +28,7 @@ globalContext.history = historyMock;
 globalContext.URL = URL;
 
 import { FoxRouter } from "./fox/core/src/module/router/router";
-import { Page } from "./fox/core/src/module/router/@types/router.types";
+import type { Page } from "./fox/core/src/module/router/@types/router.types";
 
 let unmountCalled = false;
 

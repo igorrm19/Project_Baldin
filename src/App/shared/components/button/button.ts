@@ -25,7 +25,9 @@ export class ButtonHTML extends BaseModel {
         })
 
         // Aplica o template já compilado
-        this.containerButton.innerHTML = this.getHTML()
+        const html = this.getHTML();
+        const fragment = new DOMParser().parseFromString(html, 'text/html').body;
+        this.containerButton.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerButton)
     }
 }

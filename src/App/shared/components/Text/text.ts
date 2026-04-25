@@ -20,7 +20,9 @@ export class TextHTML extends BaseModel {
             styleClass: this.styleClass
         })
 
-        this.containerText.innerHTML = this.getHTML()
+        const html = this.getHTML();
+        const fragment = new DOMParser().parseFromString(html, 'text/html').body;
+        this.containerText.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerText)
     }
 }

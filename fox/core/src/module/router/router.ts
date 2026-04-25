@@ -7,7 +7,7 @@ export class FoxRouter {
     private currentPage: Page | null = null;
 
     constructor(routes: Record<string, PageClass>, containerSelector: string = "#app") {
-        this.routes = new Map(Object.entries(routes) as [string, PageClass][]);
+        this.routes = new Map(Object.entries(routes));
         this.containerSelector = containerSelector;
 
         window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
@@ -35,7 +35,7 @@ export class FoxRouter {
         this.currentPage = instance;
 
         if (!this.containerElement) {
-            this.containerElement = document.querySelector(this.containerSelector) as HTMLElement | null;
+            this.containerElement = document.querySelector<HTMLElement>(this.containerSelector);
             if (!this.containerElement) throw new Error(`${this.containerSelector} not found in DOM`);
         }
 

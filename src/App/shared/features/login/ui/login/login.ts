@@ -21,13 +21,13 @@ export class Login extends Main<LoginProps> {
         window.dispatchEvent(new Event('popstate'))
 
         const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
-        loginServices.putUser()
+        void loginServices.putUser()
     }
 
     myButton2(domContainer: HTMLElement) {
         const sucesso = document.createElement("p")
-        if (this.props.value) {
-            sucesso.textContent = this.props.value as string
+        if (typeof this.props.value === "string" && this.props.value.length > 0) {
+            sucesso.textContent = this.props.value
         } else {
             sucesso.textContent = "Value not found"
         }
