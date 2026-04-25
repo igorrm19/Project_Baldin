@@ -19,9 +19,8 @@ If you believe you have found a security vulnerability in this repository, pleas
 
 Preferred reporting channels:
 
-1. Use GitHub Security Advisories if available.
-2. Open a private issue in this repository and mark it clearly as a security report.
-3. If necessary, email the repository maintainer using the public contact information linked in the GitHub profile.
+1. Use GitHub Private Vulnerability Reporting if enabled for this repository (Settings > Advanced security).
+2. If Private Vulnerability Reporting is not available, use GitHub Security Advisories or email the repository maintainer at a dedicated security contact address.
 
 Please include:
 
