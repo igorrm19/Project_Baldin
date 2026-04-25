@@ -39,4 +39,21 @@ describe('BaseModel', () => {
     const escapeHtml = (model as unknown as { escapeHtml(text: unknown): unknown }).escapeHtml.bind(model);
     expect(escapeHtml(123)).toBe(123);
   });
+
+  it('handles numeric and boolean props correctly', () => {
+    const parent = document.createElement('div');
+    const model = new BaseModel('div', '<div>{{ num }}</div><div>{{ bool }}</div>');
+    model.addProps({ num: 123, bool: true });
+    model.mount(parent);
+    expect(parent.innerHTML).toContain('123');
+    expect(parent.innerHTML).toContain('true');
+  });
+
+  it('handles null/undefined/object props by falling back to empty string', () => {
+    const parent = document.createElement('div');
+    const model = new BaseModel('div', '<div>{{ val }}</div>');
+    model.addProps({ val: null });
+    model.mount(parent);
+    expect(parent.innerHTML).toBe('<div><div></div></div>');
+  });
 });
