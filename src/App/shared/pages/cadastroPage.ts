@@ -1,6 +1,6 @@
 import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
-import { Cadastro, html as cadastroHTML } from "../features/login/components/cadastro/cadastro";
-import { CardLogin, html as cardHTML } from "../features/login/ui/cardLogin/card";
+import { Cadastro, html as cadastroHTML } from "../features/login/ui/cadastro/cadastro";
+import { CardLogin, html as cardHTML } from "../features/login/components/cardLogin/card";
 import { TextHTML } from "../components/Text/text";
 import { Main } from "../../../../fox/main";
 

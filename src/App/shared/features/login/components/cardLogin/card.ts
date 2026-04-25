@@ -1,9 +1,9 @@
-import { Login } from "../login/login"
+import { Login } from "../../ui/login/login"
 import type { LoginProps } from "../../@types/LoginProps"
 import { Main } from "../../../../../../../fox/main"
 import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.model"
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
-import loginTemplate from "../login/login.html?raw"
+import loginTemplate from "../../ui/login/login.html?raw"
 import template from "./card.html?raw"
 import { parseHTML } from "../../../../../../../fox/core/src/module/dom/parserDiv"
 export const html = template
