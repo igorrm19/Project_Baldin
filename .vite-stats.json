@@ -4,17 +4,17 @@
     "name": "root",
     "children": [
       {
-        "name": "assets/index-CBqEGPya.js",
+        "name": "assets/index-B6s4guVY.js",
         "children": [
           {
             "name": "\u0000vite/modulepreload-polyfill.js",
-            "uid": "ef6bb210-1"
+            "uid": "65a12714-1"
           },
           {
             "name": "src",
             "children": [
               {
-                "uid": "ef6bb210-3",
+                "uid": "65a12714-3",
                 "name": "style.css"
               },
               {
@@ -27,11 +27,11 @@
                         "name": "Text",
                         "children": [
                           {
-                            "uid": "ef6bb210-9",
+                            "uid": "65a12714-9",
                             "name": "text.html?raw"
                           },
                           {
-                            "uid": "ef6bb210-13",
+                            "uid": "65a12714-13",
                             "name": "text.ts"
                           }
                         ]
@@ -40,11 +40,11 @@
                         "name": "input",
                         "children": [
                           {
-                            "uid": "ef6bb210-35",
+                            "uid": "65a12714-35",
                             "name": "input.html?raw"
                           },
                           {
-                            "uid": "ef6bb210-37",
+                            "uid": "65a12714-37",
                             "name": "input.ts"
                           }
                         ]
@@ -53,11 +53,11 @@
                         "name": "button",
                         "children": [
                           {
-                            "uid": "ef6bb210-39",
+                            "uid": "65a12714-39",
                             "name": "button.html?raw"
                           },
                           {
-                            "uid": "ef6bb210-41",
+                            "uid": "65a12714-41",
                             "name": "button.ts"
                           }
                         ]
@@ -66,11 +66,11 @@
                         "name": "image",
                         "children": [
                           {
-                            "uid": "ef6bb210-43",
+                            "uid": "65a12714-43",
                             "name": "image.html?raw"
                           },
                           {
-                            "uid": "ef6bb210-45",
+                            "uid": "65a12714-45",
                             "name": "image.ts"
                           }
                         ]
@@ -82,11 +82,11 @@
                     "children": [
                       {
                         "name": "constants/servicesConstants.ts",
-                        "uid": "ef6bb210-19"
+                        "uid": "65a12714-19"
                       },
                       {
                         "name": "services/loginServices.ts",
-                        "uid": "ef6bb210-21"
+                        "uid": "65a12714-21"
                       },
                       {
                         "name": "ui",
@@ -95,11 +95,11 @@
                             "name": "login",
                             "children": [
                               {
-                                "uid": "ef6bb210-23",
+                                "uid": "65a12714-23",
                                 "name": "login.ts"
                               },
                               {
-                                "uid": "ef6bb210-25",
+                                "uid": "65a12714-25",
                                 "name": "login.html?raw"
                               }
                             ]
@@ -108,11 +108,11 @@
                             "name": "cadastro",
                             "children": [
                               {
-                                "uid": "ef6bb210-53",
+                                "uid": "65a12714-53",
                                 "name": "cadastro.html?raw"
                               },
                               {
-                                "uid": "ef6bb210-55",
+                                "uid": "65a12714-55",
                                 "name": "cadastro.ts"
                               }
                             ]
@@ -123,11 +123,11 @@
                         "name": "components/cardLogin",
                         "children": [
                           {
-                            "uid": "ef6bb210-27",
+                            "uid": "65a12714-27",
                             "name": "card.html?raw"
                           },
                           {
-                            "uid": "ef6bb210-31",
+                            "uid": "65a12714-31",
                             "name": "card.ts"
                           }
                         ]
@@ -138,19 +138,19 @@
                     "name": "pages",
                     "children": [
                       {
-                        "uid": "ef6bb210-33",
+                        "uid": "65a12714-33",
                         "name": "mainPage.ts"
                       },
                       {
-                        "uid": "ef6bb210-47",
+                        "uid": "65a12714-47",
                         "name": "aboutPage.ts"
                       },
                       {
-                        "uid": "ef6bb210-57",
+                        "uid": "65a12714-57",
                         "name": "cadastroPage.ts"
                       },
                       {
-                        "uid": "ef6bb210-59",
+                        "uid": "65a12714-59",
                         "name": "homePage.ts"
                       }
                     ]
@@ -158,11 +158,11 @@
                 ]
               },
               {
-                "uid": "ef6bb210-51",
+                "uid": "65a12714-51",
                 "name": "convert.stringtoobject.ts"
               },
               {
-                "uid": "ef6bb210-61",
+                "uid": "65a12714-61",
                 "name": "main.ts"
               }
             ]
@@ -175,25 +175,25 @@
                 "children": [
                   {
                     "name": "router/router.ts",
-                    "uid": "ef6bb210-5"
+                    "uid": "65a12714-5"
                   },
                   {
                     "name": "utils/base.model.ts",
-                    "uid": "ef6bb210-11"
+                    "uid": "65a12714-11"
                   },
                   {
                     "name": "dom",
                     "children": [
                       {
-                        "uid": "ef6bb210-15",
+                        "uid": "65a12714-15",
                         "name": "parseButton.ts"
                       },
                       {
-                        "uid": "ef6bb210-17",
+                        "uid": "65a12714-17",
                         "name": "parseInput.ts"
                       },
                       {
-                        "uid": "ef6bb210-29",
+                        "uid": "65a12714-29",
                         "name": "parserDiv.ts"
                       }
                     ]
@@ -201,17 +201,17 @@
                 ]
               },
               {
-                "uid": "ef6bb210-7",
+                "uid": "65a12714-7",
                 "name": "main.ts"
               },
               {
-                "uid": "ef6bb210-49",
+                "uid": "65a12714-49",
                 "name": "action.stack.ts"
               }
             ]
           },
           {
-            "uid": "ef6bb210-63",
+            "uid": "65a12714-63",
             "name": "index.html"
           }
         ]
@@ -220,786 +220,786 @@
     "isRoot": true
   },
   "nodeParts": {
-    "ef6bb210-1": {
+    "65a12714-1": {
       "renderedLength": 1168,
       "gzipLength": 525,
       "brotliLength": 446,
-      "metaUid": "ef6bb210-0"
+      "metaUid": "65a12714-0"
     },
-    "ef6bb210-3": {
+    "65a12714-3": {
       "renderedLength": 0,
       "gzipLength": 0,
       "brotliLength": 0,
-      "metaUid": "ef6bb210-2"
+      "metaUid": "65a12714-2"
     },
-    "ef6bb210-5": {
+    "65a12714-5": {
       "renderedLength": 1704,
       "gzipLength": 664,
       "brotliLength": 537,
-      "metaUid": "ef6bb210-4"
+      "metaUid": "65a12714-4"
     },
-    "ef6bb210-7": {
+    "65a12714-7": {
       "renderedLength": 543,
       "gzipLength": 248,
       "brotliLength": 213,
-      "metaUid": "ef6bb210-6"
+      "metaUid": "65a12714-6"
     },
-    "ef6bb210-9": {
+    "65a12714-9": {
       "renderedLength": 62,
       "gzipLength": 79,
       "brotliLength": 66,
-      "metaUid": "ef6bb210-8"
+      "metaUid": "65a12714-8"
     },
-    "ef6bb210-11": {
-      "renderedLength": 1747,
-      "gzipLength": 724,
-      "brotliLength": 604,
-      "metaUid": "ef6bb210-10"
+    "65a12714-11": {
+      "renderedLength": 1794,
+      "gzipLength": 741,
+      "brotliLength": 621,
+      "metaUid": "65a12714-10"
     },
-    "ef6bb210-13": {
+    "65a12714-13": {
       "renderedLength": 637,
       "gzipLength": 340,
       "brotliLength": 267,
-      "metaUid": "ef6bb210-12"
+      "metaUid": "65a12714-12"
     },
-    "ef6bb210-15": {
+    "65a12714-15": {
       "renderedLength": 778,
       "gzipLength": 373,
       "brotliLength": 296,
-      "metaUid": "ef6bb210-14"
+      "metaUid": "65a12714-14"
     },
-    "ef6bb210-17": {
+    "65a12714-17": {
       "renderedLength": 643,
       "gzipLength": 275,
       "brotliLength": 218,
-      "metaUid": "ef6bb210-16"
+      "metaUid": "65a12714-16"
     },
-    "ef6bb210-19": {
+    "65a12714-19": {
       "renderedLength": 520,
       "gzipLength": 287,
       "brotliLength": 269,
-      "metaUid": "ef6bb210-18"
+      "metaUid": "65a12714-18"
     },
-    "ef6bb210-21": {
+    "65a12714-21": {
       "renderedLength": 2225,
       "gzipLength": 391,
       "brotliLength": 310,
-      "metaUid": "ef6bb210-20"
+      "metaUid": "65a12714-20"
     },
-    "ef6bb210-23": {
+    "65a12714-23": {
       "renderedLength": 1606,
       "gzipLength": 657,
       "brotliLength": 527,
-      "metaUid": "ef6bb210-22"
+      "metaUid": "65a12714-22"
     },
-    "ef6bb210-25": {
-      "renderedLength": 3478,
-      "gzipLength": 1310,
-      "brotliLength": 1098,
-      "metaUid": "ef6bb210-24"
+    "65a12714-25": {
+      "renderedLength": 3529,
+      "gzipLength": 1337,
+      "brotliLength": 1119,
+      "metaUid": "65a12714-24"
     },
-    "ef6bb210-27": {
+    "65a12714-27": {
       "renderedLength": 250,
       "gzipLength": 193,
       "brotliLength": 149,
-      "metaUid": "ef6bb210-26"
+      "metaUid": "65a12714-26"
     },
-    "ef6bb210-29": {
+    "65a12714-29": {
       "renderedLength": 425,
       "gzipLength": 249,
       "brotliLength": 210,
-      "metaUid": "ef6bb210-28"
+      "metaUid": "65a12714-28"
     },
-    "ef6bb210-31": {
+    "65a12714-31": {
       "renderedLength": 918,
       "gzipLength": 440,
       "brotliLength": 360,
-      "metaUid": "ef6bb210-30"
+      "metaUid": "65a12714-30"
     },
-    "ef6bb210-33": {
+    "65a12714-33": {
       "renderedLength": 654,
       "gzipLength": 352,
       "brotliLength": 275,
-      "metaUid": "ef6bb210-32"
+      "metaUid": "65a12714-32"
     },
-    "ef6bb210-35": {
+    "65a12714-35": {
       "renderedLength": 387,
       "gzipLength": 248,
       "brotliLength": 192,
-      "metaUid": "ef6bb210-34"
+      "metaUid": "65a12714-34"
     },
-    "ef6bb210-37": {
+    "65a12714-37": {
       "renderedLength": 816,
       "gzipLength": 395,
       "brotliLength": 316,
-      "metaUid": "ef6bb210-36"
+      "metaUid": "65a12714-36"
     },
-    "ef6bb210-39": {
+    "65a12714-39": {
       "renderedLength": 189,
       "gzipLength": 168,
       "brotliLength": 130,
-      "metaUid": "ef6bb210-38"
+      "metaUid": "65a12714-38"
     },
-    "ef6bb210-41": {
+    "65a12714-41": {
       "renderedLength": 701,
       "gzipLength": 359,
       "brotliLength": 289,
-      "metaUid": "ef6bb210-40"
+      "metaUid": "65a12714-40"
     },
-    "ef6bb210-43": {
+    "65a12714-43": {
       "renderedLength": 111,
       "gzipLength": 118,
       "brotliLength": 98,
-      "metaUid": "ef6bb210-42"
+      "metaUid": "65a12714-42"
     },
-    "ef6bb210-45": {
+    "65a12714-45": {
       "renderedLength": 636,
       "gzipLength": 348,
       "brotliLength": 274,
-      "metaUid": "ef6bb210-44"
+      "metaUid": "65a12714-44"
     },
-    "ef6bb210-47": {
+    "65a12714-47": {
       "renderedLength": 1743,
       "gzipLength": 687,
       "brotliLength": 582,
-      "metaUid": "ef6bb210-46"
+      "metaUid": "65a12714-46"
     },
-    "ef6bb210-49": {
+    "65a12714-49": {
       "renderedLength": 479,
       "gzipLength": 218,
       "brotliLength": 197,
-      "metaUid": "ef6bb210-48"
+      "metaUid": "65a12714-48"
     },
-    "ef6bb210-51": {
+    "65a12714-51": {
       "renderedLength": 1914,
       "gzipLength": 838,
       "brotliLength": 674,
-      "metaUid": "ef6bb210-50"
+      "metaUid": "65a12714-50"
     },
-    "ef6bb210-53": {
-      "renderedLength": 3515,
-      "gzipLength": 1180,
-      "brotliLength": 997,
-      "metaUid": "ef6bb210-52"
+    "65a12714-53": {
+      "renderedLength": 3539,
+      "gzipLength": 1198,
+      "brotliLength": 996,
+      "metaUid": "65a12714-52"
     },
-    "ef6bb210-55": {
+    "65a12714-55": {
       "renderedLength": 597,
       "gzipLength": 346,
       "brotliLength": 290,
-      "metaUid": "ef6bb210-54"
+      "metaUid": "65a12714-54"
     },
-    "ef6bb210-57": {
+    "65a12714-57": {
       "renderedLength": 972,
       "gzipLength": 454,
       "brotliLength": 363,
-      "metaUid": "ef6bb210-56"
+      "metaUid": "65a12714-56"
     },
-    "ef6bb210-59": {
+    "65a12714-59": {
       "renderedLength": 722,
       "gzipLength": 360,
       "brotliLength": 295,
-      "metaUid": "ef6bb210-58"
+      "metaUid": "65a12714-58"
     },
-    "ef6bb210-61": {
+    "65a12714-61": {
       "renderedLength": 422,
       "gzipLength": 289,
       "brotliLength": 226,
-      "metaUid": "ef6bb210-60"
+      "metaUid": "65a12714-60"
     },
-    "ef6bb210-63": {
+    "65a12714-63": {
       "renderedLength": 0,
       "gzipLength": 0,
       "brotliLength": 0,
-      "metaUid": "ef6bb210-62"
+      "metaUid": "65a12714-62"
     }
   },
   "nodeMetas": {
-    "ef6bb210-0": {
+    "65a12714-0": {
       "id": "\u0000vite/modulepreload-polyfill.js",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-1"
+        "assets/index-B6s4guVY.js": "65a12714-1"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-62"
+          "uid": "65a12714-62"
         }
       ]
     },
-    "ef6bb210-2": {
+    "65a12714-2": {
       "id": "/src/style.css",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-3"
+        "assets/index-B6s4guVY.js": "65a12714-3"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-4": {
+    "65a12714-4": {
       "id": "/fox/core/src/module/router/router.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-5"
+        "assets/index-B6s4guVY.js": "65a12714-5"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-6": {
+    "65a12714-6": {
       "id": "/fox/main.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-7"
+        "assets/index-B6s4guVY.js": "65a12714-7"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         },
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         },
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         },
         {
-          "uid": "ef6bb210-54"
+          "uid": "65a12714-54"
         }
       ]
     },
-    "ef6bb210-8": {
+    "65a12714-8": {
       "id": "/src/App/shared/components/Text/text.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-9"
+        "assets/index-B6s4guVY.js": "65a12714-9"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         }
       ]
     },
-    "ef6bb210-10": {
+    "65a12714-10": {
       "id": "/fox/core/src/module/utils/base.model.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-11"
+        "assets/index-B6s4guVY.js": "65a12714-11"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-32"
+          "uid": "65a12714-32"
         },
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         },
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         },
         {
-          "uid": "ef6bb210-36"
+          "uid": "65a12714-36"
         },
         {
-          "uid": "ef6bb210-40"
+          "uid": "65a12714-40"
         },
         {
-          "uid": "ef6bb210-44"
+          "uid": "65a12714-44"
         },
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         }
       ]
     },
-    "ef6bb210-12": {
+    "65a12714-12": {
       "id": "/src/App/shared/components/Text/text.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-13"
+        "assets/index-B6s4guVY.js": "65a12714-13"
       },
       "imported": [
         {
-          "uid": "ef6bb210-8"
+          "uid": "65a12714-8"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-46"
+          "uid": "65a12714-46"
         },
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         },
         {
-          "uid": "ef6bb210-58"
+          "uid": "65a12714-58"
         },
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         }
       ]
     },
-    "ef6bb210-14": {
+    "65a12714-14": {
       "id": "/fox/core/src/module/dom/parseButton.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-15"
+        "assets/index-B6s4guVY.js": "65a12714-15"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         },
         {
-          "uid": "ef6bb210-54"
+          "uid": "65a12714-54"
         }
       ]
     },
-    "ef6bb210-16": {
+    "65a12714-16": {
       "id": "/fox/core/src/module/dom/parseInput.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-17"
+        "assets/index-B6s4guVY.js": "65a12714-17"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         }
       ]
     },
-    "ef6bb210-18": {
+    "65a12714-18": {
       "id": "/src/App/shared/features/login/constants/servicesConstants.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-19"
+        "assets/index-B6s4guVY.js": "65a12714-19"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-20"
+          "uid": "65a12714-20"
         }
       ]
     },
-    "ef6bb210-20": {
+    "65a12714-20": {
       "id": "/src/App/shared/features/login/services/loginServices.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-21"
+        "assets/index-B6s4guVY.js": "65a12714-21"
       },
       "imported": [
         {
-          "uid": "ef6bb210-18"
+          "uid": "65a12714-18"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         }
       ]
     },
-    "ef6bb210-22": {
+    "65a12714-22": {
       "id": "/src/App/shared/features/login/ui/login/login.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-23"
+        "assets/index-B6s4guVY.js": "65a12714-23"
       },
       "imported": [
         {
-          "uid": "ef6bb210-6"
+          "uid": "65a12714-6"
         },
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         },
         {
-          "uid": "ef6bb210-14"
+          "uid": "65a12714-14"
         },
         {
-          "uid": "ef6bb210-16"
+          "uid": "65a12714-16"
         },
         {
-          "uid": "ef6bb210-20"
+          "uid": "65a12714-20"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         }
       ]
     },
-    "ef6bb210-24": {
+    "65a12714-24": {
       "id": "/src/App/shared/features/login/ui/login/login.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-25"
+        "assets/index-B6s4guVY.js": "65a12714-25"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         }
       ]
     },
-    "ef6bb210-26": {
+    "65a12714-26": {
       "id": "/src/App/shared/features/login/components/cardLogin/card.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-27"
+        "assets/index-B6s4guVY.js": "65a12714-27"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         }
       ]
     },
-    "ef6bb210-28": {
+    "65a12714-28": {
       "id": "/fox/core/src/module/dom/parserDiv.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-29"
+        "assets/index-B6s4guVY.js": "65a12714-29"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         },
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         }
       ]
     },
-    "ef6bb210-30": {
+    "65a12714-30": {
       "id": "/src/App/shared/features/login/components/cardLogin/card.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-31"
+        "assets/index-B6s4guVY.js": "65a12714-31"
       },
       "imported": [
         {
-          "uid": "ef6bb210-22"
+          "uid": "65a12714-22"
         },
         {
-          "uid": "ef6bb210-6"
+          "uid": "65a12714-6"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         },
         {
-          "uid": "ef6bb210-24"
+          "uid": "65a12714-24"
         },
         {
-          "uid": "ef6bb210-26"
+          "uid": "65a12714-26"
         },
         {
-          "uid": "ef6bb210-28"
+          "uid": "65a12714-28"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         },
         {
-          "uid": "ef6bb210-32"
+          "uid": "65a12714-32"
         },
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         }
       ]
     },
-    "ef6bb210-32": {
+    "65a12714-32": {
       "id": "/src/App/shared/pages/mainPage.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-33"
+        "assets/index-B6s4guVY.js": "65a12714-33"
       },
       "imported": [
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-34": {
+    "65a12714-34": {
       "id": "/src/App/shared/components/input/input.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-35"
+        "assets/index-B6s4guVY.js": "65a12714-35"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-36"
+          "uid": "65a12714-36"
         }
       ]
     },
-    "ef6bb210-36": {
+    "65a12714-36": {
       "id": "/src/App/shared/components/input/input.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-37"
+        "assets/index-B6s4guVY.js": "65a12714-37"
       },
       "imported": [
         {
-          "uid": "ef6bb210-34"
+          "uid": "65a12714-34"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-46"
+          "uid": "65a12714-46"
         }
       ]
     },
-    "ef6bb210-38": {
+    "65a12714-38": {
       "id": "/src/App/shared/components/button/button.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-39"
+        "assets/index-B6s4guVY.js": "65a12714-39"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-40"
+          "uid": "65a12714-40"
         }
       ]
     },
-    "ef6bb210-40": {
+    "65a12714-40": {
       "id": "/src/App/shared/components/button/button.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-41"
+        "assets/index-B6s4guVY.js": "65a12714-41"
       },
       "imported": [
         {
-          "uid": "ef6bb210-38"
+          "uid": "65a12714-38"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-46"
+          "uid": "65a12714-46"
         }
       ]
     },
-    "ef6bb210-42": {
+    "65a12714-42": {
       "id": "/src/App/shared/components/image/image.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-43"
+        "assets/index-B6s4guVY.js": "65a12714-43"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-44"
+          "uid": "65a12714-44"
         }
       ]
     },
-    "ef6bb210-44": {
+    "65a12714-44": {
       "id": "/src/App/shared/components/image/image.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-45"
+        "assets/index-B6s4guVY.js": "65a12714-45"
       },
       "imported": [
         {
-          "uid": "ef6bb210-42"
+          "uid": "65a12714-42"
         },
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-46"
+          "uid": "65a12714-46"
         }
       ]
     },
-    "ef6bb210-46": {
+    "65a12714-46": {
       "id": "/src/App/shared/pages/aboutPage.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-47"
+        "assets/index-B6s4guVY.js": "65a12714-47"
       },
       "imported": [
         {
-          "uid": "ef6bb210-36"
+          "uid": "65a12714-36"
         },
         {
-          "uid": "ef6bb210-40"
+          "uid": "65a12714-40"
         },
         {
-          "uid": "ef6bb210-44"
+          "uid": "65a12714-44"
         },
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-48": {
+    "65a12714-48": {
       "id": "/fox/action.stack.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-49"
+        "assets/index-B6s4guVY.js": "65a12714-49"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         },
         {
-          "uid": "ef6bb210-50"
+          "uid": "65a12714-50"
         }
       ]
     },
-    "ef6bb210-50": {
+    "65a12714-50": {
       "id": "/src/convert.stringtoobject.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-51"
+        "assets/index-B6s4guVY.js": "65a12714-51"
       },
       "imported": [
         {
-          "uid": "ef6bb210-48"
+          "uid": "65a12714-48"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-52": {
+    "65a12714-52": {
       "id": "/src/App/shared/features/login/ui/cadastro/cadastro.html?raw",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-53"
+        "assets/index-B6s4guVY.js": "65a12714-53"
       },
       "imported": [],
       "importedBy": [
         {
-          "uid": "ef6bb210-54"
+          "uid": "65a12714-54"
         }
       ]
     },
-    "ef6bb210-54": {
+    "65a12714-54": {
       "id": "/src/App/shared/features/login/ui/cadastro/cadastro.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-55"
+        "assets/index-B6s4guVY.js": "65a12714-55"
       },
       "imported": [
         {
-          "uid": "ef6bb210-6"
+          "uid": "65a12714-6"
         },
         {
-          "uid": "ef6bb210-52"
+          "uid": "65a12714-52"
         },
         {
-          "uid": "ef6bb210-14"
+          "uid": "65a12714-14"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         }
       ]
     },
-    "ef6bb210-56": {
+    "65a12714-56": {
       "id": "/src/App/shared/pages/cadastroPage.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-57"
+        "assets/index-B6s4guVY.js": "65a12714-57"
       },
       "imported": [
         {
-          "uid": "ef6bb210-10"
+          "uid": "65a12714-10"
         },
         {
-          "uid": "ef6bb210-54"
+          "uid": "65a12714-54"
         },
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         },
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         },
         {
-          "uid": "ef6bb210-6"
+          "uid": "65a12714-6"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-58": {
+    "65a12714-58": {
       "id": "/src/App/shared/pages/homePage.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-59"
+        "assets/index-B6s4guVY.js": "65a12714-59"
       },
       "imported": [
         {
-          "uid": "ef6bb210-12"
+          "uid": "65a12714-12"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ]
     },
-    "ef6bb210-60": {
+    "65a12714-60": {
       "id": "/src/main.ts",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-61"
+        "assets/index-B6s4guVY.js": "65a12714-61"
       },
       "imported": [
         {
-          "uid": "ef6bb210-2"
+          "uid": "65a12714-2"
         },
         {
-          "uid": "ef6bb210-4"
+          "uid": "65a12714-4"
         },
         {
-          "uid": "ef6bb210-32"
+          "uid": "65a12714-32"
         },
         {
-          "uid": "ef6bb210-46"
+          "uid": "65a12714-46"
         },
         {
-          "uid": "ef6bb210-50"
+          "uid": "65a12714-50"
         },
         {
-          "uid": "ef6bb210-30"
+          "uid": "65a12714-30"
         },
         {
-          "uid": "ef6bb210-28"
+          "uid": "65a12714-28"
         },
         {
-          "uid": "ef6bb210-48"
+          "uid": "65a12714-48"
         },
         {
-          "uid": "ef6bb210-56"
+          "uid": "65a12714-56"
         },
         {
-          "uid": "ef6bb210-58"
+          "uid": "65a12714-58"
         }
       ],
       "importedBy": [
         {
-          "uid": "ef6bb210-62"
+          "uid": "65a12714-62"
         }
       ]
     },
-    "ef6bb210-62": {
+    "65a12714-62": {
       "id": "/index.html",
       "moduleParts": {
-        "assets/index-CBqEGPya.js": "ef6bb210-63"
+        "assets/index-B6s4guVY.js": "65a12714-63"
       },
       "imported": [
         {
-          "uid": "ef6bb210-0"
+          "uid": "65a12714-0"
         },
         {
-          "uid": "ef6bb210-60"
+          "uid": "65a12714-60"
         }
       ],
       "importedBy": [],

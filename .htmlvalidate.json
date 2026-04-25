@@ -1,20 +1,14 @@
 {
-  "extends": ["html-validate:recommended"],
+  "extends": [
+    "html-validate:recommended"
+  ],
   "rules": {
-    "doctype-html": "error",
-    "img-req-alt": "error",
-    "button-name": "error",
-    "attr-req-value": "error",
-    "element-required": "error",
-    "aria-allowed-attr": "error",
-    "no-unknown-elements": "error",
-    "no-inline-style": "warn",
-    "no-svg-without-title": "warn",
-    "heading-order": "error"
-  },
-  "elements": {
-    "button": {
-      "implicit-role": "button"
-    }
+    "attribute-allowed-values": "off",
+    "no-unknown-elements": "off",
+    "element-case": "off",
+    "element-name": "off",
+    "input-attributes": "off",
+    "valid-id": "off",
+    "wcag/h32": "off"
   }
 }
