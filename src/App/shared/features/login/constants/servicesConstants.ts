@@ -1,6 +1,6 @@
 import type { TServicesMessage } from "../@types/TSserviceMessage";
 
-const apiBaseUrl = import.meta.env['VITE_API_BASE_URL'] ?? 'http://localhost:3000';
+const apiBaseUrl = (import.meta.env['VITE_API_BASE_URL'] as string | undefined) ?? 'http://localhost:3000';
 
 export const servicesURL = {
     url: `${apiBaseUrl}/users`,

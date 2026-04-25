@@ -16,7 +16,7 @@ describe('parseButton', () => {
     expect(container.querySelector('#btn-1')?.getAttribute('onclick')).toBeNull();
     expect(container.querySelector('#btn-2')?.getAttribute('onclick')).toBe('bar()');
 
-    (container.querySelector('#btn-1') as HTMLButtonElement | null)?.click();
+    container.querySelector<HTMLButtonElement>('#btn-1')?.click();
     expect(clicked).toBe(true);
   });
 

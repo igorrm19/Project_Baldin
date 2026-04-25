@@ -16,7 +16,7 @@ const unicorn = (unicornImport as any).default ?? unicornImport;
 const sonar = (sonarImport as any).default ?? sonarImport;
 const noUnsanitized = (noUnsanitizedImport as any).default ?? noUnsanitizedImport;
 
-const sharedIgnores = ["dist/**", "coverage/**", "node_modules/**", "__mocks__/**", "eslint.config.ts"];
+const sharedIgnores = ["dist/**", "coverage/**", "node_modules/**", "__mocks__/**", "eslint.config.ts", "tmp-*"];
 const sharedGlobals = {
   ...globals.browser,
   ...globals.node,

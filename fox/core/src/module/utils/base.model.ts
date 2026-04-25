@@ -22,7 +22,7 @@ export class BaseModel implements IBaseModel {
     }
 
     private compileEngine(html: string): string {
-        return html.replace(/{{\s*(.*?)\s*}}/g, (_, key) => {
+        return html.replace(/{{\s*(.*?)\s*}}/g, (_, key: string) => {
             const value = this.context.get(key);
             const safeValue =
                 typeof value === "string" ? value :
@@ -33,7 +33,7 @@ export class BaseModel implements IBaseModel {
     }
     
     private compileChild(html: string): string {
-        return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key) => {
+        return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key: string) => {
             return this.axe.get(key) ?? ""
         })
     }

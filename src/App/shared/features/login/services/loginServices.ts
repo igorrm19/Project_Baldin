@@ -22,7 +22,7 @@ export class LoginServices implements ILoginServices {
             return payload;
         } catch (error) {
             console.log(error);
-            throw new Error(servicesMessage.error);
+            throw new Error(servicesMessage.error, { cause: error });
         }
     }
 
@@ -45,7 +45,7 @@ export class LoginServices implements ILoginServices {
             return payload;
         } catch (error) {
             console.log(error);
-            throw new Error(servicesMessage.error);
+            throw new Error(servicesMessage.error, { cause: error });
         }
     }
 
@@ -68,7 +68,7 @@ export class LoginServices implements ILoginServices {
             return payload;
         } catch (error) {
             console.log(error);
-            throw new Error(servicesMessage.error);
+            throw new Error(servicesMessage.error, { cause: error });
         }
     }
 
@@ -91,7 +91,7 @@ export class LoginServices implements ILoginServices {
             return payload;
         } catch (error) {
             console.log(error);
-            throw new Error(servicesMessage.error);
+            throw new Error(servicesMessage.error, { cause: error });
         }
     }
 }

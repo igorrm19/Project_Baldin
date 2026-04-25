@@ -12,15 +12,18 @@ describe('Main', () => {
 
     const main = new Main(baseModel, { test: 'value' });
 
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(baseModel.addProps).toHaveBeenCalledWith({ test: 'value' });
 
     main.addComponent({ slot: '<div>slot</div>' });
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(baseModel.addComponent).toHaveBeenCalledWith({ slot: '<div>slot</div>' });
 
     expect(main.getHTML()).toBe('<div>ok</div>');
 
     const parent = document.createElement('div');
     main.mount(parent);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(baseModel.mount).toHaveBeenCalledWith(parent);
   });
 
