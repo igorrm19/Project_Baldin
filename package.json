@@ -11,8 +11,8 @@
     "test:ci": "jest --runInBand --coverage --coverageReporters=text --coverageReporters=lcov",
     "coverage:check": "npm run test:ci",
     "coverage": "jest --coverage",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:security": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
+    "lint:security": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,13 +1,13 @@
 import type { Page, PageClass } from "./@types/router.types";
 
 export class FoxRouter {
-    private routes: Record<string, PageClass>;
+    private routes: Map<string, PageClass>;
     private containerSelector: string;
     private containerElement: HTMLElement | null = null;
     private currentPage: Page | null = null;
 
     constructor(routes: Record<string, PageClass>, containerSelector: string = "#app") {
-        this.routes = routes;
+        this.routes = new Map(Object.entries(routes) as [string, PageClass][]);
         this.containerSelector = containerSelector;
 
         window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
@@ -19,7 +19,8 @@ export class FoxRouter {
     }
 
     public loadRoute(path: string) {
-        const PageCtor = this.routes[path] || this.routes["/"];
+        const normalizedPath = path.replace(/\/+$/, '') || '/';
+        const PageCtor = this.routes.get(normalizedPath) || this.routes.get("/");
 
         if (!PageCtor) {
             console.error(`No route found for ${path} and no default route defined.`);

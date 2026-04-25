@@ -10,6 +10,10 @@ const sharedGlobals = {
   ...globals.node,
 };
 
+const securityRules = Object.fromEntries(
+  Object.entries(security.configs.recommended.rules).map(([name]) => [name, "error"])
+) as Record<string, string>;
+
 export default defineConfig([
   {
     ignores: sharedIgnores,
@@ -27,7 +31,7 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,tsx}"],
     plugins: { security },
     rules: {
-      ...security.configs.recommended.rules,
+      ...securityRules,
     },
     languageOptions: {
       globals: sharedGlobals,

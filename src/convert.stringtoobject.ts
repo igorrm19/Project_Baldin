@@ -26,16 +26,14 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
         detail.tagName = element.tagName.toLowerCase();
 
         if (element.hasAttributes()) {
-            detail.attributes = {};
-            for (let i = 0; i < element.attributes.length; i++) {
-                const attr = element.attributes[i];
-                detail.attributes[attr.name] = attr.value;
-            }
+            detail.attributes = Object.fromEntries(
+                Array.from(element.attributes, attr => [attr.name, attr.value])
+            );
 
-            if (detail.attributes['onclick']) {
-                const action = detail.attributes['onclick'];
-                const id = detail.attributes['id'] || `generated-${Math.random().toString(36).substr(2, 9)}`;
+            const action = detail.attributes['onclick'];
+            const id = detail.attributes['id'] || `generated-${Math.random().toString(36).substr(2, 9)}`;
 
+            if (action) {
                 actionStack.push({
                     id: id,
                     action: action,
