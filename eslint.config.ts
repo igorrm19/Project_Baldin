@@ -63,6 +63,7 @@ export default tseslint.config(
   },
   {
     files: ["**/*.{js,mjs,cjs}"],
+    ...tseslint.configs.disableTypeChecked,
     languageOptions: {
       globals: sharedGlobals,
     },
