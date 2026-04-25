@@ -3,8 +3,8 @@ import type { IBaseModel, ComponentMap } from "../../@types/base.model.interface
 export class BaseModel implements IBaseModel {
     private html: string
     private element: HTMLElement
-    private context: Record<string, unknown> = {}
-    private axe: ComponentMap = {}
+    private context: Map<string, unknown> = new Map()
+    private axe: Map<string, string> = new Map()
     private mounted = false
 
     constructor(element: string, template: string) {
@@ -24,16 +24,15 @@ export class BaseModel implements IBaseModel {
 
     private compileEngine(html: string): string {
         return html.replace(/{{\s*(.*?)\s*}}/g, (_, key) => {
-            const value = this.context[key] ?? "";
+            const value = this.context.get(key) ?? "";
             return this.escapeHtml(String(value));
         })
     }
-
+    
     private compileChild(html: string): string {
         return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key) => {
-            return this.axe[key] ?? ""
+            return this.axe.get(key) ?? ""
         })
-
     }
 
     private loadTemplate() {
@@ -44,11 +43,15 @@ export class BaseModel implements IBaseModel {
 
 
     public addProps(context: Record<string, unknown>) {
-        this.context = { ...this.context, ...context }
+        Object.entries(context).forEach(([key, value]) => {
+            this.context.set(key, value)
+        })
     }
 
     public addComponent(axe: ComponentMap) {
-        this.axe = { ...this.axe, ...axe }
+        Object.entries(axe).forEach(([key, value]) => {
+            this.axe.set(key, value)
+        })
     }
 
 
