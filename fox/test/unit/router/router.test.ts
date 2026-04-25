@@ -89,4 +89,26 @@ describe('FoxRouter', () => {
     expect(mountedInternal).toBe(true);
     expect(container.innerHTML).toContain('internal');
   });
+
+  it('does not intercept external links', () => {
+    const anchor = document.createElement('a');
+    anchor.href = 'https://example.com/path';
+    anchor.textContent = 'External Link';
+    document.body.appendChild(anchor);
+
+    class DefaultPage implements Page {
+      mount(parent: HTMLElement) {
+        parent.innerHTML = '<div>home</div>';
+      }
+    }
+
+    const router = new FoxRouter({ '/': DefaultPage }, '#app');
+    router.start();
+
+    const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+    const eventNotPrevented = anchor.dispatchEvent(clickEvent);
+
+    expect(eventNotPrevented).toBe(true);
+    expect(document.body.innerHTML).toContain('External Link');
+  });
 });

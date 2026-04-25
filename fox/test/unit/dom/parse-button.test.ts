@@ -19,4 +19,17 @@ describe('parseButton', () => {
     (container.querySelector('#btn-1') as HTMLButtonElement | null)?.click();
     expect(clicked).toBe(true);
   });
+
+  it('returns stack and preserves onclick when no matching external function exists', () => {
+    const container = document.createElement('div');
+    container.innerHTML = '<button id="btn-1" onclick="foo()">Click</button><button id="btn-2">No click</button>';
+
+    function bar() {}
+
+    const stack = parseButton(container, [bar.bind(null)]);
+
+    expect(stack).toHaveLength(2);
+    expect(container.querySelector('#btn-1')?.getAttribute('onclick')).toBe('foo()');
+    expect(container.querySelector('#btn-2')?.getAttribute('onclick')).toBeNull();
+  });
 });
