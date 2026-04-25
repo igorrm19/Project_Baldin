@@ -1,0 +1,20 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "doctype-html": "error",
+    "img-req-alt": "error",
+    "button-name": "error",
+    "attr-req-value": "error",
+    "element-required": "error",
+    "aria-allowed-attr": "error",
+    "no-unknown-elements": "error",
+    "no-inline-style": "warn",
+    "no-svg-without-title": "warn",
+    "heading-order": "error"
+  },
+  "elements": {
+    "button": {
+      "implicit-role": "button"
+    }
+  }
+}

@@ -30,7 +30,9 @@ export class InputHTML extends BaseModel {
         })
 
         // getHTML() aplica as properties ao template e retorna a string pronta
-        this.containerText.innerHTML = this.getHTML()
+        const html = this.getHTML();
+        const fragment = new DOMParser().parseFromString(html, 'text/html').body;
+        this.containerText.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerText)
     }
 }

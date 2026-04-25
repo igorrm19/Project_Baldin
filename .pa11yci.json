@@ -1,0 +1,17 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+  },
+  "urls": [
+    "http://127.0.0.1:4173/"
+  ],
+  "page": {
+    "headers": {
+      "Accept-Language": "en-US,en;q=0.9"
+    }
+  }
+}

@@ -7,7 +7,7 @@ export function parseInput(
     const elementInput = container.querySelectorAll("input");
 
     elementInput.forEach((input) => {
-        const elementInput = input as HTMLInputElement;
+        const elementInput = input;
 
         elementInput.addEventListener("input", () => {
             callback({

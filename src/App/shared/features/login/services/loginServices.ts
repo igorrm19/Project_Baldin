@@ -18,7 +18,8 @@ export class LoginServices implements ILoginServices {
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            return await response.json();
+            const payload = await response.json() as unknown;
+            return payload;
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
@@ -40,7 +41,8 @@ export class LoginServices implements ILoginServices {
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            return await response.json();
+            const payload = await response.json() as unknown;
+            return payload;
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
@@ -62,7 +64,8 @@ export class LoginServices implements ILoginServices {
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            return await response.json();
+            const payload = await response.json() as unknown;
+            return payload;
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
@@ -84,7 +87,8 @@ export class LoginServices implements ILoginServices {
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
-            return await response.json();
+            const payload = await response.json() as unknown;
+            return payload;
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error);
