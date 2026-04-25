@@ -36,6 +36,7 @@ describe('BaseModel', () => {
 
   it('returns non-string values unchanged in escapeHtml', () => {
     const model = new BaseModel('div', '');
-    expect((model as any).escapeHtml(123)).toBe(123);
+    const escapeHtml = (model as unknown as { escapeHtml(text: unknown): unknown }).escapeHtml;
+    expect(escapeHtml(123)).toBe(123);
   });
 });
