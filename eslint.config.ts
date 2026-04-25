@@ -1,6 +1,7 @@
 import jsImport from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import tsparser from "@typescript-eslint/parser";
 // @ts-ignore
 import securityImport from "eslint-plugin-security";
 // @ts-ignore
@@ -35,6 +36,7 @@ export default tseslint.config(
   {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
+      parser: tsparser,
       parserOptions: {
         projectService: true,
       },

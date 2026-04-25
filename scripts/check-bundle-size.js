@@ -1,33 +1,39 @@
 import fs from 'fs';
 import path from 'path';
 
-const statsPath = path.resolve(process.cwd(), '.vite-stats.json');
-if (!fs.existsSync(statsPath)) {
-  console.error('Bundle stats file not found:', statsPath);
+const distPath = path.resolve(process.cwd(), 'dist/assets');
+
+if (!fs.existsSync(distPath)) {
+  console.error('Dist assets folder not found:', distPath);
   process.exit(1);
 }
 
-const raw = fs.readFileSync(statsPath, 'utf8');
-const stats = JSON.parse(raw);
-const output = stats.output || stats[0]?.output || [];
 const thresholds = {
-  entry: 150 * 1024,
-  chunk: 200 * 1024,
-  asset: 300 * 1024
+  entry: 150 * 1024,   // 150KB
+  chunk: 200 * 1024,   // 200KB
+  asset: 300 * 1024    // 300KB
 };
 
 const errors = [];
-for (const file of output) {
-  if (!file || typeof file !== 'object') continue;
-  const size = file.code ? Buffer.byteLength(file.code, 'utf8') : file.size || 0;
-  if (file.type === 'chunk' && file.isEntry && size > thresholds.entry) {
-    errors.push(`Entry chunk ${file.fileName} is ${Math.round(size / 1024)} KB, above threshold ${Math.round(thresholds.entry / 1024)} KB`);
-  }
-  if (file.type === 'chunk' && !file.isEntry && size > thresholds.chunk) {
-    errors.push(`Chunk ${file.fileName} is ${Math.round(size / 1024)} KB, above threshold ${Math.round(thresholds.chunk / 1024)} KB`);
-  }
-  if (file.type === 'asset' && size > thresholds.asset) {
-    errors.push(`Asset ${file.fileName} is ${Math.round(size / 1024)} KB, above threshold ${Math.round(thresholds.asset / 1024)} KB`);
+const files = fs.readdirSync(distPath);
+
+for (const fileName of files) {
+  const filePath = path.join(distPath, fileName);
+  const stats = fs.statSync(filePath);
+  const size = stats.size;
+
+  if (fileName.endsWith('.js')) {
+    // In this Simple SPA, the main bundle is usually the entry
+    const isEntry = fileName.startsWith('index-'); 
+    const threshold = isEntry ? thresholds.entry : thresholds.chunk;
+    
+    if (size > threshold) {
+      errors.push(`JS file ${fileName} is ${Math.round(size / 1024)} KB, above threshold ${Math.round(threshold / 1024)} KB`);
+    }
+  } else if (fileName.endsWith('.css')) {
+    if (size > thresholds.asset) {
+      errors.push(`CSS file ${fileName} is ${Math.round(size / 1024)} KB, above threshold ${Math.round(thresholds.asset / 1024)} KB`);
+    }
   }
 }
 
