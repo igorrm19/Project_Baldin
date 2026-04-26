@@ -16,12 +16,17 @@ export class Login extends Main<LoginProps> {
         this.containerLogin = document.createElement("div")
     }
 
-    myButton() {
-        history.pushState({}, "", "/home")
-        window.dispatchEvent(new Event('popstate'))
+    async myButton() {
+        try {
+            const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+            await loginServices.putUser()
 
-        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
-        void loginServices.putUser()
+            history.pushState({}, "", "/home")
+            window.dispatchEvent(new Event('popstate'))
+        } catch (error) {
+            console.error("Erro no login:", error)
+            alert("Falha ao realizar o login. Verifique seu email e senha.")
+        }
     }
 
     myButton2(domContainer: HTMLElement) {

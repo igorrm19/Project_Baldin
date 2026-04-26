@@ -1,3 +1,70 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* Container principal da página */
+  .responsive-page {
+    @apply h-screen w-screen bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex items-center justify-center flex-col overflow-hidden;
+  }
+
+  @media (max-width: 768px) {
+    .responsive-page {
+      @apply h-auto min-h-screen w-full py-8 overflow-y-auto;
+    }
+  }
+
+  /* Card de login/cadastro */
+  .responsive-card {
+    @apply bg-slate-50 rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center transition-all duration-300;
+
+    width: 65vh;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .responsive-card {
+      @apply w-[92%] h-auto min-h-fit mx-4;
+    }
+  }
+
+  /* Largura do formulário interno */
+  .responsive-form {
+    @apply space-y-5 transition-all duration-300;
+
+    width: 55vh;
+  }
+
+  @media (max-width: 768px) {
+    .responsive-form {
+      @apply w-full px-2;
+    }
+  }
+
+  /* Ajuste para a AboutPage formBox */
+  .about-form-box {
+    @apply bg-slate-50 rounded-2xl shadow-2xl p-8 space-y-5 flex flex-col justify-center;
+
+    width: 65vh;
+  }
+
+  @media (max-width: 768px) {
+    .about-form-box {
+      @apply w-[92%] mx-4;
+    }
+  }
+
+  /* Ajuste para a HomePage content box */
+  .home-content-box {
+    @apply flex items-center justify-center flex-col gap-2 p-8 rounded-lg bg-white;
+
+    width: 50%;
+    height: 50%;
+  }
+
+  @media (max-width: 768px) {
+    .home-content-box {
+      @apply w-[92%] h-auto min-h-[300px] mx-4;
+    }
+  }
+}
