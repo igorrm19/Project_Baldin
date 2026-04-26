@@ -23,7 +23,7 @@ export class CadastroPage extends Main<CadastroProps> {
         parent.appendChild(this.container);
 
         const cadastro = new Cadastro(new BaseModel("div", cadastroHTML), {});
-        cadastro.mountCadastro();
+        cadastro.mountRegistration();
 
         const subtitle = new TextHTML("Modify your preferences", "text-zinc-600 font-serif text-lg");
         subtitle.mountText(this.container);

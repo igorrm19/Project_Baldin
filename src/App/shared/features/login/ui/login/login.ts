@@ -7,25 +7,36 @@ import { LoginServices } from "../../services/loginServices"
 import type { LoginProps } from "../../@types/LoginProps"
 
 export class Login extends Main<LoginProps> {
-    protected readonly containerLogin: HTMLElement
-    protected valueEmail: string = ""
-    protected valuePassword: string = ""
+    protected readonly loginContainer: HTMLElement
+    protected emailValue: string = ""
+    protected passwordValue: string = ""
 
     constructor(baseModel: IBaseModel, props: LoginProps) {
         super(baseModel, props)
-        this.containerLogin = document.createElement("div")
+        this.loginContainer = document.createElement("div")
     }
 
     async myButton() {
+        const errorMessage = this.loginContainer.querySelector("#error-message");
+
         try {
-            const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+            if (errorMessage instanceof HTMLElement) {
+                errorMessage.classList.add("hidden");
+                errorMessage.textContent = "";
+            }
+
+            const loginServices = new LoginServices(this.emailValue, this.passwordValue)
             await loginServices.putUser()
 
             history.pushState({}, "", "/home")
             window.dispatchEvent(new Event('popstate'))
         } catch (error) {
-            console.error("Erro no login:", error)
-            alert("Falha ao realizar o login. Verifique seu email e senha.")
+            console.error("Login error:", error)
+
+            if (errorMessage instanceof HTMLElement) {
+                errorMessage.classList.remove("hidden");
+                errorMessage.textContent = "Failed to login. Please check your email and password.";
+            }
         }
     }
 
@@ -44,7 +55,7 @@ export class Login extends Main<LoginProps> {
         const text = new TextHTML("")
         text.addProps({ text: this.props.h1_primaryText })
         text.addComponent({ par: text.getHTML() })
-        text.mount(this.containerLogin)
+        text.mount(this.loginContainer)
     }
 
     bindButtons(domContainer: HTMLElement) {
@@ -56,17 +67,17 @@ export class Login extends Main<LoginProps> {
         parseInput(domContainer, (data) => {
 
             if (data.id === "email") {
-                this.valueEmail = data.value ?? ""
+                this.emailValue = data.value ?? ""
             } else if (data.id === "password") {
-                this.valuePassword = data.value ?? ""
+                this.passwordValue = data.value ?? ""
             }
 
-            console.log("Email:", this.valueEmail, "Password:", this.valuePassword)
+            console.log("Email:", this.emailValue, "Password:", this.passwordValue)
 
             const output = domContainer.querySelector("#valor_input_email")
 
             if (output) {
-                output.textContent = this.valueEmail || "Value not found"
+                output.textContent = this.emailValue || "Value not found"
             }
         })
     }

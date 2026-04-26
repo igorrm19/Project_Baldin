@@ -11,43 +11,56 @@ export const html = template
 export type CardProps = Record<string, unknown>;
 
 export class Cadastro extends Main<CardProps> {
-    containerCadastro: HTMLElement
-    valueEmail: string = ""
-    valuePassword: string = ""
+    registrationContainer: HTMLElement
+    emailValue: string = ""
+    passwordValue: string = ""
 
     constructor(baseModel: IBaseModel, props: CardProps) {
         super(baseModel, props)
-        this.containerCadastro = document.createElement("div")
+        this.registrationContainer = document.createElement("div")
     }
 
-    mountCadastro() {
+    mountRegistration() {
         const doc = new DOMParser().parseFromString(html, 'text/html');
-        this.containerCadastro.replaceChildren(...Array.from(doc.body.childNodes));
+        this.registrationContainer.replaceChildren(...Array.from(doc.body.childNodes));
     }
 
     async myButton() {
+        const errorMessage = this.registrationContainer.querySelector("#error-message");
+
         try {
-            const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+            if (errorMessage instanceof HTMLElement) {
+                errorMessage.classList.add("hidden");
+                errorMessage.textContent = "";
+            }
+
+            const loginServices = new LoginServices(this.emailValue, this.passwordValue)
             await loginServices.postUser();
 
             history.pushState({}, "", "/home")
             window.dispatchEvent(new Event('popstate'))
         } catch (error) {
             console.error("Error on register:", error)
-            alert("Failed to register. Please check your credentials and try again.")
+
+            if (errorMessage instanceof HTMLElement) {
+                errorMessage.classList.remove("hidden");
+                errorMessage.textContent = "Failed to register. Please check your credentials and try again.";
+            }
         }
     }
 
     bindButtons(domContainer: HTMLElement) {
+        // Bind primary button click
         parseButton(domContainer, [
             this.myButton.bind(this)
         ])
 
+        // Sync input values with class properties
         parseInput(domContainer, (data: ActionItem) => {
             if (data.id === "email") {
-                this.valueEmail = data.value ?? ""
+                this.emailValue = data.value ?? ""
             } else if (data.id === "password") {
-                this.valuePassword = data.value ?? ""
+                this.passwordValue = data.value ?? ""
             }
         })
     }
