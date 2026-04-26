@@ -9,7 +9,7 @@ export class TextHTML extends BaseModel {
     constructor(text: string, styleClass: string = "text-base text-gray-950") {
         super("div", template)
         this.containerText = document.createElement("div")
-        // O container pode ser inline se necessário, mas o block principal já lida com o tamanho
+        // The container can be inline if necessary, but the main block already handles the size
         this.text = text
         this.styleClass = styleClass
     }

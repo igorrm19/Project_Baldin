@@ -20,13 +20,13 @@ actionStack.subscribe((item) => {
 });
 
 
-import { CadastroPage } from './App/shared/pages/cadastroPage';
+import { RegistrationPage } from './App/shared/pages/registrationPage';
 import { HomePage } from './App/shared/pages/homePage';
 
 const routes = {
   "/": MainPage,
   "/about": AboutPage,
-  "/cadastro": CadastroPage,
+  "/registration": RegistrationPage,
   "/home": HomePage,
 };
 

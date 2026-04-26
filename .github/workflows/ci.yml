@@ -51,6 +51,25 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+  english-check:
+    name: English language enforcement
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run English check
+        run: npm run lint:english
+
   audit:
     name: Dependency audit
     runs-on: ubuntu-latest

@@ -1,29 +1,29 @@
-# Motor de Templates (Axe Engine)
+# Template Engine (Axe Engine)
 
-O Fox utiliza um motor de templates proprietário (Axe Engine) que processa strings HTML para injetar dados e componentes.
+Fox uses a proprietary template engine (Axe Engine) that processes HTML strings to inject data and components.
 
-## Interpolação de Dados
+## Data Interpolation
 
-Para injetar valores dinâmicos nas propriedades do modelo, utilize chaves duplas `{{ }}`:
+To inject dynamic values into model properties, use double curly braces `{{ }}`:
 
 ```html
-<div>Olá, {{ nome }}!</div>
+<div>Hello, {{ name }}!</div>
 ```
 
-O motor buscará o valor da chave `nome` no objeto de contexto (props) do modelo. Se o valor não existir, uma string vazia será retornada.
+The engine will look for the key `name` in the model's context object (props). If the value does not exist, an empty string will be returned.
 
-### Escape de HTML
+### HTML Escaping
 
-Por segurança, todos os valores interpolados via `{{ }}` são escapados automaticamente para evitar ataques XSS.
+For security, all values interpolated via `{{ }}` are automatically escaped to prevent XSS attacks.
 
-## Injeção de Componentes (Tags Axe)
+## Component Injection (Axe Tags)
 
-Para inserir outros modelos (componentes) dentro de um template, utilize a tag `<Axe>`:
+To insert other models (components) within a template, use the `<Axe>` tag:
 
 ```html
 <div class="container">
-    <Axe id="meu-componente"></Axe>
+    <Axe id="my-component"></Axe>
 </div>
 ```
 
-O motor substituirá `<Axe id="key"></Axe>` pelo conteúdo HTML fornecido via `addComponent({ "key": "..." })`.
+The engine will replace `<Axe id="key"></Axe>` with the HTML content provided via `addComponent({ "key": "..." })`.

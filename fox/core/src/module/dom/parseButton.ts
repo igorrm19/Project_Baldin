@@ -3,14 +3,14 @@ import type { ActionItem } from "./@types/dom.types"
 /**
  * parseButton
  *
- * Recebe um elemento do DOM real (container) e um array de funções.
- * Encontra todos os <button> dentro do container, lê o atributo onclick,
- * faz o match pelo nome da função e vincula um addEventListener('click').
+ * Receives a real DOM element (container) and an array of functions.
+ * Finds all <button> elements within the container, reads the onclick attribute,
+ * matches by function name, and binds an addEventListener('click').
  *
- * Dessa forma, as funções só são executadas ao clicar — não na hora do parse.
+ * This way, functions are only executed upon clicking — not during the parse phase.
  *
- * @param container - Elemento HTML já inserido no DOM real
- * @param externalFunctions - Funções a serem vinculadas (use .bind(this) ao passar)
+ * @param container - HTML element already inserted into the real DOM
+ * @param externalFunctions - Functions to be bound (use .bind(this) when passing)
  */
 export function parseButton(container: HTMLElement, externalFunctions: Array<() => void> = []): ActionItem[] {
     const buttons = container.querySelectorAll('button')
@@ -31,18 +31,18 @@ export function parseButton(container: HTMLElement, externalFunctions: Array<() 
             text: button.textContent
         })
 
-        // Quando usamos .bind(this), o JS altera o nome da função para "bound nomeDaFuncao".
-        // Precisamos remover "bound " para fazer o match correto com o HTML.
+        // When using .bind(this), JS changes the function name to "bound functionName".
+        // We need to remove "bound " to correctly match the HTML.
         const match = externalFunctions.find(fn => {
             const realName = fn.name.replace(/^bound /, '')
             return realName + '()' === onClickAttr?.trim()
         })
 
         if (match) {
-            // Remove inline onclick para evitar duplicação e erros de contexto
+            // Remove inline onclick to avoid duplication and context errors
             button.removeAttribute('onclick')
 
-            // Vincula o evento real no botão do DOM
+            // Bind the real event to the DOM button
             button.addEventListener('click', () => match())
         }
     })
@@ -51,10 +51,10 @@ export function parseButton(container: HTMLElement, externalFunctions: Array<() 
 }
 
 
-// Missão: receber o container DOM real e vincular addEventListener nos botões encontrados
+// Goal: receive the real DOM container and bind addEventListener to the buttons found
 //
-// Resultado:
-// 1 - O usuário cria uma função e passa com .bind(this) no array externalFunctions
-// 2 - Se o nome da função bater com o onclick do botão, o listener é vinculado
-// 3 - A função só executa ao clicar — não na hora do parse
-// 4 - Funções sem match no HTML são simplesmente ignoradas
+// Results:
+// 1 - The user creates a function and passes it with .bind(this) in the externalFunctions array
+// 2 - If the function name matches the button's onclick, the listener is bound
+// 3 - The function only executes on click — not during parsing
+// 4 - Functions without a match in the HTML are simply ignored

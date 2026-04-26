@@ -1,10 +1,10 @@
-# Arquitetura do Fox
+# Fox Architecture
 
-A arquitetura do Fox é baseada na interface `IBaseModel` e na classe `BaseModel`, que juntas formam o núcleo do framework.
+The Fox architecture is based on the `IBaseModel` interface and the `BaseModel` class, which together form the core of the framework.
 
 ## IBaseModel
 
-A interface `IBaseModel` define o contrato que todos os modelos devem seguir:
+The `IBaseModel` interface defines the contract that all models must follow:
 
 ```typescript
 export interface IBaseModel {
@@ -17,12 +17,12 @@ export interface IBaseModel {
 
 ## BaseModel
 
-O `BaseModel` é a implementação padrão desse contrato. Ele é responsável por:
+The `BaseModel` is the default implementation of this contract. It is responsible for:
 
-1. **Gerenciamento de Estado**: Armazena propriedades (`props`) e componentes filhos (`axe`).
-2. **Compilação**: Processa o HTML e substitui tokens pelos valores correspondentes.
-3. **Manipulação do DOM**: Cria o elemento root e lida com a montagem no parent.
+1. **State Management**: Stores properties (`props`) and child components (`axe`).
+2. **Compilation**: Processes HTML and replaces tokens with corresponding values.
+3. **DOM Manipulation**: Creates the root element and handles mounting to the parent.
 
-## O Wrapper Main
+## The Main Wrapper
 
-A classe `Main` atua como um wrapper para um `BaseModel`. Ela permite encapsular lógica adicional mantendo a compatibilidade com a interface `IBaseModel`. Um ponto crucial é que `Main` não pode receber a si mesma como base para evitar recursão infinita.
+The `Main` class acts as a wrapper for a `BaseModel`. It allows encapsulating additional logic while maintaining compatibility with the `IBaseModel` interface. A crucial point is that `Main` cannot receive itself as a base to avoid infinite recursion.
