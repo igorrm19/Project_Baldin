@@ -16,7 +16,7 @@ export class CadastroPage extends Main<CadastroProps> {
     }
 
     setupStyles() {
-        this.container.classList.add("h-screen", "w-screen", "bg-gradient-to-br", "from-neutral-950", "via-orange-800", "to-orange-600", "flex", "items-center", "justify-center", "flex-col");
+        this.container.classList.add("responsive-page");
     }
 
     mount(parent: HTMLElement) {

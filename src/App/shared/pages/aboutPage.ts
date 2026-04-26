@@ -12,14 +12,14 @@ class AboutPage {
     }
 
     private setupStyles() {
-        this.container.classList.add("h-screen", "w-screen", "bg-gradient-to-br", "from-neutral-950", "via-orange-800", "to-orange-600", "flex", "items-center", "justify-center", "flex-col");
+        this.container.classList.add("responsive-page");
     }
 
     mount(parent: HTMLElement) {
         parent.appendChild(this.container);
 
         const formBox = document.createElement("div");
-        formBox.className = "bg-slate-50 rounded-2xl shadow-2xl p-8 w-[65vh] space-y-5 flex flex-col justify-center";
+        formBox.className = "about-form-box";
 
         const header = document.createElement("div");
         header.className = "flex items-center justify-center flex-col";
