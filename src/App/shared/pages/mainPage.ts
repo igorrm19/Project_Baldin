@@ -1,6 +1,5 @@
-import { CardLogin } from "../features/login/components/cardLogin/card";
+import { CardLogin, html } from "../features/login/ui/cardLogin/card";
 import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
-import { html } from "../features/login/components/cardLogin/card";
 
 export class MainPage {
     container: HTMLDivElement;
