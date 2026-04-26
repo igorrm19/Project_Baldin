@@ -1,7 +1,9 @@
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { Main } from "../../../../../../../fox/main"
 import template from "./cadastro.html?raw"
+import type { ActionItem } from "../../../../../../../fox/core/src/module/dom/@types/dom.types"
 import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseButton"
+import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
 import { LoginServices } from "../../services/loginServices"
 
 export const html = template
@@ -23,17 +25,25 @@ export class Cadastro extends Main<CardProps> {
         this.containerCadastro.replaceChildren(...Array.from(doc.body.childNodes));
     }
 
-    myButton() {
+    async myButton() {
+        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+        await loginServices.postUser();
+
         history.pushState({}, "", "/home")
         window.dispatchEvent(new Event('popstate'))
-
-        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
-        void loginServices.postUser();
     }
 
     bindButtons(domContainer: HTMLElement) {
         parseButton(domContainer, [
             this.myButton.bind(this)
         ])
+
+        parseInput(domContainer, (data: ActionItem) => {
+            if (data.id === "email") {
+                this.valueEmail = data.value ?? ""
+            } else if (data.id === "password") {
+                this.valuePassword = data.value ?? ""
+            }
+        })
     }
 }

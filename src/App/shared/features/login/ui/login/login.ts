@@ -16,12 +16,12 @@ export class Login extends Main<LoginProps> {
         this.containerLogin = document.createElement("div")
     }
 
-    myButton() {
+    async myButton() {
+        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+        await loginServices.putUser()
+
         history.pushState({}, "", "/home")
         window.dispatchEvent(new Event('popstate'))
-
-        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
-        void loginServices.putUser()
     }
 
     myButton2(domContainer: HTMLElement) {
