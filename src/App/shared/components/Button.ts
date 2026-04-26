@@ -6,7 +6,7 @@ export class Button {
     // Creates the element
     this.element = document.createElement('button')
     this.element.textContent = text
-    this.element.className = "pflex items-center justify-center w-full bg-gray-900 text-white py-4 px-4 rounded-lg hover:bg-blue-700 transition"
+    this.element.className = "flex items-center justify-center w-full bg-gray-900 text-white py-4 px-4 rounded-lg hover:bg-blue-700 transition"
 
     // Adds the event listener if it exists
     if (onClick) {
