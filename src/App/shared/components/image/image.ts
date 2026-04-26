@@ -20,7 +20,7 @@ export class ImageHTML extends BaseModel {
             alt: this.alt
         })
 
-        // Aplica as properties compiladas no HTML do Image local
+        // Applies compiled properties to the local Image HTML
         const html = this.getHTML();
         const fragment = new DOMParser().parseFromString(html, 'text/html').body;
         this.containerImage.replaceChildren(...Array.from(fragment.childNodes));

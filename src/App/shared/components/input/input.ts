@@ -20,7 +20,7 @@ export class InputHTML extends BaseModel {
     }
 
     mountInput(domContainer: HTMLElement) {
-        // Envia as propriedades para o BaseModel compilar o template {{name}}, {{type}}, etc
+        // Sends properties to BaseModel to compile the template {{name}}, {{type}}, etc.
         this.addProps({
             name: this.name,
             type: this.type,
@@ -29,7 +29,7 @@ export class InputHTML extends BaseModel {
             value: this.value
         })
 
-        // getHTML() aplica as properties ao template e retorna a string pronta
+        // getHTML() applies properties to the template and returns the ready string
         const html = this.getHTML();
         const fragment = new DOMParser().parseFromString(html, 'text/html').body;
         this.containerText.replaceChildren(...Array.from(fragment.childNodes));

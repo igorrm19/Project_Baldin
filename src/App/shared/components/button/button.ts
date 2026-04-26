@@ -10,7 +10,7 @@ export class ButtonHTML extends BaseModel {
     constructor(text: string, id: string = "button", type: string = "button") {
         super("div", template)
         this.containerButton = document.createElement("div")
-        // Como o botão já é a tag completa e tem o w-full, a div pode cobri-lo 100%
+        // Since the button is already the full tag and has w-full, the div can cover it 100%
         this.containerButton.className = "w-full"
         this.text = text
         this.id = id
@@ -24,7 +24,7 @@ export class ButtonHTML extends BaseModel {
             type: this.type
         })
 
-        // Aplica o template já compilado
+        // Applies the already compiled template
         const html = this.getHTML();
         const fragment = new DOMParser().parseFromString(html, 'text/html').body;
         this.containerButton.replaceChildren(...Array.from(fragment.childNodes));

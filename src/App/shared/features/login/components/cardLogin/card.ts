@@ -13,7 +13,7 @@ export type CardProps = Record<string, unknown>;
 export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement
     private loginInstance: Login | null = null
-    nome: string = ""
+    name: string = ""
 
     constructor(baseModel: IBaseModel, props: CardProps) {
         super(baseModel, props)
@@ -22,7 +22,7 @@ export class CardLogin extends Main<CardProps> {
 
     mountCardLogin(): string {
         const props: LoginProps = {
-            h1_primaryText: `Fox ${this.nome}`,
+            h1_primaryText: `Fox ${this.name}`,
             h3_secondaryText: "Please login to continue",
             label_thirdText: "Email",
             label_fourthText: "Password",
@@ -31,14 +31,14 @@ export class CardLogin extends Main<CardProps> {
         const login = new Login(new BaseModel("form", loginTemplate), props)
         login.mountLogin()
 
-        // Guarda a instância para usar no bindLoginButtons
+        // Keep the instance for use in bindLoginButtons
         this.loginInstance = login
 
         const loginHTML = login.getHTML()
-        // Teste do parseHTML movido para dentro do método (não pode ficar solto na classe)
+        // Test parseHTML inside the method
         parseHTML(loginHTML).forEach(div => {
             console.log(div.parent?.innerText)
-            this.nome = div.parent?.innerText ?? ""
+            this.name = div.parent?.innerText ?? ""
 
         })
 
