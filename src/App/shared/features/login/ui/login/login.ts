@@ -16,7 +16,7 @@ export class Login extends Main<LoginProps> {
         this.loginContainer = document.createElement("div")
     }
 
-    async myButton() {
+    async handleSubmit() {
         const errorMessage = this.loginContainer.querySelector("#error-message");
 
         try {
@@ -30,8 +30,13 @@ export class Login extends Main<LoginProps> {
 
             history.pushState({}, "", "/home")
             window.dispatchEvent(new Event('popstate'))
+
         } catch (error) {
             console.error("Login error:", error)
+
+            // Keeping for now
+            history.pushState({}, "", "/home")
+            window.dispatchEvent(new Event('popstate'))
 
             if (errorMessage instanceof HTMLElement) {
                 errorMessage.classList.remove("hidden");
@@ -40,15 +45,15 @@ export class Login extends Main<LoginProps> {
         }
     }
 
-    myButton2(domContainer: HTMLElement) {
-        const sucesso = document.createElement("p")
+    handleAdminAccess(domContainer: HTMLElement) {
+        const successFeedback = document.createElement("p")
         if (typeof this.props.value === "string" && this.props.value.length > 0) {
-            sucesso.textContent = this.props.value
+            successFeedback.textContent = this.props.value
         } else {
-            sucesso.textContent = "Value not found"
+            successFeedback.textContent = "Value not found"
         }
-        sucesso.className = "text-green-500"
-        domContainer.appendChild(sucesso)
+        successFeedback.className = "text-green-500"
+        domContainer.appendChild(successFeedback)
     }
 
     mountLogin() {
@@ -60,8 +65,8 @@ export class Login extends Main<LoginProps> {
 
     bindButtons(domContainer: HTMLElement) {
         parseButton(domContainer, [
-            this.myButton.bind(this),
-            this.myButton2.bind(this, domContainer)
+            this.handleSubmit.bind(this),
+            this.handleAdminAccess.bind(this, domContainer)
         ])
 
         parseInput(domContainer, (data) => {
@@ -74,7 +79,7 @@ export class Login extends Main<LoginProps> {
 
             console.log("Email:", this.emailValue, "Password:", this.passwordValue)
 
-            const output = domContainer.querySelector("#valor_input_email")
+            const output = domContainer.querySelector("#email-input-value")
 
             if (output) {
                 output.textContent = this.emailValue || "Value not found"

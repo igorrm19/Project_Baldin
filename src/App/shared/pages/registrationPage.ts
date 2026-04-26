@@ -1,12 +1,12 @@
 import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
-import { Cadastro, html as cadastroHTML } from "../features/login/ui/cadastro/cadastro";
+import { Registration, html as registrationHTML } from "../features/login/ui/registration/registration";
 import { CardLogin, html as cardHTML } from "../features/login/components/cardLogin/card";
 import { TextHTML } from "../components/Text/text";
 import { Main } from "../../../../fox/main";
 
-export type CadastroProps = Record<string, unknown>;
+export type RegistrationProps = Record<string, unknown>;
 
-export class CadastroPage extends Main<CadastroProps> {
+export class RegistrationPage extends Main<RegistrationProps> {
     private readonly container: HTMLDivElement;
 
     constructor() {
@@ -22,20 +22,20 @@ export class CadastroPage extends Main<CadastroProps> {
     mount(parent: HTMLElement) {
         parent.appendChild(this.container);
 
-        const cadastro = new Cadastro(new BaseModel("div", cadastroHTML), {});
-        cadastro.mountRegistration();
+        const registration = new Registration(new BaseModel("div", registrationHTML), {});
+        registration.mountRegistration();
 
         const subtitle = new TextHTML("Modify your preferences", "text-zinc-600 font-serif text-lg");
         subtitle.mountText(this.container);
 
         const cardLogin = new CardLogin(new BaseModel("div", cardHTML), {});
         cardLogin.addComponent({
-            primary_component: cadastro.getHTML(),
+            primary_component: registration.getHTML(),
             secondary_component: subtitle.getHTML(),
         });
 
         cardLogin.mount(this.container);
 
-        cadastro.bindButtons(this.container);
+        registration.bindButtons(this.container);
     }
 }

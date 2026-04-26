@@ -24,7 +24,7 @@ class AboutPage {
         const header = document.createElement("div");
         header.className = "flex items-center justify-center flex-col";
 
-        const logo = new ImageHTML("/Rosto Geométrico de Raposa (1).png", "raposa svg");
+        const logo = new ImageHTML("/fox-face.png", "fox logo");
         logo.mountImage(header);
 
         const titleHeader = document.createElement("div");

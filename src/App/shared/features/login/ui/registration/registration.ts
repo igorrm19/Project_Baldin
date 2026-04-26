@@ -1,6 +1,6 @@
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { Main } from "../../../../../../../fox/main"
-import template from "./cadastro.html?raw"
+import template from "./registration.html?raw"
 import type { ActionItem } from "../../../../../../../fox/core/src/module/dom/@types/dom.types"
 import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseButton"
 import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
@@ -10,7 +10,7 @@ export const html = template
 
 export type CardProps = Record<string, unknown>;
 
-export class Cadastro extends Main<CardProps> {
+export class Registration extends Main<CardProps> {
     registrationContainer: HTMLElement
     emailValue: string = ""
     passwordValue: string = ""
@@ -25,7 +25,7 @@ export class Cadastro extends Main<CardProps> {
         this.registrationContainer.replaceChildren(...Array.from(doc.body.childNodes));
     }
 
-    async myButton() {
+    async handleSubmit() {
         const errorMessage = this.registrationContainer.querySelector("#error-message");
 
         try {
@@ -50,9 +50,10 @@ export class Cadastro extends Main<CardProps> {
     }
 
     bindButtons(domContainer: HTMLElement) {
-        // Bind primary button click
+        // Bind primary and secondary button clicks
         parseButton(domContainer, [
-            this.myButton.bind(this)
+            this.handleSubmit.bind(this),
+            this.handleAdminAccess.bind(this)
         ])
 
         // Sync input values with class properties
@@ -63,5 +64,9 @@ export class Cadastro extends Main<CardProps> {
                 this.passwordValue = data.value ?? ""
             }
         })
+    }
+
+    handleAdminAccess() {
+        console.log("Admin access triggered")
     }
 }

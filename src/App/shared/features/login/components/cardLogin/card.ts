@@ -1,4 +1,5 @@
 import { Login } from "../../ui/login/login"
+import { Registration } from "../../ui/registration/registration"
 import type { LoginProps } from "../../@types/LoginProps"
 import { Main } from "../../../../../../../fox/main"
 import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.model"
@@ -12,7 +13,7 @@ export type CardProps = Record<string, unknown>;
 
 export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement
-    private loginInstance: Login | null = null
+    private authInstance: Login | Registration | null = null
     name: string = ""
 
     constructor(baseModel: IBaseModel, props: CardProps) {
@@ -28,26 +29,26 @@ export class CardLogin extends Main<CardProps> {
             label_fourthText: "Password",
         };
 
-        const login = new Login(new BaseModel("form", loginTemplate), props)
-        login.mountLogin()
+        const registration = new Registration(new BaseModel("form", loginTemplate), props)
+        registration.mountRegistration()
 
         // Keep the instance for use in bindLoginButtons
-        this.loginInstance = login
+        this.authInstance = registration
 
-        const loginHTML = login.getHTML()
+        const registrationHTML = registration.getHTML()
         // Test parseHTML inside the method
-        parseHTML(loginHTML).forEach(div => {
+        parseHTML(registrationHTML).forEach(div => {
             console.log(div.parent?.innerText)
             this.name = div.parent?.innerText ?? ""
 
         })
 
-        return loginHTML
+        return registrationHTML
     }
 
     bindLoginButtons(domContainer: HTMLElement) {
-        if (this.loginInstance) {
-            this.loginInstance.bindButtons(domContainer)
+        if (this.authInstance) {
+            this.authInstance.bindButtons(domContainer)
         }
     }
 }
