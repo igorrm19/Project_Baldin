@@ -26,11 +26,16 @@ export class Cadastro extends Main<CardProps> {
     }
 
     async myButton() {
-        const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
-        await loginServices.postUser();
+        try {
+            const loginServices = new LoginServices(this.valueEmail, this.valuePassword)
+            await loginServices.postUser();
 
-        history.pushState({}, "", "/home")
-        window.dispatchEvent(new Event('popstate'))
+            history.pushState({}, "", "/home")
+            window.dispatchEvent(new Event('popstate'))
+        } catch (error) {
+            console.error("Error on register:", error)
+            alert("Failed to register. Please check your credentials and try again.")
+        }
     }
 
     bindButtons(domContainer: HTMLElement) {
