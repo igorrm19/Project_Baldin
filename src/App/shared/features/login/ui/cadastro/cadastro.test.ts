@@ -47,7 +47,7 @@ describe('Cadastro', () => {
         // Add error message div to container
         cadastro.registrationContainer.innerHTML = '<div id="error-message"></div>';
         
-        (LoginServices.prototype.postUser as jest.Mock).mockReturnValue(Promise.reject(new Error('Failed')));
+        (LoginServices.prototype.postUser as jest.Mock).mockRejectedValue(new Error('Failed'));
         
         const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
         await cadastro.handleSubmit();
