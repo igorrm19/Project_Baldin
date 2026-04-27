@@ -1,8 +1,11 @@
 import { CardLogin } from './card';
 
+import type { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
+import type { CardProps } from './card';
+
 describe('CardLogin', () => {
-    let mockBaseModel: any;
-    let props: any;
+    let mockBaseModel: IBaseModel;
+    let props: CardProps;
 
     beforeEach(() => {
         mockBaseModel = {
@@ -10,7 +13,7 @@ describe('CardLogin', () => {
             addComponent: jest.fn(),
             getHTML: jest.fn().mockReturnValue('<div></div>'),
             mount: jest.fn()
-        };
+        } as unknown as IBaseModel;
         props = {
             h1_primaryText: 'Login',
             h2_secondaryText: 'Enter details'

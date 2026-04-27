@@ -8,9 +8,9 @@ import loginTemplate from "../../ui/login/login.html?raw"
 import template from "./card.html?raw"
 import { parseHTML } from "../../../../../../../fox/core/src/module/dom/parserDiv"
 /* istanbul ignore next */
-export const html = ((template as any)?.default ?? template) || "<div></div>"
+export const html: string = (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>"
 /* istanbul ignore next */
-const safeLoginTemplate = ((loginTemplate as any)?.default ?? loginTemplate) || "<div></div>"
+const safeLoginTemplate: string = (typeof loginTemplate === 'string' ? loginTemplate : (loginTemplate as unknown as { default: string })?.default) || "<div></div>"
 
 export type CardProps = Record<string, unknown>;
 

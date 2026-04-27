@@ -1,5 +1,7 @@
 import { Login } from './login';
 import { LoginServices } from '../../services/loginServices';
+import type { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
+import type { LoginProps } from '../../@types/LoginProps';
 
 jest.mock('../../services/loginServices');
 
@@ -18,15 +20,15 @@ describe('Login', () => {
     };
 
     beforeEach(() => {
-        login = new Login(mockBaseModel as any, mockProps as any);
-        // @ts-ignore
+        login = new Login(mockBaseModel as unknown as IBaseModel, mockProps as unknown as LoginProps);
+        // @ts-expect-error
         login.loginContainer = document.createElement('div');
-        // @ts-ignore
+        // @ts-expect-error
         login.loginContainer.innerHTML = '<div id="error-message"></div><div id="email-input-value"></div><input id="email"><input id="password">';
         container = document.createElement('div');
         document.body.appendChild(container);
         login.mountLogin();
-        // @ts-ignore - access private for testing
+        // @ts-expect-error - access private for testing
         login.bindButtons(login.loginContainer);
     });
 
@@ -41,9 +43,9 @@ describe('Login', () => {
             putUser: putUserMock
         }));
 
-        // @ts-ignore
+        // @ts-expect-error
         login.emailValue = 'test@example.com';
-        // @ts-ignore
+        // @ts-expect-error
         login.passwordValue = 'password';
 
         await login.handleSubmit();
@@ -61,7 +63,7 @@ describe('Login', () => {
         await login.handleSubmit();
 
         expect(consoleErrorSpy).toHaveBeenCalled();
-        // @ts-ignore
+        // @ts-expect-error
         const errorMessage = login.loginContainer.querySelector('#error-message');
         expect(errorMessage?.textContent).toBe('Failed to login. Please check your email and password.');
         consoleErrorSpy.mockRestore();
@@ -75,24 +77,24 @@ describe('Login', () => {
 
     it('handles admin access with missing value', () => {
         const adminContainer = document.createElement('div');
-        const loginNoProps = new Login(mockBaseModel as any, { h1_primaryText: 'Test' } as any);
+        const loginNoProps = new Login(mockBaseModel as unknown as IBaseModel, { h1_primaryText: 'Test' } as unknown as LoginProps);
         loginNoProps.handleAdminAccess(adminContainer);
         expect(adminContainer.textContent).toContain('Value not found');
     });
 
     it('updates email and password values on input', () => {
-        // @ts-ignore
+        // @ts-expect-error
         const emailInput = login.loginContainer.querySelector('#email') as HTMLInputElement;
         emailInput.value = 'user@test.com';
         emailInput.dispatchEvent(new Event('input'));
-        // @ts-ignore
+        // @ts-expect-error
         expect(login.emailValue).toBe('user@test.com');
 
-        // @ts-ignore
+        // @ts-expect-error
         const passInput = login.loginContainer.querySelector('#password') as HTMLInputElement;
         passInput.value = 'secret';
         passInput.dispatchEvent(new Event('input'));
-        // @ts-ignore
+        // @ts-expect-error
         expect(login.passwordValue).toBe('secret');
     });
 });

@@ -11,7 +11,7 @@ export class InputHTML extends BaseModel {
 
     constructor(name: string, type: string, label: string, placeholder: string = "", value: string = "") {
         /* istanbul ignore next */
-        super("div", ((template as any)?.default ?? template) || "<div></div>")
+        super("div", (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>")
         this.containerText = document.createElement("div")
         this.name = name
         this.type = type

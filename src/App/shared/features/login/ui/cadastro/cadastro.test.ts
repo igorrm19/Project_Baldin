@@ -2,10 +2,12 @@ import { Cadastro } from './cadastro';
 import { LoginServices } from '../../services/loginServices';
 
 jest.mock('../../services/loginServices');
+import type { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
+import type { CardProps } from './cadastro';
 
 describe('Cadastro', () => {
-    let mockBaseModel: any;
-    let props: any;
+    let mockBaseModel: IBaseModel;
+    let props: CardProps;
 
     beforeEach(() => {
         mockBaseModel = {
@@ -13,7 +15,7 @@ describe('Cadastro', () => {
             addComponent: jest.fn(),
             getHTML: jest.fn().mockReturnValue('<div></div>'),
             mount: jest.fn()
-        };
+        } as unknown as IBaseModel;
         props = {};
         jest.clearAllMocks();
     });
@@ -33,7 +35,7 @@ describe('Cadastro', () => {
         const cadastro = new Cadastro(mockBaseModel, props);
         cadastro.mountRegistration();
         
-        (LoginServices.prototype.postUser as jest.Mock).mockResolvedValueOnce({});
+        (LoginServices.prototype.postUser as jest.Mock).mockReturnValue(Promise.resolve({}));
         
         await cadastro.handleSubmit();
         expect(LoginServices.prototype.postUser).toHaveBeenCalled();
@@ -44,7 +46,7 @@ describe('Cadastro', () => {
         // Add error message div to container
         cadastro.registrationContainer.innerHTML = '<div id="error-message"></div>';
         
-        (LoginServices.prototype.postUser as jest.Mock).mockRejectedValueOnce(new Error('Failed'));
+        (LoginServices.prototype.postUser as jest.Mock).mockReturnValue(Promise.reject(new Error('Failed')));
         
         const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
         await cadastro.handleSubmit();
@@ -74,10 +76,8 @@ describe('Cadastro', () => {
         passInput.value = 'password123';
         passInput.dispatchEvent(new Event('input'));
         
-        // @ts-ignore
-        expect(cadastro.emailValue).toBe('test@example.com');
-        // @ts-ignore
-        expect(cadastro.passwordValue).toBe('password123');
+        expect((cadastro as unknown as { emailValue: string }).emailValue).toBe('test@example.com');
+        expect((cadastro as unknown as { passwordValue: string }).passwordValue).toBe('password123');
     });
 
     it('handles admin access', () => {

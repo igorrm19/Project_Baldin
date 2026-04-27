@@ -146,7 +146,7 @@ describe('FoxRouter', () => {
   });
 
   it('ignores clicks on anchors without href', () => {
-    const router = new FoxRouter({ '/': class { mount(p: any) { p.innerHTML = 'home' } } }, '#app');
+    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.innerHTML = 'home' } } }, '#app');
     router.start();
 
     const anchor = document.createElement('a');

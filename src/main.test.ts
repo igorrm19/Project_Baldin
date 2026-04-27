@@ -21,7 +21,7 @@ describe('Main Entry Point', () => {
 
     let domContentLoadedCallback: () => void;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.spyOn(document, 'addEventListener').mockImplementation((event, callback) => {
             if (event === 'DOMContentLoaded') {
                 domContentLoadedCallback = callback as () => void;
@@ -29,7 +29,7 @@ describe('Main Entry Point', () => {
         });
         
         // Reset the module to re-run the code
-        jest.isolateModules(async () => {
+        await jest.isolateModulesAsync(async () => {
             await import('./main');
         });
     });
@@ -38,7 +38,7 @@ describe('Main Entry Point', () => {
         domContentLoadedCallback();
         expect(FoxRouter).toHaveBeenCalled();
         const mockRouter = FoxRouter as jest.Mock;
-        const routerInstance = mockRouter.mock.instances[0];
+        const routerInstance = mockRouter.mock.instances[0] as { start: jest.Mock };
         expect(routerInstance.start).toHaveBeenCalled();
     });
 });
