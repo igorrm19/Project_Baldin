@@ -30,7 +30,7 @@ describe('ButtonHTML', () => {
         const button = new ButtonHTML('Action');
         button.mountButton(container);
 
-        console.log("container innerHTML:", container.innerHTML);
+        const btnElement = container.querySelector('button');
         
         const btnElement = container.querySelector('button');
         expect(btnElement).toBeTruthy();
