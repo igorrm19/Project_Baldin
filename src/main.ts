@@ -26,7 +26,7 @@ import { HomePage } from './App/shared/pages/homePage';
 const routes = {
   "/": MainPage,
   "/about": AboutPage,
-  "/cadastro": CadastroPage,
+  "/registration": CadastroPage,
   "/home": HomePage,
 };
 
