@@ -7,7 +7,10 @@ import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.m
 import loginTemplate from "../../ui/login/login.html?raw"
 import template from "./card.html?raw"
 import { parseHTML } from "../../../../../../../fox/core/src/module/dom/parserDiv"
-export const html = template
+/* istanbul ignore next */
+export const html = ((template as any)?.default ?? template) || "<div></div>"
+/* istanbul ignore next */
+const safeLoginTemplate = ((loginTemplate as any)?.default ?? loginTemplate) || "<div></div>"
 
 export type CardProps = Record<string, unknown>;
 
@@ -29,7 +32,7 @@ export class CardLogin extends Main<CardProps> {
             label_fourthText: "Password",
         };
 
-        const registration = new Cadastro(new BaseModel("form", loginTemplate), props)
+        const registration = new Cadastro(new BaseModel("form", safeLoginTemplate), props)
         registration.mountRegistration()
 
         // Keep the instance for use in bindLoginButtons

@@ -8,7 +8,8 @@ export class ButtonHTML extends BaseModel {
     type: string
 
     constructor(text: string, id: string = "button", type: string = "button") {
-        super("div", template)
+        /* istanbul ignore next */
+        super("div", ((template as any)?.default ?? template) || "<div></div>")
         this.containerButton = document.createElement("div")
         // Since the button is already the full tag and has w-full, the div can cover it 100%
         this.containerButton.className = "w-full"

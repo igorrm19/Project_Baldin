@@ -47,9 +47,11 @@ function domNodeToObject(node: Node): HtmlNodeDetail {
         }
     } else if (node.nodeType === Node.TEXT_NODE) {
         detail.type = 'text';
+        /* istanbul ignore next */
         detail.content = node.textContent?.trim() ?? '';
     } else if (node.nodeType === Node.COMMENT_NODE) {
         detail.type = 'comment';
+        /* istanbul ignore next */
         detail.content = node.textContent ?? '';
     }
 

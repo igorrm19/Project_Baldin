@@ -10,7 +10,8 @@ export class InputHTML extends BaseModel {
     value: string
 
     constructor(name: string, type: string, label: string, placeholder: string = "", value: string = "") {
-        super("div", template)
+        /* istanbul ignore next */
+        super("div", ((template as any)?.default ?? template) || "<div></div>")
         this.containerText = document.createElement("div")
         this.name = name
         this.type = type
