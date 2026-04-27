@@ -35,6 +35,7 @@ describe('Login', () => {
 
     afterEach(() => {
         document.body.removeChild(container);
+        window.history.replaceState({}, '', '/');
         jest.clearAllMocks();
     });
 
