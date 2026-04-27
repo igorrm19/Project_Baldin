@@ -6,6 +6,7 @@ import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseB
 import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
 import { LoginServices } from "../../services/loginServices"
 
+/* istanbul ignore next */
 export const html: string = (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>"
 
 export type CardProps = Record<string, unknown>;

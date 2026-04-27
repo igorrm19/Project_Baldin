@@ -157,4 +157,12 @@ describe('FoxRouter', () => {
 
     expect(navigateSpy).not.toHaveBeenCalled();
   });
+
+  it('handles popstate event', () => {
+    const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation();
+    expect(new FoxRouter({ '/': class implements Page { mount() { } } }, '#app')).toBeDefined();
+    window.dispatchEvent(new Event('popstate'));
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
+  });
 });
