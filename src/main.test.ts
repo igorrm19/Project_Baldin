@@ -9,8 +9,6 @@ jest.mock('./App/shared/pages/homePage');
 jest.mock('./convert.stringtoobject');
 
 describe('Main Entry Point', () => {
-    it('sets up unhandledrejection listener', () => {
-    });
 
     it('subscribes to actionStack clicks', () => {
         const alertSpy = jest.spyOn(window, 'alert').mockImplementation();

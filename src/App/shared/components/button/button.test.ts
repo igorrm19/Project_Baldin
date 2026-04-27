@@ -1,5 +1,7 @@
 import { ButtonHTML } from './button';
 
+jest.mock('./button.html?raw', () => ({ default: '<div class="w-full"><button id="{{ id }}">{{ text }}</button></div>' }), { virtual: true });
+
 describe('ButtonHTML', () => {
     let container: HTMLElement;
 
@@ -30,8 +32,6 @@ describe('ButtonHTML', () => {
         const button = new ButtonHTML('Action');
         button.mountButton(container);
 
-        const btnElement = container.querySelector('button');
-        
         const btnElement = container.querySelector('button');
         expect(btnElement).toBeTruthy();
         expect(btnElement?.textContent?.trim()).toBe('Action');
