@@ -49,7 +49,7 @@ describe('FoxRouter', () => {
   });
 
   it('logs an error when no route is found and no default route exists', () => {
-    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => { });
     const router = new FoxRouter({}, '#app');
 
     router.loadRoute('/missing');
@@ -59,7 +59,7 @@ describe('FoxRouter', () => {
   });
 
   it('throws when the target container cannot be found', () => {
-    const router = new FoxRouter({ '/': class implements Page { mount() {} } }, '#missing');
+    const router = new FoxRouter({ '/': class implements Page { mount() { } } }, '#missing');
 
     expect(() => router.loadRoute('/')).toThrow('#missing not found in DOM');
   });
@@ -115,5 +115,54 @@ describe('FoxRouter', () => {
 
     expect(eventNotPrevented).toBe(true);
     expect(document.body.innerHTML).toContain('External Link');
+  });
+
+  it('handles trailing slashes in navigation', () => {
+    const container = document.querySelector('#app') as HTMLElement;
+    class HomePage implements Page {
+      mount(parent: HTMLElement) {
+        parent.innerHTML = 'home';
+      }
+    }
+    const router = new FoxRouter({ '/': HomePage }, '#app');
+    router.start();
+
+    router.navigate('/about/');
+    // Should fallback to default route '/' if '/about' not found
+    expect(container.innerHTML).toBe('home');
+  });
+
+  it('handles pages without unmount method', () => {
+    class NoUnmountPage implements Page {
+      mount(parent: HTMLElement) {
+        parent.innerHTML = 'no unmount';
+      }
+    }
+    const router = new FoxRouter({ '/': NoUnmountPage, '/next': NoUnmountPage }, '#app');
+    router.start();
+
+    // Navigating away should not crash
+    expect(() => router.navigate('/next')).not.toThrow();
+  });
+
+  it('ignores clicks on anchors without href', () => {
+    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.innerHTML = 'home' } } }, '#app');
+    router.start();
+
+    const anchor = document.createElement('a');
+    document.body.appendChild(anchor);
+
+    const navigateSpy = jest.spyOn(router, 'navigate');
+    anchor.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+    expect(navigateSpy).not.toHaveBeenCalled();
+  });
+
+  it('handles popstate event', () => {
+    const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation();
+    expect(new FoxRouter({ '/': class implements Page { mount() { } } }, '#app')).toBeDefined();
+    window.dispatchEvent(new Event('popstate'));
+    expect(spy).toHaveBeenCalled();
+    spy.mockRestore();
   });
 });

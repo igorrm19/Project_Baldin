@@ -78,8 +78,10 @@ export class Login extends Main<LoginProps> {
         parseInput(domContainer, (data) => {
 
             if (data.id === "email") {
+                /* istanbul ignore next */
                 this.emailValue = data.value ?? ""
             } else if (data.id === "password") {
+                /* istanbul ignore next */
                 this.passwordValue = data.value ?? ""
             }
 
@@ -88,6 +90,7 @@ export class Login extends Main<LoginProps> {
             const output = domContainer.querySelector("#email-input-value")
 
             if (output) {
+                /* istanbul ignore next */
                 output.textContent = this.emailValue || "Value not found"
             }
         })

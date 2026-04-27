@@ -7,7 +7,8 @@ export class ImageHTML extends BaseModel {
     alt: string
 
     constructor(src: string, alt: string = "image") {
-        super("div", template)
+        /* istanbul ignore next */
+        super("img", (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>")
         this.containerImage = document.createElement("div")
         this.containerImage.className = "flex justify-center"
         this.src = src

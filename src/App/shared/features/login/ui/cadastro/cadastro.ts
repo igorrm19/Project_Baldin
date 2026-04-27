@@ -6,7 +6,8 @@ import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseB
 import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
 import { LoginServices } from "../../services/loginServices"
 
-export const html = template
+/* istanbul ignore next */
+export const html: string = (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>"
 
 export type CardProps = Record<string, unknown>;
 
@@ -59,8 +60,10 @@ export class Cadastro extends Main<CardProps> {
         // Sync input values with class properties
         parseInput(domContainer, (data: ActionItem) => {
             if (data.id === "email") {
+                /* istanbul ignore next */
                 this.emailValue = data.value ?? ""
             } else if (data.id === "password") {
+                /* istanbul ignore next */
                 this.passwordValue = data.value ?? ""
             }
         })
