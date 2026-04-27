@@ -41,7 +41,13 @@
         "typecheck",
         "iconify",
         "tsparser",
-        "sonarjs"
+        "sonarjs",
+        "cadastro",
+        "Cadastro",
+        "construtor",
+        "Construtor",
+        "Contrutor",
+        "raposa"
     ],
     "ignorePaths": [
         "node_modules/**",

@@ -23,24 +23,30 @@ export class Login extends Main<LoginProps> {
             if (errorMessage instanceof HTMLElement) {
                 errorMessage.classList.add("hidden");
                 errorMessage.textContent = "";
+
+                history.pushState({}, "", "/cadastro")
+                window.dispatchEvent(new Event('popstate'))
             }
 
             const loginServices = new LoginServices(this.emailValue, this.passwordValue)
             await loginServices.putUser()
 
-            history.pushState({}, "", "/home")
+            history.pushState({}, "", "/cadastro")
             window.dispatchEvent(new Event('popstate'))
 
         } catch (error) {
             console.error("Login error:", error)
 
             // Keeping for now
-            history.pushState({}, "", "/home")
+            history.pushState({}, "", "/cadastro")
             window.dispatchEvent(new Event('popstate'))
 
             if (errorMessage instanceof HTMLElement) {
                 errorMessage.classList.remove("hidden");
                 errorMessage.textContent = "Failed to login. Please check your email and password.";
+
+                history.pushState({}, "", "/cadastro")
+                window.dispatchEvent(new Event('popstate'))
             }
         }
     }

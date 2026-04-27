@@ -1,6 +1,6 @@
 import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { Main } from "../../../../../../../fox/main"
-import template from "./registration.html?raw"
+import template from "./cadastro.html?raw"
 import type { ActionItem } from "../../../../../../../fox/core/src/module/dom/@types/dom.types"
 import { parseButton } from "../../../../../../../fox/core/src/module/dom/parseButton"
 import { parseInput } from "../../../../../../../fox/core/src/module/dom/parseInput"
@@ -10,7 +10,7 @@ export const html = template
 
 export type CardProps = Record<string, unknown>;
 
-export class Registration extends Main<CardProps> {
+export class Cadastro extends Main<CardProps> {
     registrationContainer: HTMLElement
     emailValue: string = ""
     passwordValue: string = ""

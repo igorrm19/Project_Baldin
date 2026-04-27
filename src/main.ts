@@ -3,7 +3,7 @@ import { FoxRouter } from '../fox/core/src/module/router/router';
 import { MainPage } from './App/shared/pages/mainPage';
 import { AboutPage } from './App/shared/pages/aboutPage';
 import { test } from './convert.stringtoobject';
-import { html } from './App/shared/features/login/components/cardLogin/card';
+import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
 
 
@@ -20,13 +20,13 @@ actionStack.subscribe((item) => {
 });
 
 
-import { RegistrationPage } from './App/shared/pages/registrationPage';
+import { CadastroPage } from './App/shared/pages/cadastroPage';
 import { HomePage } from './App/shared/pages/homePage';
 
 const routes = {
   "/": MainPage,
   "/about": AboutPage,
-  "/registration": RegistrationPage,
+  "/registration": CadastroPage,
   "/home": HomePage,
 };
 

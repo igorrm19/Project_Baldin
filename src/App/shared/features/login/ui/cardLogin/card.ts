@@ -1,5 +1,5 @@
-import { Login } from "../../ui/login/login"
-import { Registration } from "../../ui/registration/registration"
+import { Login } from "../login/login"
+import { Cadastro } from "../cadastro/cadastro"
 import type { LoginProps } from "../../@types/LoginProps"
 import { Main } from "../../../../../../../fox/main"
 import { BaseModel } from "../../../../../../../fox/core/src/module/utils/base.model"
@@ -13,7 +13,7 @@ export type CardProps = Record<string, unknown>;
 
 export class CardLogin extends Main<CardProps> {
     containerCardLogin: HTMLElement
-    private authInstance: Login | Registration | null = null
+    private authInstance: Login | Cadastro | null = null
     name: string = ""
 
     constructor(baseModel: IBaseModel, props: CardProps) {
@@ -29,7 +29,7 @@ export class CardLogin extends Main<CardProps> {
             label_fourthText: "Password",
         };
 
-        const registration = new Registration(new BaseModel("form", loginTemplate), props)
+        const registration = new Cadastro(new BaseModel("form", loginTemplate), props)
         registration.mountRegistration()
 
         // Keep the instance for use in bindLoginButtons
