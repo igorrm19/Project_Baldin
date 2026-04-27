@@ -21,17 +21,18 @@ describe('Main Entry Point', () => {
 
     let domContentLoadedCallback: () => void;
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         jest.spyOn(document, 'addEventListener').mockImplementation((event, callback) => {
             if (event === 'DOMContentLoaded') {
                 domContentLoadedCallback = callback as () => void;
             }
         });
         
-        // Reset the module to re-run the code
-        await jest.isolateModulesAsync(async () => {
-            await import('./main');
-        });
+        await import('./main');
+    });
+
+    beforeEach(() => {
+        jest.clearAllMocks();
     });
 
     it('initializes the router on DOMContentLoaded', () => {

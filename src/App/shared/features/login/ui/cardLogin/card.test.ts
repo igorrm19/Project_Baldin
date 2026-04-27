@@ -13,7 +13,7 @@ describe('CardLogin', () => {
             addComponent: jest.fn(),
             getHTML: jest.fn().mockReturnValue('<div></div>'),
             mount: jest.fn()
-        } as unknown as IBaseModel;
+        };
         props = {
             h1_primaryText: 'Login',
             h2_secondaryText: 'Enter details'

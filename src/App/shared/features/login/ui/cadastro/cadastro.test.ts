@@ -15,7 +15,7 @@ describe('Cadastro', () => {
             addComponent: jest.fn(),
             getHTML: jest.fn().mockReturnValue('<div></div>'),
             mount: jest.fn()
-        } as unknown as IBaseModel;
+        };
         props = {};
         jest.clearAllMocks();
     });
@@ -38,7 +38,8 @@ describe('Cadastro', () => {
         (LoginServices.prototype.postUser as jest.Mock).mockReturnValue(Promise.resolve({}));
         
         await cadastro.handleSubmit();
-        expect(LoginServices.prototype.postUser).toHaveBeenCalled();
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(LoginServices.prototype.postUser as jest.Mock).toHaveBeenCalled();
     });
 
     it('handles submit error', async () => {

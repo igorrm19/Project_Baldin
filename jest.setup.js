@@ -1,4 +1,4 @@
-/* eslint-env jest */
+/* eslint-disable no-undef */
 // Mock import.meta.env by mocking the file that uses it
 jest.mock('./src/App/shared/features/login/constants/servicesConstants', () => ({
   servicesURL: { url: 'http://localhost:3000/users' },
