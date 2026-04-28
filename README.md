@@ -1,70 +1,55 @@
-# Fox Framework - Technical Specification
+# Project Baldim
 
-## Abstract
-The Fox Framework is a zero-dependency, component-driven architecture engineered for high-performance web applications. It provides a robust abstraction layer over the native DOM, implementing a proprietary template compilation engine, a declarative component composition model, and a synchronized routing layer. Built with TypeScript, it ensures static type safety and architectural rigidity across large-scale deployments.
+## Overview
+Project Baldim is a frontend SPA built with TypeScript and Vite, using a custom runtime called Fox Framework to render components directly into the DOM. The application is organized around a router, reusable UI components, login/registration features, and a service layer that consumes an external API.
 
-## Architectural Philosophy
-At its core, the framework operates on the principle of predictable DOM reconciliation through a centralized compilation pipeline. Unlike traditional virtual DOM implementations, Fox Framework utilizes a direct-to-DOM compilation strategy, minimizing overhead and maximizing execution speed. The architecture is strictly modular, enforcing a separation of concerns between core engine logic and application-level implementation.
+## Architecture
+This repository separates application concerns into the following layers:
+- **Entry point**: `index.html` and `src/main.ts`
+- **Routing**: `FoxRouter`
+- **Page layer**: pages such as `MainPage`, `AboutPage`, `CadastroPage`, and `HomePage`
+- **Feature layer**: login and registration modules
+- **Service layer**: `LoginServices` for API communication
+- **Framework core**: `BaseModel`, `Main`, and DOM helpers
+- **Quality pipeline**: TypeScript checks, linting, HTML validation, accessibility, and dependency auditing
 
-## Core Engine Dynamics
+![Architecture UML](docs/architecture.svg)
 
-### BaseModel Infrastructure
-The `BaseModel` class serves as the primary execution context for all framework components. It manages the lifecycle of a component from instantiation to DOM attachment.
+## What this project includes
+- A custom component rendering engine with safe template interpolation.
+- A client-side router using the history API.
+- Feature pages with login and registration flows.
+- A service client for `/users` calls, including CSRF handling.
+- A CI pipeline for type safety and quality.
 
-- **Interpolation Engine**: Implements a regex-based parser for the `{{ value }}` syntax, providing safe variable injection with built-in XSS mitigation via HTML entity encoding.
-- **Context Management**: Utilizes an internal dictionary for prop resolution, ensuring that data flow remains unidirectional and predictable.
-- **Lifecycle Management**: Components follow a strict `init -> compile -> mount` sequence, ensuring stable state before DOM projection.
-
-### Component Composition (Axe Architecture)
-Composition is handled via the "Axe" mechanism, a declarative strategy for nesting components. This system identifies `<Axe />` markers within templates and replaces them with compiled component instances during the recursive parsing phase.
-
-## Routing Synchronization Layer
-
-The `FoxRouter` manages the application state relative to the browser's navigation history. 
-
-- **State Synchronization**: Hooks into the `popstate` event for seamless integration with browser navigation controls.
-- **Modular Mounting**: Implements a dedicated container-mounting strategy, where views are swapped within a defined `#app` entry point without full-page reloads.
-- **Type-Safe Routing**: Leverages TypeScript constructors (`PageClass`) to guarantee that all routed targets implement the required `mount` interface.
-
-## Technical Stack
-The development ecosystem is optimized for modern performance standards:
-- **Language**: TypeScript (v5.8+) for advanced type inference and architectural integrity.
-- **Build System**: Vite (v7.1+) leveraging ESM-native HMR (Hot Module Replacement).
-- **Styling**: TailwindCSS (v3.4+) for utility-first responsive design.
-- **Environment**: Node.js v18+ environment requirements.
-
-## Implementation Standard
-
-### Prerequisites
-- Node.js Performance Environment (v18.x or greater)
-- Package Manager: npm or yarn
-
-### Installation and Initialization
-Initialize the project environment by resolving dependencies:
+## Quick start
 ```bash
 npm install
-```
-
-### English-only code policy
-All production code, tests, and user-facing strings must use English. The `npm run lint:english` script enforces this policy, so do not add Portuguese text or temporary spellcheck dictionary entries to bypass the check.
-
-If a string is not in English, translate it rather than adding it to the `.cspell.json` allow list.
-
-### Execution Environments
-
-#### Development
-Spawns a local development server with real-time module updates:
-```bash
 npm run dev
 ```
 
-#### Production Compilation
-Executes the TypeScript compiler followed by the Vite optimization pipeline to generate a minified, production-ready bundle:
+### Build for production
 ```bash
 npm run build
 ```
 
-## Internal Architecture Overview
+### Run tests
+```bash
+npm run test
+```
+
+### Run lint and quality checks
+```bash
+npm run lint
+npm run lint:english
+npm run html:validate
+npm run a11y
+```
+
+## Detailed documentation
+For a full architecture breakdown and design notes, see `docs/architecture.md`.
+
+## Project structure
 ```text
 fox/
 ├── core/
@@ -79,7 +64,19 @@ src/
 └── main.ts         (Entry Point)
 ```
 
-## Compliance and Licensing
-This project is proprietary software. Unauthorized distribution, modification, or reproduction is strictly prohibited. All intellectual property rights are reserved.
+## English-only policy
+All production code, tests, documentation, and user-facing strings must be in English. The `npm run lint:english` script enforces this policy. Do not add Portuguese strings or temporary spellcheck exceptions to bypass the check.
 
-test
+## CI and quality pipeline
+The repository includes a GitHub Actions workflow that executes:
+- TypeScript type checking
+- ESLint validation
+- build verification
+- unit tests and coverage
+- HTML validation
+- accessibility checks
+- bundle size validation
+- dependency audit
+
+## Notes for interns
+This project is a good learning environment if you want to understand SPA routing, a custom template engine, and the relationships between pages, components, and services. Start by reading `src/main.ts`, `fox/core/src/module/router/router.ts`, `fox/core/src/module/utils/base.model.ts`, and `src/App/shared/features/login/services/loginServices.ts`.
