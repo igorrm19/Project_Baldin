@@ -5,14 +5,19 @@ import { CadastroPage } from './cadastroPage';
 
 describe('Pages', () => {
     let parent: HTMLElement;
+    let logSpy: jest.SpyInstance;
 
     beforeEach(() => {
         parent = document.createElement('div');
         document.body.appendChild(parent);
+        logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     });
 
     afterEach(() => {
-        document.body.removeChild(parent);
+        if (parent.parentNode) {
+            document.body.removeChild(parent);
+        }
+        logSpy.mockRestore();
     });
 
     it('mounts HomePage', () => {

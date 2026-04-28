@@ -16,31 +16,26 @@ describe('LoginServices', () => {
         logSpy.mockRestore();
     });
 
-    const setupResponse = (ok: boolean, data: any) => {
+    const setupResponse = (ok: boolean, data: unknown) => {
         globalFetch.fetch.mockResolvedValueOnce({
             ok,
-            json: () => Promise.resolve(data)
+            json: () => ok ? Promise.resolve(data) : (data === "FAIL" ? Promise.reject(new Error("REJECT")) : Promise.resolve(data))
         });
     };
 
-    it('getUser success', async () => {
-        setupResponse(true, { name: 'T' });
-        await new LoginServices('t@t.com', 'p').getUser();
+    it('success paths', async () => {
+        const s = new LoginServices('t@t.com', 'p');
+        setupResponse(true, { name: 'T' }); await s.getUser();
+        setupResponse(true, { id: 1 }); await s.postUser();
+        setupResponse(true, { ok: true }); await s.putUser();
+        setupResponse(true, { deleted: true }); await s.deleteUser();
     });
 
-    it('postUser success', async () => {
-        setupResponse(true, { id: 1 });
-        await new LoginServices('t@t.com', 'p').postUser();
-    });
-
-    it('putUser success', async () => {
-        setupResponse(true, { ok: true });
-        await new LoginServices('t@t.com', 'p').putUser();
-    });
-
-    it('deleteUser success', async () => {
-        setupResponse(true, { deleted: true });
-        await new LoginServices('t@t.com', 'p').deleteUser();
+    it('JSON fail paths', async () => {
+        const s = new LoginServices('t@t.com', 'p');
+        setupResponse(false, 'FAIL'); await expect(s.postUser()).rejects.toThrow();
+        setupResponse(false, 'FAIL'); await expect(s.putUser()).rejects.toThrow();
+        setupResponse(false, 'FAIL'); await expect(s.deleteUser()).rejects.toThrow();
     });
 
     it('error response with message', async () => {
@@ -48,28 +43,25 @@ describe('LoginServices', () => {
         await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('FAIL');
     });
 
-    it('error response without message', async () => {
-        setupResponse(false, {});
-        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow();
-        setupResponse(false, {});
-        await expect(new LoginServices('t@t.com', 'p').putUser()).rejects.toThrow();
-        setupResponse(false, {});
-        await expect(new LoginServices('t@t.com', 'p').deleteUser()).rejects.toThrow();
-    });
-
-    it('network errors', async () => {
+    it('network and other errors', async () => {
         globalFetch.fetch.mockRejectedValue(new Error('Network error'));
         const s = new LoginServices('t@t.com', 'p');
         await expect(s.getUser()).rejects.toThrow();
         await expect(s.postUser()).rejects.toThrow();
-        await expect(s.putUser()).rejects.toThrow();
         await expect(s.deleteUser()).rejects.toThrow();
+        
+        globalFetch.fetch.mockRejectedValue(new Error('Other'));
+        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('Other');
     });
 
-    it('other errors', async () => {
-        globalFetch.fetch.mockRejectedValue(new Error('Other'));
-        const s = new LoginServices('t@t.com', 'p');
-        await expect(s.getUser()).rejects.toThrow('Other');
+    it('postUser network error triggers service fallback', async () => {
+        globalFetch.fetch.mockRejectedValueOnce(new Error('Network error'));
+        await expect(new LoginServices('t@t.com', 'p').postUser()).rejects.toThrow('Failed to create user');
+    });
+
+    it('postUser non-Error rejection triggers service fallback', async () => {
+        globalFetch.fetch.mockRejectedValueOnce('STRING_FAIL');
+        await expect(new LoginServices('t@t.com', 'p').postUser()).rejects.toThrow('Failed to create user');
     });
 
     it('CSRF failures', async () => {

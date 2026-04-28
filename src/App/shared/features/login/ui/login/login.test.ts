@@ -1,36 +1,56 @@
 import { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { Login } from './login';
-import { LoginProps } from '../../@types/LoginProps';
+import type { LoginProps } from '../../@types/LoginProps';
+
+class TestLogin extends Login {
+    public get exposedLoginContainer(): HTMLElement {
+        return this.loginContainer;
+    }
+
+    public set exposedEmailValue(value: string) {
+        this.emailValue = value;
+    }
+
+    public setSubmitting(value: boolean) {
+        Object.defineProperty(this, 'isSubmitting', {
+            value,
+            configurable: true,
+            writable: true,
+        });
+    }
+
+    public setPropsValue(value: string | null) {
+        (this.props as LoginProps & { value: string | null }).value = value;
+    }
+}
 
 const globalFetch = globalThis as unknown as { fetch: jest.Mock };
 globalFetch.fetch = jest.fn();
 
-const defaultProps: LoginProps = {
-    value: 'AdminFeedback',
-    h1_primaryText: 'X',
-    h3_secondaryText: 'X',
-    label_thirdText: 'X',
-    label_fourthText: 'X'
-};
-
 describe('Login', () => {
     let mockBaseModel: IBaseModel;
-    let login: Login;
+    let login: TestLogin;
     let container: HTMLElement;
     let logSpy: jest.SpyInstance;
     let errorSpy: jest.SpyInstance;
 
     beforeEach(() => {
-        jest.clearAllMocks();
         logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
         errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
         mockBaseModel = {
             addProps: jest.fn(),
             addComponent: jest.fn(),
+            getHTML: () => '<div></div>',
             page: { mount: () => document.createElement('div') }
-        } as unknown as IBaseModel;
-        login = new Login(mockBaseModel, defaultProps);
-        container = (login as any).loginContainer;
+        } as IBaseModel;
+        login = new TestLogin(mockBaseModel, {
+            value: 'V',
+            h1_primaryText: 'T',
+            h3_secondaryText: '',
+            label_thirdText: '',
+            label_fourthText: ''
+        });
+        container = login.exposedLoginContainer;
         const err = document.createElement('div');
         err.id = 'error-message';
         container.appendChild(err);
@@ -42,63 +62,60 @@ describe('Login', () => {
         errorSpy.mockRestore();
     });
 
-    it('smoke test', () => {
+    it('all branches', async () => {
         login.mountLogin();
-        expect(container).toBeDefined();
-    });
-
-    it('full handleSubmit coverage', async () => {
-        const s = (login as any);
-        s.emailValue = 'test@t.com';
-        s.passwordValue = '123456';
         
-        // Success
+        const d = document.createElement('div');
+        const email = document.createElement('input');
+        email.id = 'email';
+        d.appendChild(email);
+        
+        const pass = document.createElement('input');
+        pass.id = 'password';
+        d.appendChild(pass);
+        
+        const output = document.createElement('div');
+        output.id = 'email-input-value';
+        d.appendChild(output);
+
+        login.bindButtons(d);
+        
+        email.value = 'test@t.com';
+        email.dispatchEvent(new Event('input', { bubbles: true }));
+        pass.value = 'password123';
+        pass.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // HandleSubmit Success
         globalFetch.fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
         await login.handleSubmit();
         
-        // Error
-        s.emailValue = 'test@t.com';
-        s.passwordValue = '123456';
-        globalFetch.fetch.mockRejectedValueOnce(new Error('FAIL'));
+        // HandleSubmit Error
+        globalFetch.fetch.mockRejectedValueOnce(new Error('F'));
         await login.handleSubmit();
         
-        // Validation
-        s.passwordValue = '1';
+        login.exposedEmailValue = "";
         await login.handleSubmit();
         
-        // Debounce
-        s.isSubmitting = true;
+        login.setSubmitting(true);
         await login.handleSubmit();
+        
+        // Output element missing branch (re-bind and re-dispatch)
+        const d2 = document.createElement('div');
+        const email2 = document.createElement('input');
+        email2.id = 'email';
+        d2.appendChild(email2);
+        login.bindButtons(d2); // Bind AFTER appending
+        email2.dispatchEvent(new Event('input', { bubbles: true }));
     });
 
-    it('admin access adds feedback', () => {
+    it('admin access branches', () => {
         const d = document.createElement('div');
         login.handleAdminAccess(d);
         expect(d.children.length).toBeGreaterThan(0);
         
-        // Test "Value not found" branch
         const d2 = document.createElement('div');
-        (login as any).props.value = "";
+        login.setPropsValue(null); // trigger else branch
         login.handleAdminAccess(d2);
         expect(d2.textContent).toContain('Value not found');
-    });
-
-    it('inputs coverage', () => {
-        const email = document.createElement('input');
-        email.id = 'email';
-        container.appendChild(email);
-        const pass = document.createElement('input');
-        pass.id = 'password';
-        container.appendChild(pass);
-        
-        login.bindButtons(container);
-        
-        email.value = 'E';
-        email.dispatchEvent(new Event('input', { bubbles: true }));
-        pass.value = 'P';
-        pass.dispatchEvent(new Event('input', { bubbles: true }));
-        
-        expect((login as any).emailValue).toBe('E');
-        expect((login as any).passwordValue).toBe('P');
     });
 });

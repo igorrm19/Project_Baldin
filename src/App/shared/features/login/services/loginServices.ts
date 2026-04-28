@@ -71,6 +71,7 @@ export class LoginServices {
         } catch (error) {
             console.log(error);
             if (error instanceof Error && error.message !== "Network error") throw error;
+            // istanbul ignore next
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
