@@ -115,4 +115,24 @@ describe('LoginServices', () => {
         const service = new LoginServices('test@example.com', 'password123');
         await expect(service.deleteUser()).rejects.toThrow('Failed to create user');
     });
+
+    it('handles missing content attribute on csrf meta tag', async () => {
+        const meta = document.createElement('meta');
+        meta.name = 'csrf-token';
+        document.head.appendChild(meta);
+
+        globalFetch.fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
+
+        const service = new LoginServices('test@example.com', 'password123');
+        await service.postUser();
+
+        expect(globalFetch.fetch).toHaveBeenCalledWith(
+            expect.stringContaining('/users'),
+            expect.objectContaining({
+                headers: expect.objectContaining({
+                    'X-CSRF-Token': ''
+                })
+            })
+        );
+    });
 });
