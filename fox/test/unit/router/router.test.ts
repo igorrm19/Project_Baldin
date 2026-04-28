@@ -40,6 +40,7 @@ describe('FoxRouter', () => {
         div.textContent = 'second';
         parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const router = new FoxRouter({ '/': FirstPage, '/second': SecondPage }, '#app');
@@ -66,7 +67,7 @@ describe('FoxRouter', () => {
   });
 
   it('throws when the target container cannot be found', () => {
-    const router = new FoxRouter({ '/': class implements Page { mount() { } } }, '#missing');
+    const router = new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#missing');
 
     expect(() => router.loadRoute('/')).toThrow('#missing not found in DOM');
   });
@@ -81,6 +82,7 @@ describe('FoxRouter', () => {
         div.textContent = 'home';
         parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     class InternalPage implements Page {
@@ -90,6 +92,7 @@ describe('FoxRouter', () => {
         div.textContent = 'internal';
         parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const anchor = document.createElement('a');
@@ -118,6 +121,7 @@ describe('FoxRouter', () => {
         div.textContent = 'home';
         parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const router = new FoxRouter({ '/': DefaultPage }, '#app');
@@ -136,6 +140,7 @@ describe('FoxRouter', () => {
       mount(parent: HTMLElement) {
         parent.textContent = 'home';
       }
+      unmount() {}
     }
     const router = new FoxRouter({ '/': HomePage }, '#app');
     router.start();
@@ -150,6 +155,7 @@ describe('FoxRouter', () => {
       mount(parent: HTMLElement) {
         parent.textContent = 'no unmount';
       }
+      unmount() {}
     }
     const router = new FoxRouter({ '/': NoUnmountPage, '/next': NoUnmountPage }, '#app');
     router.start();
@@ -159,7 +165,7 @@ describe('FoxRouter', () => {
   });
 
   it('ignores clicks on anchors without href', () => {
-    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.textContent = 'home' } } }, '#app');
+    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.textContent = 'home' } unmount() {} } }, '#app');
     router.start();
 
     const anchor = document.createElement('a');
@@ -173,7 +179,7 @@ describe('FoxRouter', () => {
 
   it('handles popstate event', () => {
     const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation();
-    expect(new FoxRouter({ '/': class implements Page { mount() { } } }, '#app')).toBeDefined();
+    expect(new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#app')).toBeDefined();
     window.dispatchEvent(new Event('popstate'));
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();

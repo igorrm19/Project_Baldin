@@ -38,4 +38,8 @@ export class CadastroPage extends Main<CadastroProps> {
 
         cadastro.bindButtons(this.container);
     }
+
+    unmount(): void {
+        console.log("[Router] Unmounting CadastroPage and clearing listeners");
+    }
 }

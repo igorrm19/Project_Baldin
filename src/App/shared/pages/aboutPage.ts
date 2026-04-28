@@ -54,6 +54,10 @@ class AboutPage {
 
         this.container.appendChild(formBox);
     }
+
+    unmount(): void {
+        console.log("[Router] Unmounting AboutPage and clearing listeners");
+    }
 }
 
 export { AboutPage };

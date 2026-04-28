@@ -1,4 +1,5 @@
 import type { Page, PageClass } from "./@types/router.types";
+import { actionStack } from "../../../../action.stack";
 
 export class FoxRouter {
     private routes: Map<string, PageClass>;
@@ -30,6 +31,8 @@ export class FoxRouter {
         if (this.currentPage && this.currentPage.unmount) {
             this.currentPage.unmount();
         }
+        
+        actionStack.clear();
 
         const instance = new PageCtor();
         this.currentPage = instance;

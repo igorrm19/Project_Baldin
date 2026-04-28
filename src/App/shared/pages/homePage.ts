@@ -27,5 +27,9 @@ export class HomePage {
         this.container.appendChild(div);
         parent.appendChild(this.container);
     }
+
+    unmount(): void {
+        console.log("[Router] Unmounting HomePage and clearing listeners");
+    }
 }
 
