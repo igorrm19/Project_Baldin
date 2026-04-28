@@ -3,7 +3,8 @@ import { parseInput } from '../../../core/src/module/dom/parseInput';
 describe('parseInput', () => {
   it('calls callback with input details when an input event occurs', () => {
     const container = document.createElement('div');
-    container.innerHTML = '<input id="input-1" placeholder="Test" name="email" type="text" value="initial">';
+    const template = '<input id="input-1" placeholder="Test" name="email" type="text" value="initial">';
+    container.replaceChildren(...Array.from(new DOMParser().parseFromString(template, 'text/html').body.childNodes));
 
     const callback = jest.fn();
     parseInput(container, callback);

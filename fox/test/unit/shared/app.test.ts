@@ -7,10 +7,12 @@ describe('App', () => {
 
     app.loadPage({
       mount(parent: HTMLElement) {
-        parent.innerHTML = '<span>loaded</span>';
+        const span = document.createElement('span');
+        span.textContent = 'loaded';
+        parent.replaceChildren(span);
       },
     });
 
-    expect(container.innerHTML).toContain('loaded');
+    expect(container.textContent).toContain('loaded');
   });
 });

@@ -39,7 +39,7 @@ export class FoxRouter {
             if (!this.containerElement) throw new Error(`${this.containerSelector} not found in DOM`);
         }
 
-        this.containerElement.innerHTML = "";
+        this.containerElement.replaceChildren();
         instance.mount(this.containerElement);
     }
 
