@@ -18,7 +18,7 @@ export class LoginServices {
         const csrfMeta = document.querySelector('meta[name="csrf-token"]');
         const csrfContent = csrfMeta?.getAttribute('content');
         if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined) {
-            throw new Error("Sessão Expirada. Atualize a página.");
+            throw new Error("Session expired. Refresh the page.");
         }
         headers['X-CSRF-Token'] = csrfContent;
         return headers;

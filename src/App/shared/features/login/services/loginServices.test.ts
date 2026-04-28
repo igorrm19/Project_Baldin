@@ -66,6 +66,6 @@ describe('LoginServices', () => {
 
     it('CSRF failures', async () => {
         document.head.innerHTML = '';
-        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('Sessão Expirada');
+        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('Session expired');
     });
 });
