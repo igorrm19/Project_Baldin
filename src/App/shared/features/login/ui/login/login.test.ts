@@ -1,13 +1,12 @@
 import { Login } from './login';
-import { LoginServices } from '../../services/loginServices';
-
-jest.mock('../../services/loginServices');
 
 describe('Login', () => {
     let login: Login;
     let container: HTMLElement;
+    let fetchMock: jest.Mock;
+
     const mockBaseModel = {
-        getHTML: jest.fn().mockReturnValue('<div id="login-form"> <input id="email"> <input id="password"> <button id="submit">Login</button> <button id="admin">Admin</button> <div id="error-message"></div> <div id="email-input-value"></div> </div>'),
+        getHTML: jest.fn().mockReturnValue('<div></div>'),
         mount: jest.fn(),
         addProps: jest.fn(),
         addComponent: jest.fn()
@@ -21,16 +20,26 @@ describe('Login', () => {
     };
 
     beforeEach(() => {
+        fetchMock = jest.fn();
+        globalThis.fetch = fetchMock;
+
         login = new Login(mockBaseModel, mockProps);
-        // @ts-expect-error - testing mock
-        login.loginContainer = document.createElement('div');
-        // @ts-expect-error - testing mock
-        login.loginContainer.innerHTML = '<div id="error-message"></div><div id="email-input-value"></div><input id="email"><input id="password">';
         container = document.createElement('div');
+        
+        const internalContainer = Reflect.get(login, 'loginContainer') as HTMLElement;
+        internalContainer.innerHTML = `
+            <div id="error-message"></div>
+            <div id="email-input-value"></div>
+            <input id="email">
+            <input id="password">
+            <button id="btn-submit">Login</button>
+            <button id="btn-admin">Admin</button>
+        `;
+        
+        container.appendChild(internalContainer);
         document.body.appendChild(container);
         login.mountLogin();
-        // @ts-expect-error - testing mock access private for testing
-        login.bindButtons(login.loginContainer);
+        login.bindButtons(internalContainer);
     });
 
     afterEach(() => {
@@ -40,33 +49,38 @@ describe('Login', () => {
     });
 
     it('handles successful login', async () => {
-        const putUserMock = jest.fn().mockResolvedValue({});
-        (LoginServices as jest.Mock).mockImplementation(() => ({
-            putUser: putUserMock
-        }));
+        fetchMock.mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve({ token: 'mock-token' })
+        });
 
-        // @ts-expect-error - testing mock
-        login.emailValue = 'test@example.com';
-        // @ts-expect-error - testing mock
-        login.passwordValue = 'password';
+        const emailInput = container.querySelector('#email') as HTMLInputElement;
+        emailInput.value = 'test@example.com';
+        emailInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+        const passInput = container.querySelector('#password') as HTMLInputElement;
+        passInput.value = 'password123';
+        passInput.dispatchEvent(new Event('input', { bubbles: true }));
 
         await login.handleSubmit();
 
-        expect(putUserMock).toHaveBeenCalled();
+        expect(fetchMock).toHaveBeenCalled();
+        const fetchArgs = fetchMock.mock.calls[0] as [string, RequestInit];
+        expect(fetchArgs[1]?.method).toBe('PUT');
+        const body = JSON.parse((fetchArgs[1]?.body as string) ?? '{}') as { email: string };
+        expect(body.email).toBe('test@example.com');
+        
         expect(window.location.pathname).toBe('/cadastro');
     });
 
     it('handles login error', async () => {
         const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
-        (LoginServices as jest.Mock).mockImplementation(() => ({
-            putUser: jest.fn().mockRejectedValue(new Error('Login failed'))
-        }));
+        fetchMock.mockRejectedValueOnce(new Error('Network error'));
 
         await login.handleSubmit();
 
         expect(consoleErrorSpy).toHaveBeenCalled();
-        // @ts-expect-error - testing mock
-        const errorMessage = login.loginContainer.querySelector('#error-message');
+        const errorMessage = container.querySelector('#error-message');
         expect(errorMessage?.textContent).toBe('Failed to login. Please check your email and password.');
         consoleErrorSpy.mockRestore();
     });
@@ -85,18 +99,12 @@ describe('Login', () => {
     });
 
     it('updates email and password values on input', () => {
-        // @ts-expect-error - testing mock
-        const emailInput = login.loginContainer.querySelector('#email') as HTMLInputElement;
+        const emailInput = container.querySelector('#email') as HTMLInputElement;
         emailInput.value = 'user@test.com';
-        emailInput.dispatchEvent(new Event('input'));
-        // @ts-expect-error - testing mock
-        expect(login.emailValue).toBe('user@test.com');
+        emailInput.dispatchEvent(new Event('input', { bubbles: true }));
 
-        // @ts-expect-error - testing mock
-        const passInput = login.loginContainer.querySelector('#password') as HTMLInputElement;
-        passInput.value = 'secret';
-        passInput.dispatchEvent(new Event('input'));
-        // @ts-expect-error - testing mock
-        expect(login.passwordValue).toBe('secret');
+        // Test output div updates
+        const output = container.querySelector('#email-input-value');
+        expect(output?.textContent).toBe('user@test.com');
     });
 });

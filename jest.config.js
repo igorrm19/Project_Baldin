@@ -42,7 +42,6 @@ export default {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     moduleNameMapper: {
         '\\.html\\?raw$': '<rootDir>/__mocks__/rawLoaderMock.js',
-        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.js',
-        'servicesConstants$': '<rootDir>/__mocks__/constantsMock.js'
+        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.js'
     }
 };
