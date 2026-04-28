@@ -77,6 +77,3 @@ The repository includes a GitHub Actions workflow that executes:
 - accessibility checks
 - bundle size validation
 - dependency audit
-
-## Notes for interns
-This project is a good learning environment if you want to understand SPA routing, a custom template engine, and the relationships between pages, components, and services. Start by reading `src/main.ts`, `fox/core/src/module/router/router.ts`, `fox/core/src/module/utils/base.model.ts`, and `src/App/shared/features/login/services/loginServices.ts`.
