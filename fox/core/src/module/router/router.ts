@@ -28,7 +28,7 @@ export class FoxRouter {
             return;
         }
 
-        if (this.currentPage && this.currentPage.unmount) {
+        if (this.currentPage !== null && typeof this.currentPage.unmount === "function") {
             this.currentPage.unmount();
         }
         

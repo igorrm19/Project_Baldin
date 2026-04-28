@@ -16,9 +16,11 @@ export class LoginServices {
             'Content-Type': servicesHeaders.contentType,
         };
         const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-        if (csrfMeta) {
-            headers['X-CSRF-Token'] = csrfMeta.getAttribute('content') ?? '';
+        const csrfContent = csrfMeta?.getAttribute('content');
+        if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined) {
+            throw new Error("Sessão Expirada. Atualize a página.");
         }
+        headers['X-CSRF-Token'] = csrfContent;
         return headers;
     }
 
@@ -35,12 +37,14 @@ export class LoginServices {
                 credentials: 'include'
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
@@ -59,12 +63,14 @@ export class LoginServices {
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
@@ -83,12 +89,14 @@ export class LoginServices {
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
@@ -107,12 +115,14 @@ export class LoginServices {
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
