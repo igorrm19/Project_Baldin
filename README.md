@@ -45,6 +45,11 @@ Initialize the project environment by resolving dependencies:
 npm install
 ```
 
+### English-only code policy
+All production code, tests, and user-facing strings must use English. The `npm run lint:english` script enforces this policy, so do not add Portuguese text or temporary spellcheck dictionary entries to bypass the check.
+
+If a string is not in English, translate it rather than adding it to the `.cspell.json` allow list.
+
 ### Execution Environments
 
 #### Development

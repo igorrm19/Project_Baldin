@@ -46,6 +46,9 @@ class AnotherPage implements Page {
     mount() {
         console.log("AnotherPage mounted!");
     }
+    unmount() {
+        console.log("AnotherPage unmounted!");
+    }
 }
 
 const routes = {

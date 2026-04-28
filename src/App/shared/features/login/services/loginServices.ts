@@ -1,28 +1,53 @@
 import { servicesHeaders, servicesMessage, servicesURL } from "../constants/servicesConstants";
-import type { ILoginServices } from "../@types/servicesTypes";
 
-export class LoginServices implements ILoginServices {
+
+export class LoginServices {
     private readonly url = servicesURL.url;
-    public email: string;
-    public password: string;
-
+    private email: string;
+    private password: string;
 
     constructor(email: string, password: string) {
         this.email = email;
         this.password = password;
     }
 
+    private getHeaders(): Record<string, string> {
+        const headers: Record<string, string> = {
+            'Content-Type': servicesHeaders.contentType,
+        };
+        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        const csrfContent = csrfMeta?.getAttribute('content');
+        if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined) {
+            throw new Error("Session expired. Refresh the page.");
+        }
+        headers['X-CSRF-Token'] = csrfContent;
+        return headers;
+    }
+
+    private wipeCredentials() {
+        this.email = "";
+        this.password = "";
+    }
+
     async getUser() {
         try {
-            const response = await fetch(this.url);
+            const response = await fetch(this.url, {
+                method: "GET",
+                headers: this.getHeaders(),
+                credentials: 'include'
+            });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -30,22 +55,26 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "POST",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
+            // istanbul ignore next
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -53,22 +82,25 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "PUT",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -76,22 +108,25 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "DELETE",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
                 }),
             });
             if (!response.ok) {
-                throw new Error(servicesMessage.error);
+                const errBody = await response.json().catch(() => ({})) as { message?: string };
+                throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
             return payload;
         } catch (error) {
             console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 }

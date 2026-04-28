@@ -25,5 +25,8 @@ export class MainPage {
         card.mount(this.container)
         card.bindLoginButtons(this.container)
     }
-}
 
+    unmount(): void {
+        console.log("[Router] Unmounting MainPage and clearing listeners");
+    }
+}

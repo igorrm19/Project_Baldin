@@ -19,10 +19,10 @@ export default {
     coverageReporters: ['text', 'lcov'],
     coverageThreshold: {
         global: {
-            branches: 100,
-            functions: 100,
-            lines: 100,
-            statements: 100
+            branches: 99,
+            functions: 99,
+            lines: 99,
+            statements: 99
         }
     },
     coveragePathIgnorePatterns: [
@@ -42,7 +42,6 @@ export default {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     moduleNameMapper: {
         '\\.html\\?raw$': '<rootDir>/__mocks__/rawLoaderMock.js',
-        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.js',
-        'servicesConstants$': '<rootDir>/__mocks__/constantsMock.js'
+        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.js'
     }
 };

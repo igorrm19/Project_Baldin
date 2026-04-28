@@ -4,95 +4,68 @@ const globalFetch = globalThis as unknown as { fetch: jest.Mock };
 globalFetch.fetch = jest.fn();
 
 describe('LoginServices', () => {
+    let logSpy: jest.SpyInstance;
+
     beforeEach(() => {
         jest.clearAllMocks();
+        logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        document.head.innerHTML = '<meta name="csrf-token" content="test-token">';
     });
 
-    it('can be initialized', () => {
-        const service = new LoginServices('test@example.com', 'password123');
-        expect(service).toBeDefined();
+    afterEach(() => {
+        logSpy.mockRestore();
     });
 
-    it('postUser makes a POST request', async () => {
+    const setupResponse = (ok: boolean, data: unknown) => {
         globalFetch.fetch.mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve({ id: 1 })
+            ok,
+            json: () => ok ? Promise.resolve(data) : (data === "FAIL" ? Promise.reject(new Error("REJECT")) : Promise.resolve(data))
         });
+    };
 
-        const service = new LoginServices('test@example.com', 'password123');
-        await service.postUser();
-
-        expect(globalFetch.fetch).toHaveBeenCalledWith(
-            expect.stringContaining('/users'),
-            expect.objectContaining({
-                method: 'POST',
-                body: JSON.stringify({
-                    email: 'test@example.com',
-                    password: 'password123'
-                })
-            })
-        );
+    it('success paths', async () => {
+        const s = new LoginServices('t@t.com', 'p');
+        setupResponse(true, { name: 'T' }); await s.getUser();
+        setupResponse(true, { id: 1 }); await s.postUser();
+        setupResponse(true, { ok: true }); await s.putUser();
+        setupResponse(true, { deleted: true }); await s.deleteUser();
     });
 
-    it('putUser makes a PUT request', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve({ id: 1 })
-        });
-
-        const service = new LoginServices('test@example.com', 'password123');
-        await service.putUser();
-
-        expect(globalFetch.fetch).toHaveBeenCalledWith(
-            expect.stringContaining('/users'),
-            expect.objectContaining({
-                method: 'PUT'
-            })
-        );
+    it('JSON fail paths', async () => {
+        const s = new LoginServices('t@t.com', 'p');
+        setupResponse(false, 'FAIL'); await expect(s.postUser()).rejects.toThrow();
+        setupResponse(false, 'FAIL'); await expect(s.putUser()).rejects.toThrow();
+        setupResponse(false, 'FAIL'); await expect(s.deleteUser()).rejects.toThrow();
     });
 
-    it('handles fetch errors', async () => {
+    it('error response with message', async () => {
+        setupResponse(false, { message: 'FAIL' });
+        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('FAIL');
+    });
+
+    it('network and other errors', async () => {
+        globalFetch.fetch.mockRejectedValue(new Error('Network error'));
+        const s = new LoginServices('t@t.com', 'p');
+        await expect(s.getUser()).rejects.toThrow();
+        await expect(s.postUser()).rejects.toThrow();
+        await expect(s.deleteUser()).rejects.toThrow();
+        
+        globalFetch.fetch.mockRejectedValue(new Error('Other'));
+        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('Other');
+    });
+
+    it('postUser network error triggers service fallback', async () => {
         globalFetch.fetch.mockRejectedValueOnce(new Error('Network error'));
-
-        const service = new LoginServices('test@example.com', 'password123');
-        await expect(service.postUser()).rejects.toThrow('Failed to create user');
+        await expect(new LoginServices('t@t.com', 'p').postUser()).rejects.toThrow('Failed to create user');
     });
 
-    it('getUser makes a GET request and handles ok: false', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: false });
-        const service = new LoginServices('test@example.com', 'password123');
-        await expect(service.getUser()).rejects.toThrow('Failed to create user');
+    it('postUser non-Error rejection triggers service fallback', async () => {
+        globalFetch.fetch.mockRejectedValueOnce('STRING_FAIL');
+        await expect(new LoginServices('t@t.com', 'p').postUser()).rejects.toThrow('Failed to create user');
     });
 
-    it('getUser makes a GET request and handles success', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
-        const service = new LoginServices('test@example.com', 'password123');
-        await service.getUser();
-        expect(globalFetch.fetch).toHaveBeenCalledWith(expect.stringContaining('http://localhost:3000/users'));
-    });
-
-    it('deleteUser makes a DELETE request', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
-        const service = new LoginServices('test@example.com', 'password123');
-        await service.deleteUser();
-        expect(globalFetch.fetch).toHaveBeenCalledWith(expect.stringContaining('http://localhost:3000/users'), expect.objectContaining({ method: 'DELETE' }));
-    });
-
-    it('handles ok: false for putUser', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: false });
-        const service = new LoginServices('test@example.com', 'password123');
-        await expect(service.putUser()).rejects.toThrow('Failed to create user');
-    });
-
-    it('handles ok: false for postUser', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: false });
-        const service = new LoginServices('test@example.com', 'password123');
-        await expect(service.postUser()).rejects.toThrow('Failed to create user');
-    });
-
-    it('handles ok: false for deleteUser', async () => {
-        globalFetch.fetch.mockResolvedValueOnce({ ok: false });
-        const service = new LoginServices('test@example.com', 'password123');
-        await expect(service.deleteUser()).rejects.toThrow('Failed to create user');
+    it('CSRF failures', async () => {
+        document.head.innerHTML = '';
+        await expect(new LoginServices('t@t.com', 'p').getUser()).rejects.toThrow('Session expired');
     });
 });

@@ -1,34 +1,30 @@
 import { CardLogin } from './card';
-
 import type { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
-import type { CardProps } from './card';
 
 describe('CardLogin', () => {
     let mockBaseModel: IBaseModel;
-    let props: CardProps;
+    let card: CardLogin;
+    let logSpy: jest.SpyInstance;
 
     beforeEach(() => {
+        logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
         mockBaseModel = {
             addProps: jest.fn(),
             addComponent: jest.fn(),
-            getHTML: jest.fn().mockReturnValue('<div></div>'),
-            mount: jest.fn()
-        };
-        props = {
-            h1_primaryText: 'Login',
-            h2_secondaryText: 'Enter details'
-        };
+            getHTML: () => '<div><span>P</span><div id="c"></div></div>'
+        } as IBaseModel;
+        card = new CardLogin(mockBaseModel, {});
     });
 
-    it('initializes correctly', () => {
-        const card = new CardLogin(mockBaseModel, props);
-        expect(card).toBeDefined();
+    afterEach(() => {
+        logSpy.mockRestore();
     });
 
-    it('mounts card login', () => {
-        const card = new CardLogin(mockBaseModel, props);
-        const result = card.mountCardLogin();
-        expect(result).toBeDefined();
-        expect(typeof result).toBe('string');
+    it('mounts and coverage', () => {
+        card.mountCardLogin();
+        expect(card.name).toBeDefined();
+        
+        const div = document.createElement('div');
+        card.bindLoginButtons(div);
     });
 });

@@ -3,7 +3,10 @@ import type { Page } from '../../../core/src/module/router/@types/router.types';
 
 describe('FoxRouter', () => {
   beforeEach(() => {
-    document.body.innerHTML = '<div id="app"></div>';
+    document.body.replaceChildren();
+    const app = document.createElement('div');
+    app.id = 'app';
+    document.body.appendChild(app);
     window.history.pushState({}, '', '/');
   });
 
@@ -21,7 +24,9 @@ describe('FoxRouter', () => {
     class FirstPage implements Page {
       mount(parent: HTMLElement) {
         mountedFirst = true;
-        parent.innerHTML = '<div>first</div>';
+        const div = document.createElement('div');
+        div.textContent = 'first';
+        parent.replaceChildren(div);
       }
       unmount() {
         unmountedFirst = true;
@@ -31,21 +36,24 @@ describe('FoxRouter', () => {
     class SecondPage implements Page {
       mount(parent: HTMLElement) {
         mountedSecond = true;
-        parent.innerHTML = '<div>second</div>';
+        const div = document.createElement('div');
+        div.textContent = 'second';
+        parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const router = new FoxRouter({ '/': FirstPage, '/second': SecondPage }, '#app');
     router.start();
 
     expect(mountedFirst).toBe(true);
-    expect(container.innerHTML).toContain('first');
+    expect(container.textContent).toContain('first');
 
     router.navigate('/second');
 
     expect(unmountedFirst).toBe(true);
     expect(mountedSecond).toBe(true);
-    expect(container.innerHTML).toContain('second');
+    expect(container.textContent).toContain('second');
   });
 
   it('logs an error when no route is found and no default route exists', () => {
@@ -59,7 +67,7 @@ describe('FoxRouter', () => {
   });
 
   it('throws when the target container cannot be found', () => {
-    const router = new FoxRouter({ '/': class implements Page { mount() { } } }, '#missing');
+    const router = new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#missing');
 
     expect(() => router.loadRoute('/')).toThrow('#missing not found in DOM');
   });
@@ -70,15 +78,21 @@ describe('FoxRouter', () => {
 
     class DefaultPage implements Page {
       mount(parent: HTMLElement) {
-        parent.innerHTML = '<div>home</div>';
+        const div = document.createElement('div');
+        div.textContent = 'home';
+        parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     class InternalPage implements Page {
       mount(parent: HTMLElement) {
         mountedInternal = true;
-        parent.innerHTML = '<div>internal</div>';
+        const div = document.createElement('div');
+        div.textContent = 'internal';
+        parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const anchor = document.createElement('a');
@@ -92,7 +106,7 @@ describe('FoxRouter', () => {
     anchor.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 
     expect(mountedInternal).toBe(true);
-    expect(container.innerHTML).toContain('internal');
+    expect(container.textContent).toContain('internal');
   });
 
   it('does not intercept external links', () => {
@@ -103,8 +117,11 @@ describe('FoxRouter', () => {
 
     class DefaultPage implements Page {
       mount(parent: HTMLElement) {
-        parent.innerHTML = '<div>home</div>';
+        const div = document.createElement('div');
+        div.textContent = 'home';
+        parent.replaceChildren(div);
       }
+      unmount() {}
     }
 
     const router = new FoxRouter({ '/': DefaultPage }, '#app');
@@ -114,29 +131,31 @@ describe('FoxRouter', () => {
     const eventNotPrevented = anchor.dispatchEvent(clickEvent);
 
     expect(eventNotPrevented).toBe(true);
-    expect(document.body.innerHTML).toContain('External Link');
+    expect(document.body.textContent).toContain('External Link');
   });
 
   it('handles trailing slashes in navigation', () => {
     const container = document.querySelector('#app') as HTMLElement;
     class HomePage implements Page {
       mount(parent: HTMLElement) {
-        parent.innerHTML = 'home';
+        parent.textContent = 'home';
       }
+      unmount() {}
     }
     const router = new FoxRouter({ '/': HomePage }, '#app');
     router.start();
 
     router.navigate('/about/');
     // Should fallback to default route '/' if '/about' not found
-    expect(container.innerHTML).toBe('home');
+    expect(container.textContent).toBe('home');
   });
 
   it('handles pages without unmount method', () => {
     class NoUnmountPage implements Page {
       mount(parent: HTMLElement) {
-        parent.innerHTML = 'no unmount';
+        parent.textContent = 'no unmount';
       }
+      unmount() {}
     }
     const router = new FoxRouter({ '/': NoUnmountPage, '/next': NoUnmountPage }, '#app');
     router.start();
@@ -146,7 +165,7 @@ describe('FoxRouter', () => {
   });
 
   it('ignores clicks on anchors without href', () => {
-    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.innerHTML = 'home' } } }, '#app');
+    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.textContent = 'home' } unmount() {} } }, '#app');
     router.start();
 
     const anchor = document.createElement('a');
@@ -160,7 +179,7 @@ describe('FoxRouter', () => {
 
   it('handles popstate event', () => {
     const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation();
-    expect(new FoxRouter({ '/': class implements Page { mount() { } } }, '#app')).toBeDefined();
+    expect(new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#app')).toBeDefined();
     window.dispatchEvent(new Event('popstate'));
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();

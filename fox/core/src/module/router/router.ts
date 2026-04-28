@@ -1,4 +1,5 @@
 import type { Page, PageClass } from "./@types/router.types";
+import { actionStack } from "../../../../action.stack";
 
 export class FoxRouter {
     private routes: Map<string, PageClass>;
@@ -27,9 +28,11 @@ export class FoxRouter {
             return;
         }
 
-        if (this.currentPage && this.currentPage.unmount) {
+        if (this.currentPage !== null && typeof this.currentPage.unmount === "function") {
             this.currentPage.unmount();
         }
+        
+        actionStack.clear();
 
         const instance = new PageCtor();
         this.currentPage = instance;
@@ -39,7 +42,7 @@ export class FoxRouter {
             if (!this.containerElement) throw new Error(`${this.containerSelector} not found in DOM`);
         }
 
-        this.containerElement.innerHTML = "";
+        this.containerElement.replaceChildren();
         instance.mount(this.containerElement);
     }
 

@@ -10,6 +10,7 @@ export class Login extends Main<LoginProps> {
     protected readonly loginContainer: HTMLElement
     protected emailValue: string = ""
     protected passwordValue: string = ""
+    private isSubmitting: boolean = false
 
     constructor(baseModel: IBaseModel, props: LoginProps) {
         super(baseModel, props)
@@ -17,15 +18,25 @@ export class Login extends Main<LoginProps> {
     }
 
     async handleSubmit() {
+        if (this.isSubmitting) return;
+
         const errorMessage = this.loginContainer.querySelector("#error-message");
+        const errorEl = errorMessage as HTMLElement | null;
+
+        if (!this.emailValue || this.passwordValue.length < 6) {
+            if (errorEl) {
+                errorEl.classList.remove("hidden");
+                errorEl.textContent = "Please fill in the email and a password of at least 6 characters.";
+            }
+            return;
+        }
+
+        this.isSubmitting = true;
 
         try {
-            if (errorMessage instanceof HTMLElement) {
-                errorMessage.classList.add("hidden");
-                errorMessage.textContent = "";
-
-                history.pushState({}, "", "/cadastro")
-                window.dispatchEvent(new Event('popstate'))
+            if (errorEl) {
+                errorEl.classList.add("hidden");
+                errorEl.textContent = "";
             }
 
             const loginServices = new LoginServices(this.emailValue, this.passwordValue)
@@ -34,20 +45,15 @@ export class Login extends Main<LoginProps> {
             history.pushState({}, "", "/cadastro")
             window.dispatchEvent(new Event('popstate'))
 
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Login error:", error)
 
-            // Keeping for now
-            history.pushState({}, "", "/cadastro")
-            window.dispatchEvent(new Event('popstate'))
-
-            if (errorMessage instanceof HTMLElement) {
-                errorMessage.classList.remove("hidden");
-                errorMessage.textContent = "Failed to login. Please check your email and password.";
-
-                history.pushState({}, "", "/cadastro")
-                window.dispatchEvent(new Event('popstate'))
+            if (errorEl) {
+                errorEl.classList.remove("hidden");
+                errorEl.textContent = "Failed to login. Please check your email and password.";
             }
+        } finally {
+            this.isSubmitting = false;
         }
     }
 
