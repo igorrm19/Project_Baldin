@@ -1,4 +1,4 @@
-import { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
+import type { IBaseModel } from "../../../../../../../fox/core/src/@types/base.model.interface"
 import { Login } from './login';
 import type { LoginProps } from '../../@types/LoginProps';
 

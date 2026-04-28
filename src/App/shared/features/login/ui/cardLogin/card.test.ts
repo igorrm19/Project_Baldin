@@ -1,5 +1,5 @@
 import { CardLogin } from './card';
-import { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
+import type { IBaseModel } from '../../../../../../../fox/core/src/@types/base.model.interface';
 
 describe('CardLogin', () => {
     let mockBaseModel: IBaseModel;
