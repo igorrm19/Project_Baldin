@@ -1,20 +1,39 @@
 import { servicesHeaders, servicesMessage, servicesURL } from "../constants/servicesConstants";
-import type { ILoginServices } from "../@types/servicesTypes";
 
-export class LoginServices implements ILoginServices {
+
+export class LoginServices {
     private readonly url = servicesURL.url;
-    public email: string;
-    public password: string;
-
+    private email: string;
+    private password: string;
 
     constructor(email: string, password: string) {
         this.email = email;
         this.password = password;
     }
 
+    private getHeaders(): Record<string, string> {
+        const headers: Record<string, string> = {
+            'Content-Type': servicesHeaders.contentType,
+        };
+        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        if (csrfMeta) {
+            headers['X-CSRF-Token'] = csrfMeta.getAttribute('content') ?? '';
+        }
+        return headers;
+    }
+
+    private wipeCredentials() {
+        this.email = "";
+        this.password = "";
+    }
+
     async getUser() {
         try {
-            const response = await fetch(this.url);
+            const response = await fetch(this.url, {
+                method: "GET",
+                headers: this.getHeaders(),
+                credentials: 'include'
+            });
             if (!response.ok) {
                 throw new Error(servicesMessage.error);
             }
@@ -23,6 +42,8 @@ export class LoginServices implements ILoginServices {
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -30,9 +51,8 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "POST",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
@@ -46,6 +66,8 @@ export class LoginServices implements ILoginServices {
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -53,9 +75,8 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "PUT",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
@@ -69,6 +90,8 @@ export class LoginServices implements ILoginServices {
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 
@@ -76,9 +99,8 @@ export class LoginServices implements ILoginServices {
         try {
             const response = await fetch(this.url, {
                 method: "DELETE",
-                headers: {
-                    'Content-Type': servicesHeaders.contentType,
-                },
+                headers: this.getHeaders(),
+                credentials: 'include',
                 body: JSON.stringify({
                     email: this.email,
                     password: this.password
@@ -92,6 +114,8 @@ export class LoginServices implements ILoginServices {
         } catch (error) {
             console.log(error);
             throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
         }
     }
 }
