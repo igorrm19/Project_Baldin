@@ -5,6 +5,7 @@ import { AboutPage } from './App/shared/pages/aboutPage';
 import { test } from './convert.stringtoobject';
 import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
+import { AFD } from '../fox/core/src/module/dom/AFD/afd';
 
 
 import { actionStack } from '../fox/action.stack';
@@ -32,6 +33,12 @@ const routes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const router = new FoxRouter(routes);
+  const afd = new AFD('q0');
+  
+  // Example usage of AFD
+  afd.transition('a');
+  afd.transition('/');
+  console.log(`Is accepting state: ${afd.isAccepting()}`); // Should print true if in q3
   router.start();
 });
 
