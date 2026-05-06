@@ -1,7 +1,7 @@
 // Automatos com pilha
 
 interface ActionItem {
-    id: number;
+    estado: string;
     label: string;
     action: () => void;
 }
@@ -20,7 +20,7 @@ export class AutomatoPilha{
         
         this.pilha = [...this.nome].map((caractere, index) => {
         return {
-            id: index,               // Atribui um ID baseado na posição
+            estado: `q${index}`,              // Atribui um ID baseado na posição
             label: caractere,        // Armazena a letra no label
             action: () => {}         // Define uma função vazia ou padrão
         } as ActionItem;             // Garante que o objeto segue o contrato do seu tipo
@@ -36,7 +36,7 @@ export class AutomatoPilha{
         console.log(`Estado Atual: q${this.estadoAtual}`)
         console.log("Pilha:")
         this.pilha.forEach(item => {
-            console.log(`ID: ${item.id}, Label: ${item.label}`)
+            console.log(`Estado: ${item.estado}, Label: ${item.label}`)
         })
     }
 }
