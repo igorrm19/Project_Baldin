@@ -5,6 +5,8 @@ import { AboutPage } from './App/shared/pages/aboutPage';
 import { test } from './convert.stringtoobject';
 import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
+import { AFD } from '../fox/core/src/module/dom/AFD/afd';
+import { AutomatoPilha } from '../fox/core/src/module/dom/AFD/algebra_linear/hilbert';
 
 
 import { actionStack } from '../fox/action.stack';
@@ -32,7 +34,13 @@ const routes = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const router = new FoxRouter(routes);
+  const afd = new AFD('q0');
+
   router.start();
+
+  const automato = new AutomatoPilha("Igor");
+  automato.setPilha();
+  automato.view();
 });
 
 
