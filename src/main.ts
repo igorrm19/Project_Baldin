@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router.start();
 
-  const automato = new AutomatoPilha("Exemplo de Automato com Pilha");
+  const automato = new AutomatoPilha("Igor");
   automato.setPilha();
   automato.view();
 });

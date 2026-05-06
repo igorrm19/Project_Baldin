@@ -10,6 +10,7 @@ export class AutomatoPilha{
     private estadoAtual: number = 0
     private nome: string = ""
     private pilha: ActionItem[] = []
+    private aceita = "igor"
 
 
     constructor(nome: string){
@@ -20,11 +21,11 @@ export class AutomatoPilha{
         
         this.pilha = [...this.nome].map((caractere, index) => {
         return {
-            estado: `q${index}`,              // Atribui um ID baseado na posição
-            label: caractere,        // Armazena a letra no label
-            action: () => {}         // Define uma função vazia ou padrão
-        } as ActionItem;             // Garante que o objeto segue o contrato do seu tipo
-        });
+            estado: `q${index}`,              
+            label: caractere,        
+            action: () => {}         
+        } as ActionItem;          
+        })
     }
 
     getPilha(){
@@ -33,10 +34,12 @@ export class AutomatoPilha{
 
     view(){
         console.log(`Automato: ${this.nome}`)
-        console.log(`Estado Atual: q${this.estadoAtual}`)
+        this.aceita === this.nome ? console.log("Automato aceito") : console.log("Automato não aceito")
         console.log("Pilha:")
         this.pilha.forEach(item => {
             console.log(`Estado: ${item.estado}, Label: ${item.label}`)
+            this.estadoAtual++
         })
+        console.log(`Estado Atual: q${this.estadoAtual}`)
     }
 }
