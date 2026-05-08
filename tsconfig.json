@@ -4,7 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client", "jest"],
+    "types": ["vite/client", "jest", "node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -26,5 +26,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "fox", "test_router.ts", "eslint.config.ts"]
+  "include": ["src", "fox", "test_router.ts", "eslint.config.ts", "backEnd/**/*.ts"]
 }
