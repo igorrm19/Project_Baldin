@@ -22,12 +22,12 @@ export class Cadastro extends Main<CardProps> {
         this.registrationContainer = document.createElement("div")
     }
 
-    mountRegistration() {
+    mountRegistration(): void {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         this.registrationContainer.replaceChildren(...Array.from(doc.body.childNodes));
     }
 
-    async handleSubmit() {
+    async handleSubmit(): Promise<void> {
         if (this.isSubmitting) return;
 
         const errorMessage = this.registrationContainer.querySelector("#error-message");
@@ -68,7 +68,7 @@ export class Cadastro extends Main<CardProps> {
         }
     }
 
-    bindButtons(domContainer: HTMLElement) {
+    bindButtons(domContainer: HTMLElement): void {
         // Bind primary and secondary button clicks
         parseButton(domContainer, [
             this.handleSubmit.bind(this),
@@ -87,7 +87,7 @@ export class Cadastro extends Main<CardProps> {
         })
     }
 
-    handleAdminAccess() {
+    handleAdminAccess(): void {
         console.log("Admin access triggered")
     }
 }

@@ -13,6 +13,7 @@ export default {
         '!src/**/*.d.ts',
         '!fox/**/test/**',
         '!fox/core/src/@types/**/*.ts',
+        '!fox/core/src/module/dom/AFD/**',
         '!src/vite-env.d.ts'
     ],
     coverageDirectory: 'coverage',
@@ -28,6 +29,7 @@ export default {
     coveragePathIgnorePatterns: [
         '/fox/test/', 
         '/fox/core/src/@types/', 
+        '/fox/core/src/module/dom/AFD/',
         'servicesConstants.ts'
     ],
     transform: {

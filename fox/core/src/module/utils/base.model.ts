@@ -39,20 +39,20 @@ export class BaseModel implements IBaseModel {
         })
     }
 
-    private loadTemplate() {
+    private loadTemplate(): void {
         const html = this.compileChild(this.compileEngine(this.html));
         const documentFragment = new DOMParser().parseFromString(html, 'text/html').body;
         this.element.replaceChildren(...Array.from(documentFragment.childNodes));
     }
 
 
-    public addProps(context: Record<string, unknown>) {
+    public addProps(context: Record<string, unknown>): void {
         Object.entries(context).forEach(([key, value]) => {
             this.context.set(key, value)
         })
     }
 
-    public addComponent(axe: ComponentMap) {
+    public addComponent(axe: ComponentMap): void {
         Object.entries(axe).forEach(([key, value]) => {
             this.axe.set(key, value)
         })
@@ -66,7 +66,7 @@ export class BaseModel implements IBaseModel {
     }
 
 
-    public mount(parent: HTMLElement) {
+    public mount(parent: HTMLElement): void {
         if (this.mounted) {
             console.warn("[BaseModel] mount() was called more than once. Skipping duplicate render.");
             return;

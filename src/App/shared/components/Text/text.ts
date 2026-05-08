@@ -14,7 +14,7 @@ export class TextHTML extends BaseModel {
         this.styleClass = styleClass
     }
 
-    mountText(domContainer: HTMLElement) {
+    mountText(domContainer: HTMLElement): void {
         this.addProps({
             text: this.text,
             styleClass: this.styleClass

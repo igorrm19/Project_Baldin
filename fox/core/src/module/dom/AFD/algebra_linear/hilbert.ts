@@ -10,33 +10,37 @@ export class AutomatoPilha{
     private estadoAtual: number = 0
     private nome: string = ""
     private pilha: ActionItem[] = []
-    private aceita = "igor"
+    private aceita: string = "igor"
 
 
     constructor(nome: string){
         this.nome = nome
     }
 
-    private setPilha(){
+    private setPilha(): void {
         
         this.pilha = [...this.nome].map((caractere, index) => {
-        return {
-            estado: `q${index}`,              
-            label: caractere,        
-            action: () => {}         
-        } as ActionItem;          
+            return {
+                estado: `q${index}`,
+                label: caractere,
+                action: () => {}
+            }
         })
     }
 
-    getPilha(){
+    getPilha(): ActionItem[] {
         return this.pilha
     }
 
-    view(){
+    view(): void {
         this.setPilha()
 
         console.log(`Automato: ${this.nome}`)
-        this.aceita === this.nome ? console.log("Automato aceito") : console.log("Automato não aceito")
+        if (this.aceita === this.nome) {
+            console.log("Automato aceito")
+        } else {
+            console.log("Automato não aceito")
+        }
         console.log("Pilha:")
 
         this.pilha.forEach(item => {

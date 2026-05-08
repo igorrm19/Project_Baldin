@@ -24,12 +24,12 @@ export class LoginServices {
         return headers;
     }
 
-    private wipeCredentials() {
+    private wipeCredentials(): void {
         this.email = "";
         this.password = "";
     }
 
-    async getUser() {
+    async getUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {
                 method: "GET",
@@ -51,7 +51,7 @@ export class LoginServices {
         }
     }
 
-    async postUser() {
+    async postUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {
                 method: "POST",
@@ -78,7 +78,7 @@ export class LoginServices {
         }
     }
 
-    async putUser() {
+    async putUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {
                 method: "PUT",
@@ -104,7 +104,7 @@ export class LoginServices {
         }
     }
 
-    async deleteUser() {
+    async deleteUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {
                 method: "DELETE",

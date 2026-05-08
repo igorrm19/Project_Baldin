@@ -14,12 +14,12 @@ export class FoxRouter {
         window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
     }
 
-    public navigate(path: string) {
+    public navigate(path: string): void {
         history.pushState({}, "", path);
         this.loadRoute(path);
     }
 
-    public loadRoute(path: string) {
+    public loadRoute(path: string): void {
         const normalizedPath = path.replace(/\/+$/, '') || '/';
         const PageCtor = this.routes.get(normalizedPath) || this.routes.get("/");
 
@@ -46,7 +46,7 @@ export class FoxRouter {
         instance.mount(this.containerElement);
     }
 
-    private setupLinkInterception() {
+    private setupLinkInterception(): void {
         document.addEventListener("click", (event) => {
             const target = event.target as HTMLElement;
             const anchor = target.closest("a");
@@ -63,7 +63,7 @@ export class FoxRouter {
         });
     }
 
-    public start() {
+    public start(): void {
         this.setupLinkInterception();
         this.loadRoute(window.location.pathname);
     }
