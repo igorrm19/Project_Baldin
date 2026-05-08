@@ -17,7 +17,7 @@ export class AutomatoPilha{
         this.nome = nome
     }
 
-    setPilha(){
+    private setPilha(){
         
         this.pilha = [...this.nome].map((caractere, index) => {
         return {
@@ -33,13 +33,17 @@ export class AutomatoPilha{
     }
 
     view(){
+        this.setPilha()
+
         console.log(`Automato: ${this.nome}`)
         this.aceita === this.nome ? console.log("Automato aceito") : console.log("Automato não aceito")
         console.log("Pilha:")
+
         this.pilha.forEach(item => {
             console.log(`Estado: ${item.estado}, Label: ${item.label}`)
             this.estadoAtual++
         })
+        
         console.log(`Estado Atual: q${this.estadoAtual}`)
     }
 }
