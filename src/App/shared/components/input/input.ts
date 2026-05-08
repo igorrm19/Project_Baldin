@@ -20,7 +20,7 @@ export class InputHTML extends BaseModel {
         this.value = value
     }
 
-    mountInput(domContainer: HTMLElement) {
+    mountInput(domContainer: HTMLElement): void {
         // Sends properties to BaseModel to compile the template {{name}}, {{type}}, etc.
         this.addProps({
             name: this.name,

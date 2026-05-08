@@ -10,14 +10,14 @@ export class AutomatoPilha{
     private estadoAtual: number = 0
     private nome: string = ""
     private pilha: ActionItem[] = []
-    private aceita = "igor"
+    private aceita: string = "igor"
 
 
     constructor(nome: string){
         this.nome = nome
     }
 
-    private setPilha(){
+    private setPilha(): void {
         
         this.pilha = [...this.nome].map((caractere, index) => {
             return {
@@ -28,11 +28,11 @@ export class AutomatoPilha{
         })
     }
 
-    getPilha(){
+    getPilha(): ActionItem[] {
         return this.pilha
     }
 
-    view(){
+    view(): void {
         this.setPilha()
 
         console.log(`Automato: ${this.nome}`)

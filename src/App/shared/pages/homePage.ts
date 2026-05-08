@@ -8,11 +8,11 @@ export class HomePage {
         this.setupStyles();
     }
 
-    private setupStyles() {
+    private setupStyles(): void {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement) {
+    mount(parent: HTMLElement): void {
 
         const div = document.createElement("div");
         div.classList.add("home-content-box");

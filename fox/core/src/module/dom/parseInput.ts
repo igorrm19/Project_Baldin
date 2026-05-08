@@ -3,7 +3,7 @@ import type { ActionItem } from "./@types/dom.types";
 export function parseInput(
     container: HTMLElement,
     callback: (data: ActionItem) => void
-) {
+): void {
     const elementInput = container.querySelectorAll("input");
 
     elementInput.forEach((input) => {

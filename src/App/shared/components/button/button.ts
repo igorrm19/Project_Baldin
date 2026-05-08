@@ -18,7 +18,7 @@ export class ButtonHTML extends BaseModel {
         this.type = type
     }
 
-    mountButton(domContainer: HTMLElement) {
+    mountButton(domContainer: HTMLElement): void {
         this.addProps({
             text: this.text,
             id: this.id,

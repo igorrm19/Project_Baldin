@@ -17,7 +17,7 @@ export class Login extends Main<LoginProps> {
         this.loginContainer = document.createElement("div")
     }
 
-    async handleSubmit() {
+    async handleSubmit(): Promise<void> {
         if (this.isSubmitting) return;
 
         const errorMessage = this.loginContainer.querySelector("#error-message");
@@ -57,7 +57,7 @@ export class Login extends Main<LoginProps> {
         }
     }
 
-    handleAdminAccess(domContainer: HTMLElement) {
+    handleAdminAccess(domContainer: HTMLElement): void {
         const successFeedback = document.createElement("p")
         if (typeof this.props.value === "string" && this.props.value.length > 0) {
             successFeedback.textContent = this.props.value
@@ -68,14 +68,14 @@ export class Login extends Main<LoginProps> {
         domContainer.appendChild(successFeedback)
     }
 
-    mountLogin() {
+    mountLogin(): void {
         const text = new TextHTML("")
         text.addProps({ text: this.props.h1_primaryText })
         text.addComponent({ par: text.getHTML() })
         text.mount(this.loginContainer)
     }
 
-    bindButtons(domContainer: HTMLElement) {
+    bindButtons(domContainer: HTMLElement): void {
         parseButton(domContainer, [
             this.handleSubmit.bind(this),
             this.handleAdminAccess.bind(this, domContainer)

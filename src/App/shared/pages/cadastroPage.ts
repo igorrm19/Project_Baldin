@@ -15,11 +15,11 @@ export class CadastroPage extends Main<CadastroProps> {
         this.setupStyles();
     }
 
-    setupStyles() {
+    setupStyles(): void {
         this.container.classList.add("responsive-page");
     }
 
-    override mount(parent: HTMLElement) {
+    override mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
         const cadastro = new Cadastro(new BaseModel("div", registrationHTML), {});

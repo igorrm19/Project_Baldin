@@ -8,7 +8,7 @@ export class App {
   }
 
 
-  loadPage(page: { mount: (parent: HTMLElement) => void }) {
+  loadPage(page: { mount: (parent: HTMLElement) => void }): void {
     this.container.innerHTML = ""
 
     page.mount(this.container)

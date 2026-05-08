@@ -9,11 +9,11 @@ export class MainPage {
         this.setupStyles();
     }
 
-    setupStyles() {
+    setupStyles(): void {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement) {
+    mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
 

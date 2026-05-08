@@ -15,7 +15,7 @@ export class ImageHTML extends BaseModel {
         this.alt = alt
     }
 
-    mountImage(domContainer: HTMLElement) {
+    mountImage(domContainer: HTMLElement): void {
         this.addProps({
             src: this.src,
             alt: this.alt

@@ -17,12 +17,12 @@ class ActionStack {
     private stack: ActionItem[] = [];
     private listeners: ((item: ActionItem) => void)[] = [];
 
-    push(item: ActionItem) {
+    push(item: ActionItem): void {
         this.stack.push(item);
         this.listeners.forEach(listener => listener(item));
     }
 
-    subscribe(listener: (item: ActionItem) => void) {
+    subscribe(listener: (item: ActionItem) => void): () => void {
         this.listeners.push(listener);
         return () => {
             this.listeners = this.listeners.filter(l => l !== listener);
@@ -37,7 +37,7 @@ class ActionStack {
         return [...this.stack];
     }
 
-    clear() {
+    clear(): void {
         this.stack = [];
     }
 }

@@ -60,9 +60,21 @@ export default tseslint.config(
       "@typescript-eslint/no-unsafe-assignment": "error",
       "@typescript-eslint/no-unsafe-member-access": "error",
       "@typescript-eslint/no-unsafe-call": "error",
+      "@typescript-eslint/explicit-function-return-type": ["error", {
+        "allowExpressions": true,
+        "allowTypedFunctionExpressions": true,
+        "allowHigherOrderFunctions": true,
+        "allowConciseArrowFunctionExpressionsStartingWithVoid": true
+      }],
       "no-unsanitized/method": "error",
       "no-unsanitized/property": "error",
     },
+  },
+  {
+    files: ["**/*.{test,spec}.ts", "test_router.ts"],
+    rules: {
+      "@typescript-eslint/explicit-function-return-type": "off"
+    }
   },
   {
     files: ["**/*.{js,mjs,cjs}"],

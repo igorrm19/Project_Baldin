@@ -49,7 +49,7 @@ export class CardLogin extends Main<CardProps> {
         return registrationHTML
     }
 
-    bindLoginButtons(domContainer: HTMLElement) {
+    bindLoginButtons(domContainer: HTMLElement): void {
         if (this.authInstance) {
             this.authInstance.bindButtons(domContainer)
         }

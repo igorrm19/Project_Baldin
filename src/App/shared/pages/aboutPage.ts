@@ -11,11 +11,11 @@ class AboutPage {
         this.setupStyles();
     }
 
-    private setupStyles() {
+    private setupStyles(): void {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement) {
+    mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
         const formBox = document.createElement("div");
