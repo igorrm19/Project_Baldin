@@ -5,6 +5,9 @@ export default defineConfig({
   server: {
     historyApiFallback: true,
   },
+  build: {
+    sourcemap: true
+  },
   plugins: [
     visualizer({
       filename: '.vite-stats.json',
