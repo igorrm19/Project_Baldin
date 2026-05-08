@@ -18,7 +18,7 @@
     "html:validate": "html-validate -c .htmlvalidate.json 'src/**/*.html' 'fox/**/*.html'",
     "a11y": "pa11y-ci --config .pa11yci.json",
     "bundle:check": "node ./scripts/check-bundle-size.js",
-    "lint:english": "cspell \"**/*\""
+    "lint:english": "cspell \"**/*\" --exclude node_modules --exclude backEnd/node_modules --exclude .git"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

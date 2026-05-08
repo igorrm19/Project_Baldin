@@ -47,7 +47,14 @@
         "construtor",
         "Construtor",
         "Contrutor",
-        "raposa"
+        "raposa",
+        "Automato",
+        "automato",
+        "Pilha",
+        "Atual",
+        "aceita",
+        "estado",
+        "caractere"
     ],
     "ignorePaths": [
         "node_modules/**",

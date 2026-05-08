@@ -20,11 +20,11 @@ export class AutomatoPilha{
     private setPilha(){
         
         this.pilha = [...this.nome].map((caractere, index) => {
-        return {
-            estado: `q${index}`,              
-            label: caractere,        
-            action: () => {}         
-        } as ActionItem;          
+            return {
+                estado: `q${index}`,
+                label: caractere,
+                action: () => {}
+            }
         })
     }
 
@@ -36,7 +36,11 @@ export class AutomatoPilha{
         this.setPilha()
 
         console.log(`Automato: ${this.nome}`)
-        this.aceita === this.nome ? console.log("Automato aceito") : console.log("Automato não aceito")
+        if (this.aceita === this.nome) {
+            console.log("Automato aceito")
+        } else {
+            console.log("Automato não aceito")
+        }
         console.log("Pilha:")
 
         this.pilha.forEach(item => {
