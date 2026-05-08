@@ -19,7 +19,7 @@ export class CadastroPage extends Main<CadastroProps> {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement) {
+    override mount(parent: HTMLElement) {
         parent.appendChild(this.container);
 
         const cadastro = new Cadastro(new BaseModel("div", registrationHTML), {});
