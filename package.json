@@ -50,6 +50,7 @@
     "vite": "^7.3.2"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "morgan": "^1.10.1"
   }
 }

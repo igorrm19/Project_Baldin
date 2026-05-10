@@ -22,7 +22,8 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "tsx": "^4.21.0",
-    "@types/node": "^20.14.2"
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^20.14.2",
+    "tsx": "^4.21.0"
   }
 }
