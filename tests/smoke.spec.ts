@@ -6,31 +6,31 @@ test.describe('Smoke Test - Frontend Rendering', () => {
     const errors: string[] = [];
     const failedRequests: string[] = [];
 
-    // Captura erros no console do navegador
+    // Captures browser console errors
     page.on('console', msg => {
       if (msg.type() === 'error') {
         errors.push(msg.text());
       }
     });
 
-    // Captura falhas de rede (ex: 404 em CSS/JS)
+    // Captures network failures (e.g., 404 in CSS/JS)
     page.on('requestfailed', request => {
       failedRequests.push(`${request.url()} - ${request.failure()?.errorText}`);
     });
 
-    // Navega para a aplicação (porta padrão do Vite preview)
+    // Navigates to the application (Vite preview default port)
     await page.goto('http://localhost:4173');
 
-    // 1. Verifica se o container principal existe
+    // 1. Checks if the main container exists
     const appContainer = page.locator('#app');
     await expect(appContainer).toBeVisible();
 
-    // 2. Verifica se houve erros fatais de rede
+    // 2. Checks if there were fatal network errors
     if (failedRequests.length > 0) {
       throw new Error(`Failed to load assets:\n${failedRequests.join('\n')}`);
     }
 
-    // 3. Verifica se houve erros de console
+    // 3. Checks if there were console errors
     if (errors.length > 0) {
       throw new Error(`Console errors detected:\n${errors.join('\n')}`);
     }

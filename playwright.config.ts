@@ -3,9 +3,9 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  forbidOnly: !!process.env['CI'],
-  retries: process.env['CI'] ? 2 : 0,
-  workers: process.env['CI'] ? 1 : undefined,
+  forbidOnly: process.env['CI'] !== undefined,
+  retries: process.env['CI'] !== undefined ? 2 : 0,
+  ...(process.env['CI'] !== undefined ? { workers: 1 } : {}),
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:4173',
@@ -17,11 +17,11 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  // Sobe o servidor de preview do Vite antes de rodar os testes
+  // Starts the Vite preview server before running tests
   webServer: {
     command: 'npm run build && npx vite preview --port 4173',
     url: 'http://localhost:4173',
-    reuseExistingServer: !process.env['CI'],
+    reuseExistingServer: process.env['CI'] === undefined,
     timeout: 120000,
   },
 });
