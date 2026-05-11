@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.contrller.js';
 import validateLogin from '../middlware/validateLogin.js';
 import  { validateCreateUser, validateUpdateUser } from '../middlware/validateUser.js';
@@ -6,6 +7,13 @@ import auth from '../middlware/auth.js';
 import isAdmin from '../middlware/isAdmim.js';
 
 const router = express.Router();
+
+const userUpdateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 router.get(['/', '/api'], (req, res) => {
     res.send('Hello World!');
@@ -16,7 +24,7 @@ router.get('/users', getUsers);
 router.get('/users/:id', auth, getUserById);
 router.post('/users', validateCreateUser, createUser);
 router.put('/users/:id', validateUpdateUser, updateUser);
-router.put('/users/:id', auth, isAdmin, updateUser);
+router.put('/users/:id', auth, isAdmin, userUpdateLimiter, updateUser);
 router.delete('/users/:id', auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, login);
 
