@@ -1,4 +1,4 @@
-const { z } = require("zod");
+import { z } from "zod";
 
 const loginSchema = z.object({
     email: z.string()

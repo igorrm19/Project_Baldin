@@ -1,7 +1,7 @@
 import express from 'express';
 import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.contrller.js';
-import validateLogin from '../middlware/validateLogin..js';
-import { userSchema } from '../middlware/validateUser.js';
+import validateLogin from '../middlware/validateLogin.js';
+import  { validateCreateUser, validateUpdateUser } from '../middlware/validateUser.js';
 import auth from '../middlware/auth.js';
 import isAdmin from '../middlware/isAdmim.js';
 
@@ -14,8 +14,9 @@ router.get(['/', '/api'], (req, res) => {
 
 router.get('/users', getUsers);
 router.get('/users/:id', auth, getUserById);
-router.post('/users', userSchema, createUser);
-router.put('/users/:id', userSchema, updateUser);
+router.post('/users', validateCreateUser, createUser);
+router.put('/users/:id', validateUpdateUser, updateUser);
+router.put('/users/:id', auth, isAdmin, updateUser);
 router.delete('/users/:id', auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, login);
 

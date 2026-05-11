@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+
+import mongoose from 'mongoose';
 import { USER_ROLES } from '../constants/user.constants.js';
 
-const userSchelma = new mongoose(
+const userSchelma = new mongoose.Schema(
     {
         name: {
           type: String,
