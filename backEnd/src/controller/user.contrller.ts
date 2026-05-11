@@ -97,10 +97,24 @@ const updateUser = async (req: Request, res: Response) => {
         const updateData: any = {};
         const id = req.params['id'];
 
-        if (name) updateData.name = name;
-        if (email) updateData.email = email;
+        if (name !== undefined) {
+            if (typeof name !== 'string' || name.trim() === '') {
+                return res.status(400).json({ message: "Invalid name" });
+            }
+            updateData.name = name;
+        }
 
-        if (password) {
+        if (email !== undefined) {
+            if (typeof email !== 'string' || email.trim() === '') {
+                return res.status(400).json({ message: "Invalid email" });
+            }
+            updateData.email = email;
+        }
+
+        if (password !== undefined) {
+            if (typeof password !== 'string' || password.trim() === '') {
+                return res.status(400).json({ message: "Invalid password" });
+            }
             updateData.password = await bcrypt.hash(password, 10);
         }
 
