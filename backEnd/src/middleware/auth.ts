@@ -1,6 +1,6 @@
 
 import jwt from "jsonwebtoken";
-import type { Request, Response, NextFunction } from 'express';
+import type{ Request, Response, NextFunction } from 'express';
 import { z } from 'zod'; 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -11,11 +11,12 @@ const TokenPayloadSchema = z.object({
   email: z.string().email().optional()
 });
 
-const auth = (req: Request, res: Response, next: NextFunction) => {
+const auth = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: "Unauthorized" });
+    return;
   }
 
   const token = authHeader.split(" ")[1];
@@ -24,7 +25,8 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     const secret = process.env['JWT_SECRET'];
     if (!secret) {
       console.error("JWT_SECRET environment variable is not defined");
-      return res.status(500).json({ message: "Internal authentication error" });
+      res.status(500).json({ message: "Internal authentication error" });
+      return;
     }
 
     const decodedRaw = jwt.verify(token as string, secret);
@@ -34,7 +36,8 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     if (!result.success) {
 
       console.error("Payload of token invalid:", result.error.format());
-      return res.status(401).json({ message: "Invalid token structure" });
+      res.status(401).json({ message: "Invalid token structure" });
+      return;
     }
 
     (req as any).user = result.data;
@@ -43,7 +46,8 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 
   } catch (err: unknown) {
     console.error("Auth Error:", err);
-    return res.status(401).json({ message: "Invalid or expired token" });
+    res.status(401).json({ message: "Invalid or expired token" });
+    return;
   }
 };
 
