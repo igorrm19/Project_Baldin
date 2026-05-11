@@ -54,8 +54,9 @@ describe('Cadastro', () => {
     });
 
     it('full coverage', async () => {
+        cadastro.nameValue = 'Test Name';
         cadastro.emailValue = 'test@t.com';
-        cadastro.passwordValue = '123456';
+        cadastro.passwordValue = '12345678';
         
         LoginServicesMock.prototype.postUser.mockResolvedValue({});
         await cadastro.handleSubmit();
@@ -78,19 +79,25 @@ describe('Cadastro', () => {
     });
 
     it('inputs', () => {
+        const name = document.createElement('input');
+        name.id = 'name';
         const email = document.createElement('input');
         email.id = 'email';
         const password = document.createElement('input');
         password.id = 'password';
+        container.appendChild(name);
         container.appendChild(email);
         container.appendChild(password);
         cadastro.bindButtons(container);
+        name.value = 'Name';
+        name.dispatchEvent(new Event('input', { bubbles: true }));
         email.value = 'E';
         email.dispatchEvent(new Event('input', { bubbles: true }));
-        password.value = '123456';
+        password.value = '12345678';
         password.dispatchEvent(new Event('input', { bubbles: true }));
+        expect(cadastro.nameValue).toBe('Name');
         expect(cadastro.emailValue).toBe('E');
-        expect(cadastro.passwordValue).toBe('123456');
+        expect(cadastro.passwordValue).toBe('12345678');
     });
 
     it('mountRegistration', () => {

@@ -24,10 +24,10 @@ export class Login extends Main<LoginProps> {
         const errorMessage = this.activeDomContainer?.querySelector("#error-message") || this.loginContainer.querySelector("#error-message");
         const errorEl = errorMessage as HTMLElement | null;
 
-        if (!this.emailValue || this.passwordValue.length < 6) {
+        if (!this.emailValue || this.passwordValue.length < 8) {
             if (errorEl) {
                 errorEl.classList.remove("hidden");
-                errorEl.textContent = "Please fill in the email and a password of at least 6 characters.";
+                errorEl.textContent = "Please fill in the email and a password of at least 8 characters.";
             }
             return;
         }

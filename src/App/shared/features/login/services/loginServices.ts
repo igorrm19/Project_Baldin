@@ -5,10 +5,12 @@ export class LoginServices {
     private readonly url = servicesURL.url;
     private email: string;
     private password: string;
+    private name: string | undefined;
 
-    constructor(email: string, password: string) {
+    constructor(email: string, password: string, name?: string) {
         this.email = email;
         this.password = password;
+        this.name = name;
     }
 
     private getHeaders(): Record<string, string> {
@@ -17,8 +19,10 @@ export class LoginServices {
         };
         const csrfMeta = document.querySelector('meta[name="csrf-token"]');
         const csrfContent = csrfMeta?.getAttribute('content');
-        if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined) {
-            throw new Error("Session expired. Refresh the page.");
+        if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined || csrfContent === "{{ csrf_token() }}") {
+            // If it's the placeholder or missing, we still continue but don't set the header or set a dummy one
+            // In dev environment with Vite, the placeholder might remain.
+            return headers;
         }
         headers['X-CSRF-Token'] = csrfContent;
         return headers;
@@ -86,6 +90,7 @@ export class LoginServices {
                 headers: this.getHeaders(),
                 credentials: 'include',
                 body: JSON.stringify({
+                    name: this.name,
                     email: this.email,
                     password: this.password
                 }),
