@@ -1,9 +1,13 @@
-import express from 'express'
+import express from 'express';
+import morgan from 'morgan';
+import router from './src/routes/user.router.js';
+import connectDB from './src/config/DBconfig.js';
 
-const app = express()
+void connectDB();
 
-app.get(['/', '/api'], (_req, res) => {
-  res.send('Hello World!')
-})
+const app = express();
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(['/', '/api'], router);
 
 export default app

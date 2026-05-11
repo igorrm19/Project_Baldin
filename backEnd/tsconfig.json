@@ -20,5 +20,9 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["*.ts", "api/**/*.ts"]
+  "include": [
+    "src/**/*.ts", 
+    "*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
 }

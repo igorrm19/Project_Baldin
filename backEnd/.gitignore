@@ -18,3 +18,5 @@ logs/*.log.*
 *.njsproj
 *.sln
 *.sw?
+
+.env
