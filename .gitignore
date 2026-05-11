@@ -29,3 +29,7 @@ coverage/
 
 # .env
 .env.production
+
+# Playwright
+playwright-report/
+test-results/

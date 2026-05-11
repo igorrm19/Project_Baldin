@@ -29,5 +29,13 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "fox", "test_router.ts", "eslint.config.ts", "backEnd/**/*.ts"]
+  "include": [
+    "src", 
+    "fox", 
+    "test_router.ts", 
+    "eslint.config.ts", 
+    "backEnd/**/*.ts", 
+    "playwright.config.ts", 
+    "tests/**/*.ts"
+  ]
 }

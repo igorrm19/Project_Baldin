@@ -19,12 +19,11 @@
       "dest": "/backEnd/api/index.ts"
     },
     {
-      "src": "/users",
+      "src": "/(users|login)/?",
       "dest": "/backEnd/api/index.ts"
     },
     {
-      "src": "/login",
-      "dest": "/backEnd/api/index.ts"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
