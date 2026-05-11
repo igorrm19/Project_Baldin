@@ -33,7 +33,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 
     if (!result.success) {
 
-      console.error("Payload do token inválido:", result.error.format());
+      console.error("Payload of token invalid:", result.error.format());
       return res.status(401).json({ message: "Invalid token structure" });
     }
 

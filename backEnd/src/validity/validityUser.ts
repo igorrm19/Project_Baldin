@@ -20,7 +20,7 @@ export const userSchema = z.object({
 export const updateUserSchema = userSchema.partial();
 
 
-export const validateCreateUser = (req: Request, res: Response, next: NextFunction) => {
+export const validityCreateUser = (req: Request, res: Response, next: NextFunction) => {
     const result = userSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ errors: result.error.issues });
@@ -29,7 +29,7 @@ export const validateCreateUser = (req: Request, res: Response, next: NextFuncti
     next();
 };
 
-export const validateUpdateUser = (req: Request, res: Response, next: NextFunction) => {
+export const validityUpdateUser = (req: Request, res: Response, next: NextFunction) => {
     const result = updateUserSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ errors: result.error.issues });

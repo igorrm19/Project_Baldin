@@ -1,4 +1,4 @@
-// Arquivo para rodar manualmente: node createAdmin.js
+
 require('dotenv').config();
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';

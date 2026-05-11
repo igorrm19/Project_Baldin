@@ -202,7 +202,6 @@ const login = async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Invalid request payload" });
         }
 
-        // Use .lean() para obter um objeto simples e evitar problemas com o JWT payload
         const user = await User.findOne({ email: { $eq: email } });
 
         if (!user) {
@@ -218,7 +217,7 @@ const login = async (req: Request, res: Response) => {
         const secret = process.env['JWT_SECRET'];
 
         if (!secret) {
-            console.error("ERRO: JWT_SECRET não encontrada no .env");
+            console.error("ERROR: JWT_SECRET not found in .env");
             return res.status(500).json({ message: "Internal server configuration error" });
         }
 
