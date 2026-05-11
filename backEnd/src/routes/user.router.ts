@@ -38,7 +38,7 @@ router.get(['/', '/api'], (req, res): void => {
     res.send('Hello World!');
 });
 
-router.get('/users', userUpdateLimiter, getUsers);
+router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers);
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
 router.post('/users', validityCreateUser, createUserLimiter, createUser);
 router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, updateUser);

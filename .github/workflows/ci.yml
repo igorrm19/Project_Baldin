@@ -175,7 +175,7 @@ jobs:
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-report-${{ matrix.node-version }}
           path: coverage/
           retention-days: 1
 
@@ -285,7 +285,7 @@ jobs:
       - name: Download coverage report
         uses: actions/download-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-report-20
           path: coverage/
 
       - name: Upload coverage report to Codecov
