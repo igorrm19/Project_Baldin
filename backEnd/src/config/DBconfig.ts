@@ -9,13 +9,17 @@ if (process.env['NODE_ENV'] !== 'production') {
 
 const connectDB = async (customUri?: string): Promise<void> => {
     try {
+        if (mongoose.connections[0]?.readyState === 1 as unknown) {
+            return;
+        }
+
         const options = {
             serverSelectionTimeoutMS: 5000,
             connectTimeoutMS: 10000,
             family: process.env['NODE_ENV'] !== 'production' ? 4 : undefined
         };
 
-        const uri = (customUri != null && customUri !== '') ? customUri : process.env['MONGODB_URI']!;
+        const uri = (customUri != null && customUri !== '') ? customUri : process.env['MONGODB_URI'];
 
         if (typeof uri !== 'string' || uri === '') {
             throw new Error("MONGODB_URI is not defined in .env file");
@@ -29,7 +33,6 @@ const connectDB = async (customUri?: string): Promise<void> => {
         const err = error as Error;
         console.error(` MongoDB Connection Error: ${err.message}`);
 
-        if (customUri == null || customUri === '') process.exit(1);
         throw err;
     }
 };
