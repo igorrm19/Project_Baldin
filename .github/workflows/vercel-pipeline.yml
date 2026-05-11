@@ -71,7 +71,13 @@ jobs:
       - name: Vercel Build (Local Simulation)
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
-      # 11. (OPCIONAL) Vercel Dev & Health Check
+      # 11. E2E Smoke Test (Garante que a tela renderiza sem erros 404/Console)
+      - name: Run E2E Smoke Test
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+
+      # 12. (OPCIONAL) Vercel Dev & Health Check
       # Inicia o servidor local da Vercel e testa um endpoint.
       - name: Local Health Check (Vercel Dev)
         run: |
