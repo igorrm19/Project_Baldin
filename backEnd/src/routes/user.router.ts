@@ -1,7 +1,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.contrller.js';
-import validateLogin from '../validaty/validateLogin.js';
+import validateLogin from '../middlware/validateLogin.js';
 import  { validateCreateUser, validateUpdateUser } from '../validaty/validateUser.js';
 import auth from '../middlware/auth.js';
 import isAdmin from '../middlware/isAdmim.js';
