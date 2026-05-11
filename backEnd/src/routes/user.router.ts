@@ -1,8 +1,8 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.contrller.js';
-import validateLogin from '../middlware/validateLogin.js';
-import  { validateCreateUser, validateUpdateUser } from '../middlware/validateUser.js';
+import validateLogin from '../validaty/validateLogin.js';
+import  { validateCreateUser, validateUpdateUser } from '../validaty/validateUser.js';
 import auth from '../middlware/auth.js';
 import isAdmin from '../middlware/isAdmim.js';
 
@@ -31,7 +31,6 @@ const createUserLimiter = rateLimit({
 
 router.get(['/', '/api'], (req, res) => {
     res.send('Hello World!');
-    req.accepts('json') ? res.json({ message: 'Hello World!' }) : res.send('Hello World!');
 });
 
 router.get('/users', userUpdateLimiter, getUsers);

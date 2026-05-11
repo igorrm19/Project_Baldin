@@ -3,18 +3,18 @@ import { Request, Response, NextFunction } from "express";
 
 export const userSchema = z.object({
     name: z.string()
-        .min(1, "Name and surname are required")
-        .max(100, "Name and surname are too long")
+        .min(1, { message: "Name and surname are required" })
+        .max(100, { message: "Name and surname are too long" })
         .trim()
         .transform((val: string) => val.toLowerCase()),
     
     email: z.string()
-        .email("Invalid email address")
         .trim()
-        .toLowerCase(),
+        .toLowerCase()
+        .email({ message: "Invalid email address" }),
     
     password: z.string()
-        .min(8, "Password must be at least 8 characters long")
+        .min(8, { message: "Password must be at least 8 characters long" })
 });
 
 export const updateUserSchema = userSchema.partial();

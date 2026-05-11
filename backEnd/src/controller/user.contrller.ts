@@ -3,8 +3,6 @@ import User from '../model/user.model.js';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import { MESSAGES_USER } from '../constants/user.constants.js';
-import mongoose from 'mongoose';  
-
 
 const getUsers = async (req: Request, res: Response) =>{
     try {
