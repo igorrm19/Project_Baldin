@@ -38,7 +38,7 @@ router.get('/users', userUpdateLimiter, getUsers);
 router.get('/users/:id', auth, userUpdateLimiter, getUserById);
 router.post('/users', validateCreateUser, createUserLimiter, createUser);
 router.put('/users/:id', userUpdateLimiter, validateUpdateUser, auth, isAdmin, updateUser);
-router.delete('/users/:id', auth, isAdmin, deleteUser);
+router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, loginLimiter, login);
 
 router.put("/users", (req, res) => {
