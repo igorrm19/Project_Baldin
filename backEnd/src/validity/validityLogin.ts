@@ -1,4 +1,4 @@
-import loginSchema from "./login.schelma.js";
+import loginSchema from "./login.schema.js";
 import type{ Request, Response, NextFunction } from 'express';
 
 import type{ ZodIssue } from "zod"; 
