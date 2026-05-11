@@ -3,19 +3,22 @@ import User from '../model/user.model.js';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import { MESSAGES_USER } from '../constants/user.constants.js';
+import mongoose from 'mongoose';  
 
 
-const getUsers = async (req: Request, res: Response) => {
+const getUsers = async (req: Request, res: Response) =>{
     try {
         const users = await User.find().select('-password');
 
         if (users.length === 0) {
             console.log(MESSAGES_USER.GET);
-            return res.status(200).json([]);
+            res.status(200).json([]);
+            return;
         }
 
         console.log(MESSAGES_USER.GET);
         res.status(200).json(users);
+        return;
 
     } catch (err) {
         console.error(MESSAGES_USER.ERROR);
@@ -92,11 +95,21 @@ const updateUser = async (req: Request, res: Response) => {
     try {
         const { name, email, password } = req.body;
         const updateData: any = {};
+        const id = req.params['id'];
+
         if (name) updateData.name = name;
         if (email) updateData.email = email;
 
         if (password) {
             updateData.password = await bcrypt.hash(password, 10);
+        }
+
+        if (!id || typeof id !== 'string') {
+            return res.status(400).json({ message: "ID not provided" });
+        }
+
+        if (req.params['id'] !== (req as Request & { user: { id: string } }).user.id) {
+            return res.status(403).json({ message: "Access forbidden" });
         }
 
         const result = await User.findByIdAndUpdate(
