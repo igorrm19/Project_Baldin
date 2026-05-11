@@ -27,7 +27,7 @@ router.get(['/', '/api'], (req, res) => {
     req.accepts('json') ? res.json({ message: 'Hello World!' }) : res.send('Hello World!');
 });
 
-router.get('/users', getUsers);
+router.get('/users', userUpdateLimiter, getUsers);
 router.get('/users/:id', auth, userUpdateLimiter, getUserById);
 router.post('/users', validateCreateUser, createUser);
 router.put('/users/:id', userUpdateLimiter, validateUpdateUser, auth, isAdmin, updateUser);
