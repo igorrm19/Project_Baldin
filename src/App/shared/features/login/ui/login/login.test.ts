@@ -86,8 +86,11 @@ describe('Login', () => {
         pass.dispatchEvent(new Event('input', { bubbles: true }));
 
         // HandleSubmit Success
+        jest.useFakeTimers();
         globalFetch.fetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({}) });
         await login.handleSubmit();
+        jest.runAllTimers();
+        jest.useRealTimers();
         
         // HandleSubmit Error
         globalFetch.fetch.mockRejectedValueOnce(new Error('F'));

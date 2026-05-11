@@ -184,4 +184,39 @@ describe('FoxRouter', () => {
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
   });
+
+  it('handles RouteConfig object instead of function', () => {
+    const container = document.querySelector('#app') as HTMLElement;
+    class ObjPage implements Page {
+      mount(parent: HTMLElement) {
+        parent.textContent = 'obj';
+      }
+      unmount() {}
+    }
+    const router = new FoxRouter({ '/obj': { page: ObjPage } }, '#app');
+    router.start();
+    router.navigate('/obj');
+    expect(container.textContent).toBe('obj');
+  });
+
+  it('redirects to root when accessing private route without token', () => {
+    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    class PrivatePage implements Page {
+      mount() {}
+      unmount() {}
+    }
+    const router = new FoxRouter({ '/private': { page: PrivatePage, private: true } }, '#app');
+    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation();
+    
+    // Ensure no token
+    localStorage.removeItem('token');
+    
+    router.start();
+    router.loadRoute('/private');
+    
+    expect(logSpy).toHaveBeenCalledWith('Unauthorized access to private route, redirecting to login.');
+    expect(navigateSpy).toHaveBeenCalledWith('/');
+    
+    logSpy.mockRestore();
+  });
 });
