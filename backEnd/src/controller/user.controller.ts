@@ -21,7 +21,7 @@ const getUsers = async (_req: Request, res: Response): Promise<void> => {
 
     } catch (err) {
         console.error(MESSAGES_USER.ERROR, err);
-        res.status(500).json({ message: MESSAGES_USER.ERROR });
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
     }
 }
 
@@ -31,7 +31,7 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
 
         if (user == null) {
             console.error(MESSAGES_USER.ERROR);
-            res.status(404).send({ message: MESSAGES_USER.ERROR });
+            res.status(404).json({ error: MESSAGES_USER.ERROR });
             return;
         }
 
@@ -43,11 +43,11 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
 
         if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
-            res.status(400).json({ message: MESSAGES_USER.ERROR });
+            res.status(400).json({ error: MESSAGES_USER.ERROR });
         }
 
         console.error(MESSAGES_USER.ERROR);
-        res.status(500).json({ message: MESSAGES_USER.ERROR });
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
     }
 }
 
@@ -56,7 +56,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
         const { name, email, password } = req.body as { name?: string; email?: string; password?: string };
 
         if (typeof password !== 'string' || typeof name !== 'string' || typeof email !== 'string') {
-            res.status(400).json({ message: "Invalid payload" });
+            res.status(400).json({ error: "Invalid payload" });
             return;
         }
 
@@ -79,7 +79,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
         if (isErrorWithName(err, "ValidationError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
-                message: MESSAGES_USER.ERROR,
+                error: MESSAGES_USER.ERROR,
                 details: err as unknown as Error
             });
         }
@@ -87,12 +87,12 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
         if (isMongoDupError(err)) {
             console.error(MESSAGES_USER.ERROR);
             res.status(409).json({
-                message: MESSAGES_USER.ERROR
+                error: MESSAGES_USER.ERROR
             });
         }
 
         console.error(MESSAGES_USER.ERROR);
-        res.status(500).json({ message: MESSAGES_USER.ERROR });
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
     }
 }
 
@@ -100,17 +100,17 @@ const validateUpdatePayload = async (req: Request, res: Response, updateData: Re
     const { name, email, password } = req.body as { name?: unknown; email?: unknown; password?: unknown };
 
     if (typeof name !== 'undefined') {
-        if (typeof name !== 'string' || name.trim() === '') { res.status(400).json({ message: "Invalid name" }); return false; }
+        if (typeof name !== 'string' || name.trim() === '') { res.status(400).json({ error: "Invalid name" }); return false; }
         updateData['name'] = name;
     }
 
     if (typeof email !== 'undefined') {
-        if (typeof email !== 'string' || email.trim() === '') { res.status(400).json({ message: "Invalid email" }); return false; }
+        if (typeof email !== 'string' || email.trim() === '') { res.status(400).json({ error: "Invalid email" }); return false; }
         updateData['email'] = email;
     }
 
     if (typeof password !== 'undefined') {
-        if (typeof password !== 'string' || password.trim() === '') { res.status(400).json({ message: "Invalid password" }); return false; }
+        if (typeof password !== 'string' || password.trim() === '') { res.status(400).json({ error: "Invalid password" }); return false; }
         updateData['password'] = await bcrypt.hash(password, 10);
     }
     return true;
@@ -124,12 +124,12 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
         if (!(await validateUpdatePayload(req, res, updateData))) return;
 
         if (typeof id !== 'string' || id.trim() === '') {
-            res.status(400).json({ message: "ID not provided" });
+            res.status(400).json({ error: "ID not provided" });
             return;
         }
 
         if (req.params['id'] !== (req as Request & { user?: { id: string } }).user?.id) {
-            res.status(403).json({ message: "Access forbidden" });
+            res.status(403).json({ error: "Access forbidden" });
             return;
         }
 
@@ -147,7 +147,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
         if (!result) {
             console.error(MESSAGES_USER.ERROR);
-            res.status(404).send({ message: MESSAGES_USER.ERROR });
+            res.status(404).json({ error: MESSAGES_USER.ERROR });
             return;
         }
 
@@ -159,7 +159,7 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
         if (isErrorWithName(err, "ValidationError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
-                message: MESSAGES_USER.ERROR,
+                error: MESSAGES_USER.ERROR,
                 // details omitted to avoid any type
             });
             return;
@@ -167,20 +167,20 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
         if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
-            res.status(400).json({ message: MESSAGES_USER.ERROR });
+            res.status(400).json({ error: MESSAGES_USER.ERROR });
             return;
         }
 
         if (isMongoDupError(err)) {
             console.error(MESSAGES_USER.ERROR);
             res.status(409).json({
-                message: MESSAGES_USER.ERROR
+                error: MESSAGES_USER.ERROR
             });
             return;
         }
 
         console.error(MESSAGES_USER.ERROR);
-        res.status(500).json({ message: MESSAGES_USER.ERROR });
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
         return;
     }
 }
@@ -191,21 +191,21 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
 
         if (!result) {
             console.error(MESSAGES_USER.ERROR);
-            res.status(404).send({ message: MESSAGES_USER.ERROR });
+            res.status(404).json({ error: MESSAGES_USER.ERROR });
         }
 
         console.log(MESSAGES_USER.DELETE);
-        res.status(200).send(MESSAGES_USER.DELETE);
+        res.status(200).json({ message: MESSAGES_USER.DELETE });
 
     } catch (err) {
         if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
-                message: MESSAGES_USER.ERROR
+                error: MESSAGES_USER.ERROR
             });
         }
         console.error(MESSAGES_USER.ERROR);
-        res.status(500).json({ message: MESSAGES_USER.ERROR });
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
     }
 }
 const login = async (req: Request, res: Response): Promise<void> => {
@@ -213,21 +213,21 @@ const login = async (req: Request, res: Response): Promise<void> => {
         const { email, password } = req.body as { email?: string; password?: string };
 
         if (typeof email !== 'string' || typeof password !== 'string') {
-            res.status(400).json({ message: "Invalid request payload" });
+            res.status(400).json({ error: "Invalid request payload" });
             return;
         }
 
         const user = await User.findOne({ email: { $eq: email } });
 
         if (user == null) {
-            res.status(401).json({ message: "Invalid email or password" });
+            res.status(401).json({ error: "Invalid email or password" });
             return;
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
-            res.status(401).json({ message: "Invalid email or password" });
+            res.status(401).json({ error: "Invalid email or password" });
             return;
         }
 
@@ -235,7 +235,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
         if (typeof secret !== 'string' || secret === '') {
             console.error("ERROR: JWT_SECRET not found in .env");
-            res.status(500).json({ message: "Internal server configuration error" });
+            res.status(500).json({ error: "Internal server configuration error" });
             return;
         }
 
@@ -261,7 +261,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
     } catch (err) {
         console.error("Login Error:", err);
-        res.status(500).json({ message: "Error during login process" });
+        res.status(500).json({ error: "Error during login process" });
         return;
     }
 }

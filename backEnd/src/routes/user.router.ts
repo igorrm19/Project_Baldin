@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import rateLimit from 'express-rate-limit';
 import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.controller.js';
 import validateLogin from '../validity/validityLogin.js';
@@ -29,13 +30,15 @@ const createUserLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-router.get(['/', '/api'], (req, res): void => {
+router.get(['/', '/api'], (_req, res): void => {
+    res.json({ message: 'Hello World!' });
+});
 
-    if (req.accepts('json') !== false) {
-        res.json({ message: 'Hello World!' });
-    }
-    
-    res.send('Hello World!');
+router.get('/mongo-status', (_req, res) => {
+    res.json({
+        connected: mongoose.connections[0]?.readyState === 1 as unknown,
+        state: mongoose.connections[0]?.readyState
+    });
 });
 
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers);
@@ -45,28 +48,16 @@ router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, u
 router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, loginLimiter, login);
 
-router.put("/users", (req, res) => {
-  if (req.accepts('json') !== false) {
-    res.json({ message: "Route not allowed, add an id" });
-  } else {
-    res.send('Route not allowed, add an id');
-  }
+router.put("/users", (_req, res) => {
+  res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.delete("/users", (req, res) => {
-  if (req.accepts('json') !== false) {
-    res.json({ message: "Route not allowed, add an id" });
-  } else {
-    res.send('Route not allowed, add an id');
-  }
+router.delete("/users", (_req, res) => {
+  res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.all('/users', (req, res) => {
-  if (req.accepts('json') !== false) {
-    res.json({ message: "Route not allowed, add an id" });
-  } else {
-    res.send('Route not allowed, add an id');
-  }
+router.all('/users', (_req, res) => {
+  res.status(405).json({ error: "Method not allowed on /users collection" });
 });
 
 export default router;
