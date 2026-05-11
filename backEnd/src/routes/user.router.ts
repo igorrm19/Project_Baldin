@@ -22,6 +22,13 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+const createUserLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 router.get(['/', '/api'], (req, res) => {
     res.send('Hello World!');
     req.accepts('json') ? res.json({ message: 'Hello World!' }) : res.send('Hello World!');
@@ -29,7 +36,7 @@ router.get(['/', '/api'], (req, res) => {
 
 router.get('/users', userUpdateLimiter, getUsers);
 router.get('/users/:id', auth, userUpdateLimiter, getUserById);
-router.post('/users', validateCreateUser, createUser);
+router.post('/users', validateCreateUser, createUserLimiter, createUser);
 router.put('/users/:id', userUpdateLimiter, validateUpdateUser, auth, isAdmin, updateUser);
 router.delete('/users/:id', auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, loginLimiter, login);
