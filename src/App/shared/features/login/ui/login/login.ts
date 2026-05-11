@@ -36,21 +36,31 @@ export class Login extends Main<LoginProps> {
         try {
             if (errorEl) {
                 errorEl.classList.add("hidden");
+                errorEl.classList.remove("text-red-500", "text-green-500");
                 errorEl.textContent = "";
             }
 
             const loginServices = new LoginServices(this.emailValue, this.passwordValue)
-            await loginServices.putUser()
+            await loginServices.loginUser()
 
-            history.pushState({}, "", "/cadastro")
-            window.dispatchEvent(new Event('popstate'))
+            if (errorEl) {
+                errorEl.textContent = "Logged in successfully.";
+                errorEl.classList.add("text-green-500");
+                errorEl.classList.remove("hidden");
+            }
+
+            setTimeout(() => {
+                history.pushState({}, "", "/home")
+                window.dispatchEvent(new Event('popstate'))
+            }, 800)
 
         } catch (error: unknown) {
             console.error("Login error:", error)
 
             if (errorEl) {
+                errorEl.classList.add("text-red-500");
                 errorEl.classList.remove("hidden");
-                errorEl.textContent = "Failed to login. Please check your email and password.";
+                errorEl.textContent = "Failed to login. Please check your credentials.";
             }
         } finally {
             this.isSubmitting = false;
