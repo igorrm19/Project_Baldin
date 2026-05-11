@@ -186,8 +186,12 @@ const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
 
+        if (typeof email !== 'string' || typeof password !== 'string') {
+            return res.status(400).json({ message: "Invalid request payload" });
+        }
+
         // Use .lean() para obter um objeto simples e evitar problemas com o JWT payload
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: { $eq: email } });
 
         if (!user) {
             return res.status(401).json({ message: "Invalid email or password" });
