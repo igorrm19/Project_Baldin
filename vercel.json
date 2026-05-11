@@ -4,7 +4,9 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
+      "config": {
+        "distDir": "dist"
+      }
     },
     {
       "src": "backEnd/api/index.ts",
@@ -13,12 +15,20 @@
   ],
   "routes": [
     {
-      "src": "^/api/?$",
+      "src": "/api/(.*)",
       "dest": "/backEnd/api/index.ts"
     },
     {
-      "src": "^/api/(.*)$",
+      "src": "/users",
       "dest": "/backEnd/api/index.ts"
+    },
+    {
+      "src": "/login",
+      "dest": "/backEnd/api/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

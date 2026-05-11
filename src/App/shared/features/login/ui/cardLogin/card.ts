@@ -32,21 +32,21 @@ export class CardLogin extends Main<CardProps> {
             label_fourthText: "Password",
         };
 
-        const registration = new Cadastro(new BaseModel("form", safeLoginTemplate), props)
-        registration.mountRegistration()
+        const login = new Login(new BaseModel("form", safeLoginTemplate), props)
+        login.mountLogin()
 
         // Keep the instance for use in bindLoginButtons
-        this.authInstance = registration
+        this.authInstance = login
 
-        const registrationHTML = registration.getHTML()
+        const loginHTML = login.getHTML()
         // Test parseHTML inside the method
-        parseHTML(registrationHTML).forEach(div => {
+        parseHTML(loginHTML).forEach(div => {
             console.log(div.parent?.innerText)
             this.name = div.parent?.innerText ?? ""
 
         })
 
-        return registrationHTML
+        return loginHTML
     }
 
     bindLoginButtons(domContainer: HTMLElement): void {

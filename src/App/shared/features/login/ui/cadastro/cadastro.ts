@@ -13,9 +13,11 @@ export type CardProps = Record<string, unknown>;
 
 export class Cadastro extends Main<CardProps> {
     registrationContainer: HTMLElement
+    nameValue: string = ""
     emailValue: string = ""
     passwordValue: string = ""
     private isSubmitting: boolean = false
+    private activeDomContainer?: HTMLElement
 
     constructor(baseModel: IBaseModel, props: CardProps) {
         super(baseModel, props)
@@ -30,13 +32,13 @@ export class Cadastro extends Main<CardProps> {
     async handleSubmit(): Promise<void> {
         if (this.isSubmitting) return;
 
-        const errorMessage = this.registrationContainer.querySelector("#error-message");
+        const errorMessage = this.activeDomContainer?.querySelector("#error-message") || this.registrationContainer.querySelector("#error-message");
         const errorEl = errorMessage as HTMLElement | null;
 
-        if (!this.emailValue || this.passwordValue.length < 6) {
+        if (!this.nameValue || !this.emailValue || this.passwordValue.length < 8) {
             if (errorEl) {
                 errorEl.classList.remove("hidden");
-                errorEl.textContent = "Please fill in the email and a password of at least 6 characters.";
+                errorEl.textContent = "Please fill in the name, email and a password of at least 8 characters.";
             }
             return;
         }
@@ -49,10 +51,10 @@ export class Cadastro extends Main<CardProps> {
                 errorEl.textContent = "";
             }
 
-            const loginServices = new LoginServices(this.emailValue, this.passwordValue)
+            const loginServices = new LoginServices(this.emailValue, this.passwordValue, this.nameValue)
             await loginServices.postUser();
 
-            history.pushState({}, "", "/home")
+            history.pushState({}, "", "/")
             window.dispatchEvent(new Event('popstate'))
         } catch (error: unknown) {
             console.error("Error on register:", error)
@@ -69,6 +71,7 @@ export class Cadastro extends Main<CardProps> {
     }
 
     bindButtons(domContainer: HTMLElement): void {
+        this.activeDomContainer = domContainer;
         // Bind primary and secondary button clicks
         parseButton(domContainer, [
             this.handleSubmit.bind(this),
@@ -77,7 +80,10 @@ export class Cadastro extends Main<CardProps> {
 
         // Sync input values with class properties
         parseInput(domContainer, (data: ActionItem) => {
-            if (data.id === "email") {
+            if (data.id === "name") {
+                /* istanbul ignore next */
+                this.nameValue = data.value ?? ""
+            } else if (data.id === "email") {
                 /* istanbul ignore next */
                 this.emailValue = data.value ?? ""
             } else if (data.id === "password") {

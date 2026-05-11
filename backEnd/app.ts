@@ -1,10 +1,17 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import router from './src/routes/user.router.js';
 import connectDB from './src/config/DBconfig.js';
 
 const app = express();
 
+app.use(cors({
+    origin: process.env['NODE_ENV'] === 'production' ? 'https://project-baldin.vercel.app' : true,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 
@@ -18,7 +25,8 @@ app.use(async (_req: Request, _res: Response, next: NextFunction) => {
     }
 });
 
-app.use(['/', '/api'], router);
+app.use('/api', router);
+app.use('/', router);
 
 // Global 404 Handler (Always return JSON)
 app.use((_req: Request, res: Response) => {

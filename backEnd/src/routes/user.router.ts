@@ -30,7 +30,7 @@ const createUserLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-router.get(['/', '/api'], (_req, res): void => {
+router.get('/', (_req, res): void => {
     res.json({ message: 'Hello World!' });
 });
 
