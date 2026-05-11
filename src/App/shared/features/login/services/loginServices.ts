@@ -51,6 +51,34 @@ export class LoginServices {
         }
     }
 
+    async loginUser(): Promise<{ token: string, user: unknown }> {
+        try {
+            const loginUrl = this.url.replace('/users', '/login');
+            const response = await fetch(loginUrl, {
+                method: "POST",
+                headers: this.getHeaders(),
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password
+                }),
+            });
+            if (!response.ok) {
+                const errBody = await response.json().catch(() => ({})) as { error?: string, message?: string };
+                throw new Error(errBody.error ?? errBody.message ?? servicesMessage.error);
+            }
+            const payload = await response.json() as { token: string, user: unknown };
+            localStorage.setItem("token", payload.token);
+            return payload;
+        } catch (error) {
+            console.log(error);
+            if (error instanceof Error && error.message !== "Network error") throw error;
+            throw new Error(servicesMessage.error, { cause: error });
+        } finally {
+            this.wipeCredentials();
+        }
+    }
+
     async postUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {

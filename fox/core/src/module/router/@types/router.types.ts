@@ -4,3 +4,8 @@ export interface Page {
 }
 
 export type PageClass = new () => Page;
+
+export type RouteConfig = {
+    page: PageClass;
+    private?: boolean;
+};

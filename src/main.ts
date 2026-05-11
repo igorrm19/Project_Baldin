@@ -25,7 +25,7 @@ const routes = {
   "/": MainPage,
   "/about": AboutPage,
   "/registration": CadastroPage,
-  "/home": HomePage,
+  "/home": { page: HomePage, private: true },
 };
 
 document.addEventListener('DOMContentLoaded', () => {

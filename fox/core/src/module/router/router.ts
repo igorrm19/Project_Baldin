@@ -1,14 +1,21 @@
-import type { Page, PageClass } from "./@types/router.types";
+import type { Page, PageClass, RouteConfig } from "./@types/router.types";
 import { actionStack } from "../../../../action.stack";
 
 export class FoxRouter {
-    private routes: Map<string, PageClass>;
+    private routes: Map<string, RouteConfig>;
     private containerSelector: string;
     private containerElement: HTMLElement | null = null;
     private currentPage: Page | null = null;
 
-    constructor(routes: Record<string, PageClass>, containerSelector: string = "#app") {
-        this.routes = new Map(Object.entries(routes));
+    constructor(routes: Record<string, RouteConfig | PageClass>, containerSelector: string = "#app") {
+        this.routes = new Map();
+        for (const [path, config] of Object.entries(routes)) {
+            if (typeof config === 'function') {
+                this.routes.set(path, { page: config });
+            } else {
+                this.routes.set(path, config);
+            }
+        }
         this.containerSelector = containerSelector;
 
         window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
@@ -21,10 +28,16 @@ export class FoxRouter {
 
     public loadRoute(path: string): void {
         const normalizedPath = path.replace(/\/+$/, '') || '/';
-        const PageCtor = this.routes.get(normalizedPath) || this.routes.get("/");
+        const routeConfig = this.routes.get(normalizedPath) || this.routes.get("/");
 
-        if (!PageCtor) {
+        if (!routeConfig) {
             console.error(`No route found for ${path} and no default route defined.`);
+            return;
+        }
+
+        if (routeConfig.private === true && localStorage.getItem("token") === null) {
+            console.warn("Unauthorized access to private route, redirecting to login.");
+            this.navigate("/");
             return;
         }
 
@@ -34,6 +47,7 @@ export class FoxRouter {
         
         actionStack.clear();
 
+        const PageCtor = routeConfig.page;
         const instance = new PageCtor();
         this.currentPage = instance;
 
