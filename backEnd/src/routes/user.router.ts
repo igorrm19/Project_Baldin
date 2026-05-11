@@ -30,7 +30,11 @@ const createUserLimiter = rateLimit({
 });
 
 router.get(['/', '/api'], (req, res) => {
-    res.send('Hello World!');
+    if (req.accepts('json')) {
+        return res.json({ message: 'Hello World!' });
+    }
+    
+    res.send('Olá Mundo!');
 });
 
 router.get('/users', userUpdateLimiter, getUsers);
