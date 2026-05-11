@@ -3,6 +3,7 @@ import User from '../model/user.model.js';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import { MESSAGES_USER } from '../constants/user.constants.js';
+import { isErrorWithName, isMongoDupError } from '../utils/errorGuards.js';
 
 const getUsers = async (_req: Request, res: Response): Promise<void> => {
     try {
@@ -19,7 +20,7 @@ const getUsers = async (_req: Request, res: Response): Promise<void> => {
         return;
 
     } catch (err) {
-        console.error(MESSAGES_USER.ERROR);
+        console.error(MESSAGES_USER.ERROR, err);
         res.status(500).json({ message: MESSAGES_USER.ERROR });
     }
 }
@@ -28,7 +29,7 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
     try {
         const user = await User.findById(req.params['id']).select('-password');
 
-        if (!user) {
+        if (user == null) {
             console.error(MESSAGES_USER.ERROR);
             res.status(404).send({ message: MESSAGES_USER.ERROR });
             return;
@@ -40,7 +41,7 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
     } catch (err) {
         console.error(err);
 
-        if ((err as any).name === "CastError") {
+        if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({ message: MESSAGES_USER.ERROR });
         }
@@ -52,7 +53,12 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
 
 const createUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password } = req.body as { name?: string; email?: string; password?: string };
+
+        if (typeof password !== 'string' || typeof name !== 'string' || typeof email !== 'string') {
+            res.status(400).json({ message: "Invalid payload" });
+            return;
+        }
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
@@ -70,7 +76,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
 
     } catch (err) {
 
-        if ((err as any).name === "ValidationError") {
+        if (isErrorWithName(err, "ValidationError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
                 message: MESSAGES_USER.ERROR,
@@ -78,7 +84,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
             });
         }
 
-        if ((err as any).code === 11000) {
+        if (isMongoDupError(err)) {
             console.error(MESSAGES_USER.ERROR);
             res.status(409).json({
                 message: MESSAGES_USER.ERROR
@@ -90,42 +96,39 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+const validateUpdatePayload = async (req: Request, res: Response, updateData: Record<string, unknown>): Promise<boolean> => {
+    const { name, email, password } = req.body as { name?: unknown; email?: unknown; password?: unknown };
+
+    if (typeof name !== 'undefined') {
+        if (typeof name !== 'string' || name.trim() === '') { res.status(400).json({ message: "Invalid name" }); return false; }
+        updateData['name'] = name;
+    }
+
+    if (typeof email !== 'undefined') {
+        if (typeof email !== 'string' || email.trim() === '') { res.status(400).json({ message: "Invalid email" }); return false; }
+        updateData['email'] = email;
+    }
+
+    if (typeof password !== 'undefined') {
+        if (typeof password !== 'string' || password.trim() === '') { res.status(400).json({ message: "Invalid password" }); return false; }
+        updateData['password'] = await bcrypt.hash(password, 10);
+    }
+    return true;
+};
+
 const updateUser = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password } = req.body;
-        const updateData: any = {};
+        const updateData: Record<string, unknown> = {};
         const id = req.params['id'];
 
-        if (name !== undefined) {
-            if (typeof name !== 'string' || name.trim() === '') {
-                res.status(400).json({ message: "Invalid name" });
-                return;
-            }
-            updateData.name = name;
-        }
+        if (!(await validateUpdatePayload(req, res, updateData))) return;
 
-        if (email !== undefined) {
-            if (typeof email !== 'string' || email.trim() === '') {
-                res.status(400).json({ message: "Invalid email" });
-                return;
-            }
-            updateData.email = email;
-        }
-
-        if (password !== undefined) {
-            if (typeof password !== 'string' || password.trim() === '') {
-                res.status(400).json({ message: "Invalid password" });
-                return;
-            }
-            updateData.password = await bcrypt.hash(password, 10);
-        }
-
-        if (!id || typeof id !== 'string') {
+        if (typeof id !== 'string' || id.trim() === '') {
             res.status(400).json({ message: "ID not provided" });
             return;
         }
 
-        if (req.params['id'] !== (req as Request & { user: { id: string } }).user.id) {
+        if (req.params['id'] !== (req as Request & { user?: { id: string } }).user?.id) {
             res.status(403).json({ message: "Access forbidden" });
             return;
         }
@@ -153,22 +156,22 @@ const updateUser = async (req: Request, res: Response): Promise<void> => {
 
     } catch (err) {
 
-        if ((err as any).name === "ValidationError") {
+        if (isErrorWithName(err, "ValidationError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
                 message: MESSAGES_USER.ERROR,
-                details: (err as any).errors
+                // details omitted to avoid any type
             });
             return;
         }
 
-        if ((err as any).name === "CastError") {
+        if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({ message: MESSAGES_USER.ERROR });
             return;
         }
 
-        if ((err as any).code === 11000) {
+        if (isMongoDupError(err)) {
             console.error(MESSAGES_USER.ERROR);
             res.status(409).json({
                 message: MESSAGES_USER.ERROR
@@ -195,7 +198,7 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
         res.status(200).send(MESSAGES_USER.DELETE);
 
     } catch (err) {
-        if ((err as any).name === "CastError") {
+        if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({
                 message: MESSAGES_USER.ERROR
@@ -207,7 +210,7 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
 }
 const login = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body as { email?: string; password?: string };
 
         if (typeof email !== 'string' || typeof password !== 'string') {
             res.status(400).json({ message: "Invalid request payload" });
@@ -216,7 +219,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
         const user = await User.findOne({ email: { $eq: email } });
 
-        if (!user) {
+        if (user == null) {
             res.status(401).json({ message: "Invalid email or password" });
             return;
         }
@@ -230,16 +233,17 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
         const secret = process.env['JWT_SECRET'];
 
-        if (!secret) {
+        if (typeof secret !== 'string' || secret === '') {
             console.error("ERROR: JWT_SECRET not found in .env");
             res.status(500).json({ message: "Internal server configuration error" });
             return;
         }
 
+        const userRole = (user as unknown as { role?: string }).role; 
         const payload = {
             id: user._id.toString(),
             email: user.email,
-            role: (user as any).role 
+            role: userRole
         };
 
         const token = jwt.sign(payload, secret, { expiresIn: "1h" });
@@ -250,7 +254,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
                 id: user._id,
                 email: user.email,
                 name: user.name,
-                role: (user as any).role
+                role: userRole
             }
         });
         return;

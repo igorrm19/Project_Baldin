@@ -1,6 +1,6 @@
 
 import jwt from "jsonwebtoken";
-import type{ Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { z } from 'zod'; 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -11,10 +11,11 @@ const TokenPayloadSchema = z.object({
   email: z.string().email().optional()
 });
 
-const auth = (req: Request, res: Response, next: NextFunction): void => {
+interface AuthRequest extends Request { user?: { id: string; role: string; email?: string | undefined } };
+const auth = (req: AuthRequest, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (typeof authHeader !== 'string' || !authHeader.startsWith('Bearer ')) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
@@ -23,7 +24,7 @@ const auth = (req: Request, res: Response, next: NextFunction): void => {
 
   try {
     const secret = process.env['JWT_SECRET'];
-    if (!secret) {
+    if (typeof secret !== 'string' || secret === '') {
       console.error("JWT_SECRET environment variable is not defined");
       res.status(500).json({ message: "Internal authentication error" });
       return;
@@ -40,7 +41,7 @@ const auth = (req: Request, res: Response, next: NextFunction): void => {
       return;
     }
 
-    (req as any).user = result.data;
+    req.user = result.data;
     
     next();
 

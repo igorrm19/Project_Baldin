@@ -1,5 +1,5 @@
-
-require('dotenv').config();
+import { fileURLToPath } from 'url';
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import User from '../model/user.model.js';
@@ -13,15 +13,15 @@ interface Admin {
 
 async function createAdmin(email: string, name?: string, password?: string): Promise<Admin> {
     try {
-        if (mongoose.connection.readyState === 0) {
+        if (Number(mongoose.connection.readyState) === 0) {
             await connectDB();
         }
 
         const adminEmail = email;
-        const adminName = name || 'Admin';
+        const adminName = (name !== undefined && name !== '') ? name : 'Admin';
         const adminPassword = password;
 
-        if (!adminEmail || !adminPassword) {
+        if (adminEmail === '' || adminPassword === undefined || adminPassword === '') {
             throw new Error('Admin email and password must be provided as arguments');
         }
 
@@ -31,7 +31,7 @@ async function createAdmin(email: string, name?: string, password?: string): Pro
         }
 
         const existingAdmin = await User.findOne({ email: adminEmail });
-        if (existingAdmin) {
+        if (existingAdmin != null) {
             console.log(`User with email ${adminEmail} already exists.`);
             return existingAdmin;
         }
@@ -48,8 +48,8 @@ async function createAdmin(email: string, name?: string, password?: string): Pro
         console.error('Error creating admin:', error);
         throw error;
     } finally {
-        if (require.main === module) {
-            if (mongoose.connection.readyState !== 0) {
+        if (process.argv[1] === fileURLToPath(import.meta.url)) {
+            if (Number(mongoose.connection.readyState) !== 0) {
                 await mongoose.connection.close();
                 console.log('MongoDB connection closed.');
             }
@@ -58,17 +58,17 @@ async function createAdmin(email: string, name?: string, password?: string): Pro
     }
 }
 
-if (require.main === module) {
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const args = process.argv.slice(2);
     const email = args[0];
     const password = args[1];
     const name = args[2];
 
-    if (!email || !password) {
+    if (typeof email !== 'string' || typeof password !== 'string' || email === '' || password === '') {
         console.log('Usage: node createAdmin.js <email> <password> [name]');
         process.exit(1);
     }
-    createAdmin(email, name, password);
+    void createAdmin(email, name, password);
 }
 
 export default createAdmin;
