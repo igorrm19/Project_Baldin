@@ -28,7 +28,7 @@ router.get(['/', '/api'], (req, res) => {
 });
 
 router.get('/users', getUsers);
-router.get('/users/:id', auth, getUserById);
+router.get('/users/:id', auth, userUpdateLimiter, getUserById);
 router.post('/users', validateCreateUser, createUser);
 router.put('/users/:id', userUpdateLimiter, validateUpdateUser, auth, isAdmin, updateUser);
 router.delete('/users/:id', auth, isAdmin, deleteUser);
