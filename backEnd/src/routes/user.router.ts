@@ -15,6 +15,13 @@ const userUpdateLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 router.get(['/', '/api'], (req, res) => {
     res.send('Hello World!');
     req.accepts('json') ? res.json({ message: 'Hello World!' }) : res.send('Hello World!');
@@ -25,7 +32,7 @@ router.get('/users/:id', auth, getUserById);
 router.post('/users', validateCreateUser, createUser);
 router.put('/users/:id', userUpdateLimiter, validateUpdateUser, auth, isAdmin, updateUser);
 router.delete('/users/:id', auth, isAdmin, deleteUser);
-router.post('/login', validateLogin, login);
+router.post('/login', validateLogin, loginLimiter, login);
 
 router.put("/users", (req, res) => {
     res.json({ message: "Route not allowed, add an id" });
