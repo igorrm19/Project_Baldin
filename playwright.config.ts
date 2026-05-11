@@ -17,7 +17,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  // Starts the Vite preview server before running tests
+
   webServer: {
     command: 'npm run build && npx vite preview --port 4173',
     url: 'http://localhost:4173',
