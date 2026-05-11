@@ -30,6 +30,10 @@ const createUserLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+router.get('/health', (_req, res): void => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 router.get('/', (_req, res): void => {
     res.json({ message: 'Hello World!' });
 });
