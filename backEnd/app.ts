@@ -1,10 +1,15 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import router from './src/routes/user.router.js';
 import connectDB from './src/config/DBconfig.js';
 
 const app = express();
 
+app.use(cors({
+    origin: process.env['NODE_ENV'] === 'production' ? 'https://project-baldin.vercel.app' : 'http://localhost:5173',
+    credentials: true
+}));
 app.use(morgan('dev'));
 app.use(express.json());
 

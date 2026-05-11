@@ -16,6 +16,7 @@ export class Cadastro extends Main<CardProps> {
     emailValue: string = ""
     passwordValue: string = ""
     private isSubmitting: boolean = false
+    private activeDomContainer?: HTMLElement
 
     constructor(baseModel: IBaseModel, props: CardProps) {
         super(baseModel, props)
@@ -30,7 +31,7 @@ export class Cadastro extends Main<CardProps> {
     async handleSubmit(): Promise<void> {
         if (this.isSubmitting) return;
 
-        const errorMessage = this.registrationContainer.querySelector("#error-message");
+        const errorMessage = this.activeDomContainer?.querySelector("#error-message") || this.registrationContainer.querySelector("#error-message");
         const errorEl = errorMessage as HTMLElement | null;
 
         if (!this.emailValue || this.passwordValue.length < 6) {
@@ -52,7 +53,7 @@ export class Cadastro extends Main<CardProps> {
             const loginServices = new LoginServices(this.emailValue, this.passwordValue)
             await loginServices.postUser();
 
-            history.pushState({}, "", "/home")
+            history.pushState({}, "", "/")
             window.dispatchEvent(new Event('popstate'))
         } catch (error: unknown) {
             console.error("Error on register:", error)
@@ -69,6 +70,7 @@ export class Cadastro extends Main<CardProps> {
     }
 
     bindButtons(domContainer: HTMLElement): void {
+        this.activeDomContainer = domContainer;
         // Bind primary and secondary button clicks
         parseButton(domContainer, [
             this.handleSubmit.bind(this),

@@ -11,6 +11,7 @@ export class Login extends Main<LoginProps> {
     protected emailValue: string = ""
     protected passwordValue: string = ""
     private isSubmitting: boolean = false
+    private activeDomContainer?: HTMLElement
 
     constructor(baseModel: IBaseModel, props: LoginProps) {
         super(baseModel, props)
@@ -20,7 +21,7 @@ export class Login extends Main<LoginProps> {
     async handleSubmit(): Promise<void> {
         if (this.isSubmitting) return;
 
-        const errorMessage = this.loginContainer.querySelector("#error-message");
+        const errorMessage = this.activeDomContainer?.querySelector("#error-message") || this.loginContainer.querySelector("#error-message");
         const errorEl = errorMessage as HTMLElement | null;
 
         if (!this.emailValue || this.passwordValue.length < 6) {
@@ -86,6 +87,7 @@ export class Login extends Main<LoginProps> {
     }
 
     bindButtons(domContainer: HTMLElement): void {
+        this.activeDomContainer = domContainer;
         parseButton(domContainer, [
             this.handleSubmit.bind(this),
             this.handleAdminAccess.bind(this, domContainer)
