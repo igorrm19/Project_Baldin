@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "fox",
+    "backEnd"
+  ],
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p backEnd/tsconfig.json --noEmit",

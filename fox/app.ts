@@ -1,4 +1,4 @@
-import '../style.css'
+import '../src/style.css'
 
 export class App {
   container: HTMLElement
