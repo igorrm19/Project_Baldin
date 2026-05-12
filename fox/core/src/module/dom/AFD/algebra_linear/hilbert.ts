@@ -1,4 +1,3 @@
-// Automatos com pilha
 
 interface ActionItem {
     estado: string;
@@ -6,24 +5,24 @@ interface ActionItem {
     action: () => void;
 }
 
-export class AutomatoPilha{
+export class AutomatoPilha {
     private estadoAtual: number = 0
     private nome: string = ""
     private pilha: ActionItem[] = []
     private aceita: string = "igor"
 
 
-    constructor(nome: string){
+    constructor(nome: string) {
         this.nome = nome
     }
 
     private setPilha(): void {
-        
+
         this.pilha = [...this.nome].map((caractere, index) => {
             return {
                 estado: `q${index}`,
                 label: caractere,
-                action: () => {}
+                action: () => { }
             }
         })
     }
@@ -47,7 +46,7 @@ export class AutomatoPilha{
             console.log(`Estado: ${item.estado}, Label: ${item.label}`)
             this.estadoAtual++
         })
-        
+
         console.log(`Estado Atual: q${this.estadoAtual}`)
     }
 }
