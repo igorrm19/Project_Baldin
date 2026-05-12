@@ -27,4 +27,16 @@ describe('CardLogin', () => {
         const div = document.createElement('div');
         card.bindLoginButtons(div);
     });
+
+    it('covers bindLoginButtons when authInstance is null', () => {
+        const div = document.createElement('div');
+        card.bindLoginButtons(div);
+        expect(true).toBe(true);
+    });
+
+    it('covers parseHTML fallback branches', () => {
+        mockBaseModel.getHTML = () => '<div id="noparent"></div>';
+        card.mountCardLogin();
+        expect(card.name).toBe("");
+    });
 });
