@@ -37,6 +37,7 @@ describe('LoginServices', () => {
 
     it('JSON fail paths', async () => {
         const s = new LoginServices('t@t.com', 'password123', 'Test');
+        setupResponse(false, 'FAIL'); await expect(s.getUser()).rejects.toThrow();
         setupResponse(false, 'FAIL'); await expect(s.loginUser()).rejects.toThrow();
         setupResponse(false, 'FAIL'); await expect(s.postUser()).rejects.toThrow();
         setupResponse(false, 'FAIL'); await expect(s.putUser()).rejects.toThrow();
