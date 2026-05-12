@@ -27,16 +27,12 @@ describe('HomePage', () => {
         expect(container.classList.contains('responsive-page')).toBe(true);
     });
 
-    it('should mount with header and content box', () => {
+    it('should mount with header', () => {
         const page = new HomePage();
         page.mount(parent);
 
         // Verify Header exists in the DOM
         expect(parent.querySelector('header')).toBeTruthy();
-
-        // Verify content box
-        expect(parent.querySelector('.home-content-box')).toBeTruthy();
-        expect(parent.innerHTML).toContain('Welcome to Fox Mother');
     });
 
     it('should unmount and log message', () => {

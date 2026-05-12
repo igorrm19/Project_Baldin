@@ -35,7 +35,7 @@ describe('CardLogin', () => {
     });
 
     it('covers parseHTML fallback branches', () => {
-        mockBaseModel.getHTML = () => '<div id="noparent"></div>';
+        mockBaseModel.getHTML = () => '<div id=""></div>';
         card.mountCardLogin();
         expect(card.name).toBe("");
     });

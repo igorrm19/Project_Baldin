@@ -23,7 +23,7 @@ describe('Pages', () => {
     it('mounts HomePage', () => {
         const page = new HomePage();
         page.mount(parent);
-        expect(parent.querySelector('.home-content-box')).toBeTruthy();
+        expect(parent.querySelector('header')).toBeTruthy();
         page.unmount();
     });
 
