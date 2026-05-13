@@ -17,12 +17,12 @@ export class HeaderComponent extends BaseModel {
     override async mount(parent: HTMLElement): Promise<void> {
         const inputSearch = new InputHTML("search-input", "text", "Search", "", "w-full px-7 py-4 rounded-lg focus:outline-none border-none placeholder-gray-500 bg-transparent text-[#1e1e1e]");
         const service = new LoginServices();
-        let userName = "Visitante";
+        let userName = "User";
 
         try {
-            const userResponse = await service.getUser() as { user?: { name?: string } };
-            if (userResponse && userResponse.user && userResponse.user.name) {
-                userName = userResponse.user.name;
+            const userResponse = await service.getUser() as { name?: string } | null;
+            if (userResponse !== null && typeof userResponse.name === 'string' && userResponse.name !== '') {
+                userName = userResponse.name;
             }
         } catch (error) {
             console.error("[HeaderComponent] Failed to fetch user info:", error);
@@ -36,7 +36,6 @@ export class HeaderComponent extends BaseModel {
         })
         super.mount(parent);
         this.onMount();
-        return;
     }
 
     onMount(): void {

@@ -269,7 +269,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = (req as Request & { user?: { id: string } }).user?.id;
-        if (!userId) {
+        if (typeof userId !== 'string' || userId === '') {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }

@@ -19,7 +19,7 @@ export class LoginServices {
         };
 
         const token = localStorage.getItem("token");
-        if (token) {
+        if (typeof token === 'string' && token !== '') {
             headers['Authorization'] = `${servicesHeaders.authorization}${token}`;
         }
 
@@ -37,11 +37,11 @@ export class LoginServices {
         this.password = "";
     }
 
-    async getUser(): Promise<any> {
+    async getUser(): Promise<unknown> {
         try {
             // First try to get from localStorage for immediate result
             const localUser = localStorage.getItem("user");
-            if (localUser) {
+            if (typeof localUser === 'string' && localUser !== '') {
                 return JSON.parse(localUser);
             }
 
@@ -85,7 +85,7 @@ export class LoginServices {
             }
             const payload = await response.json() as { token: string, user: unknown };
             localStorage.setItem("token", payload.token);
-            if (payload.user) {
+            if (payload.user !== undefined && payload.user !== null) {
                 localStorage.setItem("user", JSON.stringify(payload.user));
             }
             return payload;
