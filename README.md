@@ -1,79 +1,112 @@
-# Project Baldim
+# 🚀 Project Baldim
 
-## Overview
-Project Baldim is a frontend SPA built with TypeScript and Vite, using a custom runtime called Fox Framework to render components directly into the DOM. The application is organized around a router, reusable UI components, login/registration features, and a service layer that consumes an external API.
+[![Quality Pipeline](https://github.com/igorrm23/Project_Baldim/actions/workflows/ci.yml/badge.svg)](https://github.com/igorrm23/Project_Baldim/actions)
+[![Language](https://img.shields.io/badge/Language-TypeScript-blue.svg)](https://www.typescriptlang.org/)
+[![Framework](https://img.shields.io/badge/Framework-Fox-orange.svg)](./fox)
 
-## Architecture
-This repository separates application concerns into the following layers:
-- **Entry point**: `index.html` and `src/main.ts`
-- **Routing**: `FoxRouter`
-- **Page layer**: pages such as `MainPage`, `AboutPage`, `CadastroPage`, and `HomePage`
-- **Feature layer**: login and registration modules
-- **Service layer**: `LoginServices` for API communication
-- **Framework core**: `BaseModel`, `Main`, and DOM helpers
-- **Quality pipeline**: TypeScript checks, linting, HTML validation, accessibility, and dependency auditing
+Project Baldim is a state-of-the-art full-stack application featuring a custom-built frontend engine, a robust Express-based backend, and a dedicated core library. Built with performance, security, and scalability in mind.
 
-![Architecture UML](docs/architecture.svg)
+---
 
-## What this project includes
-- A custom component rendering engine with safe template interpolation.
-- A client-side router using the history API.
-- Feature pages with login and registration flows.
-- A service client for `/users` calls, including CSRF handling.
-- A CI pipeline for type safety and quality.
+## 🏛️ Architecture & Ecosystem
 
-## Quick start
+The project is organized as an **npm workspace**, ensuring seamless integration between the frontend, backend, and core libraries.
+
+### 📦 Workspace Modules
+
+| Module | Responsibility | Technology |
+| :--- | :--- | :--- |
+| **`fox/`** | The "Fox Framework" - A custom lightweight component & routing engine. | TypeScript, Vite |
+| **`backEnd/`** | Serverless-ready API handling authentication and data persistence. | Express, Mongoose, Zod |
+| **`src/`** | The main application implementation using the Fox Framework. | TypeScript, HTML5, CSS3 |
+
+---
+
+## ✨ Key Features
+
+- **Custom Component Engine**: High-performance DOM rendering with safe template interpolation.
+- **Client-Side Routing**: A sophisticated history-based router built into the Fox core.
+- **Secure Backend**: JWT-based authentication, rate limiting, and request validation with Zod.
+- **Full-Stack Type Safety**: End-to-end TypeScript integration.
+- **Quality Pipeline**: Integrated CI with linting, testing, accessibility checks, and English-only policy enforcement.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Vite, TypeScript, Fox Framework (Custom)
+- **Backend**: Node.js, Express, MongoDB (Mongoose)
+- **Validation**: Zod (Backend), HTML-Validate (Frontend)
+- **Testing**: Jest, Playwright (E2E)
+- **Quality**: ESLint, CSpell, Pa11y (Accessibility)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** (v18 or higher)
+- **npm** (v9 or higher)
+
+### Installation
+
 ```bash
+# Install dependencies for the entire workspace
 npm install
+```
+
+### Development
+
+To start the frontend and backend in development mode:
+
+```bash
+# Start frontend (Vite)
 npm run dev
+
+# Start backend (requires separate terminal)
+cd backEnd && npm run dev
 ```
 
-### Build for production
-```bash
-npm run build
-```
+---
 
-### Run tests
-```bash
-npm run test
-```
+## 🧪 Quality & Testing
 
-### Run lint and quality checks
-```bash
-npm run lint
-npm run lint:english
-npm run html:validate
-npm run a11y
-```
+We maintain a strict quality pipeline to ensure code stability and accessibility.
 
-## Detailed documentation
-For a full architecture breakdown and design notes, see `docs/architecture.md`.
+| Command | Description |
+| :--- | :--- |
+| `npm run typecheck` | Run TypeScript compiler checks across all workspaces. |
+| `npm run test` | Execute unit tests with coverage reporting. |
+| `npm run lint` | Run ESLint for code style and security patterns. |
+| `npm run lint:english` | Enforce the English-only documentation and code policy. |
+| `npm run a11y` | Run accessibility audits using Pa11y. |
+| `npm run test:e2e` | Execute Playwright E2E smoke tests. |
 
-## Project structure
+---
+
+## 📂 Project Structure
+
 ```text
-fox/
-├── core/
-│   └── src/
-│       └── module/
-│           ├── router/     (Navigation Engine)
-│           ├── utils/      (Base Engines & Interfaces)
-│           └── dom/        (DOM Abstractions)
-src/
-├── App/            (Feature Implementation)
-├── action.stack.ts (Decoupled State Management)
-└── main.ts         (Entry Point)
+.
+├── backEnd/           # Express API & Serverless Functions
+├── fox/               # Custom Framework Core (Router, DOM, Utils)
+├── src/               # Application Features & UI Components
+│   ├── App/           # Business Logic & Pages
+│   └── main.ts        # Frontend Entry Point
+├── tests/             # E2E Test Suites
+├── vercel.json        # Production Deployment Config
+└── package.json       # Workspace Definition
 ```
 
-## English-only policy
-All production code, tests, documentation, and user-facing strings must be in English. The `npm run lint:english` script enforces this policy. Do not add Portuguese strings or temporary spellcheck exceptions to bypass the check.
+---
 
-## CI and quality pipeline
-The repository includes a GitHub Actions workflow that executes:
-- TypeScript type checking
-- ESLint validation
-- build verification
-- unit tests and coverage
-- HTML validation
-- accessibility checks
-- bundle size validation
-- dependency audit
+## 📜 English-Only Policy
+
+This project follows a strict **English-only** policy for all code, comments, and documentation. This is enforced via automated linting (`npm run lint:english`).
+
+---
+
+## 🛡️ Security
+
+For information on security practices and reporting vulnerabilities, please refer to [SECURITY.md](./SECURITY.md).

@@ -2,13 +2,13 @@ import { InputHTML } from './input';
 
 describe('InputHTML', () => {
     it('initializes with default parameters', () => {
-        const inputComponent = new InputHTML('username', 'text', 'Username');
+        const inputComponent = new InputHTML('username', 'text');
         expect(inputComponent.placeholder).toBe('');
         expect(inputComponent.value).toBe('');
     });
 
     it('initializes with custom parameters', () => {
-        const inputComponent = new InputHTML('username', 'text', 'Username', 'Enter name', 'admin');
+        const inputComponent = new InputHTML('username', 'text', 'Enter name', 'admin');
         expect(inputComponent.placeholder).toBe('Enter name');
         expect(inputComponent.value).toBe('admin');
     });
