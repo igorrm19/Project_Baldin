@@ -60,6 +60,9 @@ npm install
 npm install fox-framework
 ```
 
+> [!TIP]
+> Check out the [**Fox Framework Usage Guide**](./fox/docs/getting-started/usage.md) for detailed instructions on building components and routing.
+
 ### Development
 
 To start the frontend and backend in development mode:

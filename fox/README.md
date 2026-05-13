@@ -20,16 +20,25 @@ npm install fox-framework
 ## 🚀 Quick Start
 
 ```typescript
-import { App, Router } from 'fox-framework';
+import { FoxRouter } from 'fox-framework';
+import { HomePage } from './pages/HomePage';
 
-const app = new App();
-const router = new Router();
+const routes = {
+  "/": HomePage
+};
 
-// Define your routes and components
-// ...
-
-app.start();
+const router = new FoxRouter(routes);
+router.start();
 ```
+
+---
+
+## 📚 Documentation
+
+For detailed guides and API references, check out our documentation:
+
+- [**Usage Guide**](./docs/getting-started/usage.md) - Learn how to build components and handle routing.
+- [Architecture Overview](../docs/architecture.md) - Understand the internal design of the framework.
 
 ## 📜 License
 
