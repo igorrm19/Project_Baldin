@@ -48,8 +48,8 @@ class AboutPage {
 
         formBox.appendChild(headerBox);
 
-        const emailInput = new InputHTML("email", "email", "Email Address", "EMAIL_ADDRESS");
-        const passInput = new InputHTML("password", "password", "Password", "********");
+        const emailInput = new InputHTML("email", "email", "Email Address", "EMAIL_ADDRESS", "w-full px-7 py-4 rounded-lg focus:outline-none border-none placeholder-gray-500 bg-transparent text-[#1e1e1e]");
+        const passInput = new InputHTML("password", "password", "Password", "********", "w-full px-7 py-4 rounded-lg focus:outline-none border-none placeholder-gray-500 bg-transparent text-[#1e1e1e]");
 
         emailInput.mountInput(formBox);
         passInput.mountInput(formBox);
