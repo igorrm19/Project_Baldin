@@ -24,5 +24,20 @@ export default {
         '^.+\\.css$': '<rootDir>/../__mocks__/styleMock.js',
         '^@/(.*)$': '<rootDir>/$1'
     },
+    collectCoverageFrom: [
+        'core/src/**/*.ts',
+        '!core/src/**/*.test.ts',
+        '!core/src/**/*.d.ts'
+    ],
+    coverageDirectory: 'coverage',
+    coverageReporters: ['text', 'lcov'],
+    coverageThreshold: {
+        global: {
+            branches: 99,
+            functions: 99,
+            lines: 99,
+            statements: 99
+        }
+    },
     passWithNoTests: true
 };
