@@ -17,7 +17,7 @@ export class HomePage {
 
     mount(parent: HTMLElement): void {
         const header = new HeaderComponent();
-        header.mount(this.container);
+        void header.mount(this.container);
 
         const footer = new FooterComponent();
         footer.mount(this.container);

@@ -8,6 +8,7 @@ describe('LoginServices', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        localStorage.clear();
         logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
         document.head.innerHTML = '<meta name="csrf-token" content="test-token">';
     });

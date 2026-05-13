@@ -21,7 +21,7 @@ class AboutPage {
         parent.appendChild(this.container);
 
         const header = new HeaderComponent();
-        header.mount(this.container);
+        void header.mount(this.container);
 
         const formBox = document.createElement("div");
         formBox.className = "about-form-box";

@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import rateLimit from 'express-rate-limit';
-import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.controller.js';
+import { getUsers, getUserById, createUser, updateUser, deleteUser, login, getCurrentUser } from '../controller/user.controller.js';
 import validateLogin from '../validity/validityLogin.js';
 import { validityCreateUser, validityUpdateUser } from '../validity/validityUser.js';
 import auth from '../middleware/auth.js';
@@ -18,9 +18,12 @@ const userUpdateLimiter = rateLimit({
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 5,
+    max: 100,
     standardHeaders: true,
     legacyHeaders: false,
+    handler: (_req, res) => {
+        res.status(429).json({ error: "Too many login attempts, please try again later." });
+    }
 });
 
 const createUserLimiter = rateLimit({
@@ -30,37 +33,38 @@ const createUserLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-router.get('/health', (_req, res): void => {
+router.get('/health', (_req: express.Request, res: express.Response): void => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-router.get('/', (_req, res): void => {
+router.get('/', (_req: express.Request, res: express.Response): void => {
     res.json({ message: 'Hello World!' });
 });
 
-router.get('/mongo-status', (_req, res) => {
+router.get('/mongo-status', (_req: express.Request, res: express.Response) => {
     res.json({
         connected: mongoose.connections[0]?.readyState === 1 as unknown,
         state: mongoose.connections[0]?.readyState
     });
 });
 
+router.get('/me', userUpdateLimiter, auth, getCurrentUser);
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers); //failure 404
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
-router.post('/users', validityCreateUser, createUserLimiter, createUser); //successfull
+router.post('/users', createUserLimiter, validityCreateUser, createUser); //successfull
 router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, updateUser); //failure 500
 router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
-router.post('/login', validateLogin, loginLimiter, login); //successfull
+router.post('/login', loginLimiter, validateLogin, login); //successfull
 
-router.put("/users", (_req, res) => {
+router.put("/users", (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.delete("/users", (_req, res) => {
+router.delete("/users", (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.all('/users', (_req, res) => {
+router.all('/users', (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Method not allowed on /users collection" });
 });
 
