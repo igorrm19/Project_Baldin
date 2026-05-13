@@ -48,13 +48,13 @@ router.get('/mongo-status', (_req: express.Request, res: express.Response) => {
     });
 });
 
-router.get('/me', auth, userUpdateLimiter, getCurrentUser);
+router.get('/me', userUpdateLimiter, auth, getCurrentUser);
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers); //failure 404
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
-router.post('/users', validityCreateUser, createUserLimiter, createUser); //successfull
+router.post('/users', createUserLimiter, validityCreateUser, createUser); //successfull
 router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, updateUser); //failure 500
 router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
-router.post('/login', validateLogin, loginLimiter, login); //successfull
+router.post('/login', loginLimiter, validateLogin, login); //successfull
 
 router.put("/users", (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Route not allowed, add an id" });
