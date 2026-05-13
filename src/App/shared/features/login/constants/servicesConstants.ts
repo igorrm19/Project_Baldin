@@ -8,7 +8,7 @@ export const servicesURL = {
 
 export const servicesMessage: TServicesMessage = {
     success: "User created successfully",
-    error: "Failed to create user",
+    error: "Operation failed",
     update: "User updated successfully",
     delete: "User deleted successfully",
     get: "User fetched successfully",

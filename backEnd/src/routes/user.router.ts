@@ -18,9 +18,12 @@ const userUpdateLimiter = rateLimit({
 
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 5,
+    max: 100,
     standardHeaders: true,
     legacyHeaders: false,
+    handler: (_req, res) => {
+        res.status(429).json({ error: "Too many login attempts, please try again later." });
+    }
 });
 
 const createUserLimiter = rateLimit({

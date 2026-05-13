@@ -37,6 +37,11 @@ app.use((_req: Request, res: Response) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
     console.error("Global Error Handler:", err);
+    
+    if (res.headersSent) {
+        return;
+    }
+
     res.status(500).json({ 
         error: "Internal server error", 
         message: process.env['NODE_ENV'] !== 'production' ? err.message : undefined 

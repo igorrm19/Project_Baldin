@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import User from '../model/user.model.js';
-import * as bcrypt from 'bcrypt'
-import * as jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { MESSAGES_USER } from '../constants/user.constants.js';
 import { isErrorWithName, isMongoDupError } from '../utils/errorGuards.js';
 
@@ -22,6 +22,7 @@ const getUsers = async (_req: Request, res: Response): Promise<void> => {
     } catch (err) {
         console.error(MESSAGES_USER.ERROR, err);
         res.status(500).json({ error: MESSAGES_USER.ERROR });
+        return;
     }
 }
 
@@ -44,10 +45,12 @@ const getUserById = async (req: Request, res: Response): Promise<void> => {
         if (isErrorWithName(err, "CastError")) {
             console.error(MESSAGES_USER.ERROR);
             res.status(400).json({ error: MESSAGES_USER.ERROR });
+            return;
         }
 
         console.error(MESSAGES_USER.ERROR);
         res.status(500).json({ error: MESSAGES_USER.ERROR });
+        return;
     }
 }
 
@@ -82,6 +85,7 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
                 error: MESSAGES_USER.ERROR,
                 details: err as unknown as Error
             });
+            return;
         }
 
         if (isMongoDupError(err)) {
@@ -89,10 +93,12 @@ const createUser = async (req: Request, res: Response): Promise<void> => {
             res.status(409).json({
                 error: MESSAGES_USER.ERROR
             });
+            return;
         }
 
         console.error(MESSAGES_USER.ERROR);
         res.status(500).json({ error: MESSAGES_USER.ERROR });
+        return;
     }
 }
 
@@ -192,10 +198,12 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
         if (!result) {
             console.error(MESSAGES_USER.ERROR);
             res.status(404).json({ error: MESSAGES_USER.ERROR });
+            return;
         }
 
         console.log(MESSAGES_USER.DELETE);
         res.status(200).json({ message: MESSAGES_USER.DELETE });
+        return;
 
     } catch (err) {
         if (isErrorWithName(err, "CastError")) {
@@ -203,9 +211,11 @@ const deleteUser = async (req: Request, res: Response): Promise<void> => {
             res.status(400).json({
                 error: MESSAGES_USER.ERROR
             });
+            return;
         }
         console.error(MESSAGES_USER.ERROR);
         res.status(500).json({ error: MESSAGES_USER.ERROR });
+        return;
     }
 }
 const login = async (req: Request, res: Response): Promise<void> => {
@@ -239,7 +249,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const userRole = (user as unknown as { role?: string }).role; 
+        const userRole = (user as unknown as { role?: string }).role;
         const payload = {
             id: user._id.toString(),
             email: user.email,
@@ -284,6 +294,7 @@ const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
     } catch (err) {
         console.error("GetCurrentUser Error:", err);
         res.status(500).json({ error: MESSAGES_USER.ERROR });
+        return;
     }
 }
 
