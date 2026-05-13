@@ -266,5 +266,25 @@ const login = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+const getCurrentUser = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = (req as Request & { user?: { id: string } }).user?.id;
+        if (!userId) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
 
-export { getUsers, getUserById, createUser, updateUser, deleteUser, login };
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            res.status(404).json({ error: MESSAGES_USER.ERROR });
+            return;
+        }
+
+        res.status(200).json(user);
+    } catch (err) {
+        console.error("GetCurrentUser Error:", err);
+        res.status(500).json({ error: MESSAGES_USER.ERROR });
+    }
+}
+
+export { getUsers, getUserById, createUser, updateUser, deleteUser, login, getCurrentUser };

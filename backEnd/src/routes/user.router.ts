@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import rateLimit from 'express-rate-limit';
-import { getUsers, getUserById, createUser, updateUser, deleteUser, login } from '../controller/user.controller.js';
+import { getUsers, getUserById, createUser, updateUser, deleteUser, login, getCurrentUser } from '../controller/user.controller.js';
 import validateLogin from '../validity/validityLogin.js';
 import { validityCreateUser, validityUpdateUser } from '../validity/validityUser.js';
 import auth from '../middleware/auth.js';
@@ -45,6 +45,7 @@ router.get('/mongo-status', (_req, res) => {
     });
 });
 
+router.get('/me', auth, getCurrentUser);
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers); //failure 404
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
 router.post('/users', validityCreateUser, createUserLimiter, createUser); //successfull

@@ -7,7 +7,7 @@ export class LoginServices {
     private password: string;
     private name: string | undefined;
 
-    constructor(email: string, password: string, name?: string) {
+    constructor(email: string = "", password: string = "", name?: string) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -17,11 +17,15 @@ export class LoginServices {
         const headers: Record<string, string> = {
             'Content-Type': servicesHeaders.contentType,
         };
+
+        const token = localStorage.getItem("token");
+        if (token) {
+            headers['Authorization'] = `${servicesHeaders.authorization}${token}`;
+        }
+
         const csrfMeta = document.querySelector('meta[name="csrf-token"]');
         const csrfContent = csrfMeta?.getAttribute('content');
         if (csrfMeta === null || csrfContent === null || csrfContent === "" || csrfContent === undefined || csrfContent === "{{ csrf_token() }}") {
-            // If it's the placeholder or missing, we still continue but don't set the header or set a dummy one
-            // In dev environment with Vite, the placeholder might remain.
             return headers;
         }
         headers['X-CSRF-Token'] = csrfContent;
@@ -33,9 +37,17 @@ export class LoginServices {
         this.password = "";
     }
 
-    async getUser(): Promise<unknown> {
+    async getUser(): Promise<any> {
         try {
-            const response = await fetch(this.url, {
+            // First try to get from localStorage for immediate result
+            const localUser = localStorage.getItem("user");
+            if (localUser) {
+                return JSON.parse(localUser);
+            }
+
+            // Fallback to API if needed
+            const meUrl = this.url.replace('/users', '/me');
+            const response = await fetch(meUrl, {
                 method: "GET",
                 headers: this.getHeaders(),
                 credentials: 'include'
@@ -73,6 +85,9 @@ export class LoginServices {
             }
             const payload = await response.json() as { token: string, user: unknown };
             localStorage.setItem("token", payload.token);
+            if (payload.user) {
+                localStorage.setItem("user", JSON.stringify(payload.user));
+            }
             return payload;
         } catch (error) {
             console.log(error);
