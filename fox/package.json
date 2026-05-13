@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:ci": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --coverage --coverageReporters=text --coverageReporters=lcov",
     "typecheck": "tsc --noEmit",
     "build": "vite build"
   },

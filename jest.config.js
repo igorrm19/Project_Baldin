@@ -1,24 +1,14 @@
 export default {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
-    roots: ['<rootDir>/fox', '<rootDir>/src', '<rootDir>/backEnd'],
+    roots: ['<rootDir>/src'],
     testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
     collectCoverageFrom: [
-        'fox/**/*.ts',
         'src/**/*.ts',
-        'backEnd/**/*.ts',
-        '!fox/**/*.test.ts',
         '!src/**/*.test.ts',
-        '!backEnd/**/*.test.ts',
-        '!fox/**/*.d.ts',
         '!src/**/*.d.ts',
-        '!backEnd/**/*.d.ts',
-        '!fox/**/test/**',
-        '!fox/core/src/@types/**/*.ts',
-        '!fox/core/src/module/dom/AFD/**',
-        '!src/vite-env.d.ts',
-        '!backEnd/src/config/createAdmin.ts'
+        '!src/vite-env.d.ts'
     ],
     coverageDirectory: 'coverage',
     coverageReporters: ['text', 'lcov'],
