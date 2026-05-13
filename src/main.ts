@@ -5,7 +5,7 @@ import { AboutPage } from './App/shared/pages/aboutPage';
 import { test } from './convert.stringtoobject';
 import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
-import { AutomatoPilha } from '../fox/core/src/module/dom/AFD/algebra_linear/hilbert';
+import { PushdownAutomaton } from '../fox/core/src/module/dom/AFD/algebra_linear/hilbert';
 
 import { actionStack } from '../fox/action.stack';
 
@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const router = new FoxRouter(routes);
   router.start();
 
-  const automato = new AutomatoPilha("igor");
-  automato.view();
+  const automaton = new PushdownAutomaton("igor");
+  automaton.view();
 });
 
 

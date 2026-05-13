@@ -1,52 +1,52 @@
 
 interface ActionItem {
-    estado: string;
+    state: string;
     label: string;
     action: () => void;
 }
 
-export class AutomatoPilha {
-    private estadoAtual: number = 0
-    private nome: string = ""
-    private pilha: ActionItem[] = []
-    private aceita: string = "igor"
+export class PushdownAutomaton {
+    private currentState: number = 0
+    private name: string = ""
+    private stack: ActionItem[] = []
+    private acceptedName: string = "igor"
 
 
-    constructor(nome: string) {
-        this.nome = nome
+    constructor(name: string) {
+        this.name = name
     }
 
-    private setPilha(): void {
+    private setStack(): void {
 
-        this.pilha = [...this.nome].map((caractere, index) => {
+        this.stack = [...this.name].map((char, index) => {
             return {
-                estado: `q${index}`,
-                label: caractere,
+                state: `q${index}`,
+                label: char,
                 action: () => { }
             }
         })
     }
 
-    getPilha(): ActionItem[] {
-        return this.pilha
+    getStack(): ActionItem[] {
+        return this.stack
     }
 
     view(): void {
-        this.setPilha()
+        this.setStack()
 
-        console.log(`Automato: ${this.nome}`)
-        if (this.aceita === this.nome) {
-            console.log("Automato aceito")
+        console.log(`Automaton: ${this.name}`)
+        if (this.acceptedName === this.name) {
+            console.log("Automaton accepted")
         } else {
-            console.log("Automato não aceito")
+            console.log("Automaton not accepted")
         }
-        console.log("Pilha:")
+        console.log("Stack:")
 
-        this.pilha.forEach(item => {
-            console.log(`Estado: ${item.estado}, Label: ${item.label}`)
-            this.estadoAtual++
+        this.stack.forEach(item => {
+            console.log(`State: ${item.state}, Label: ${item.label}`)
+            this.currentState++
         })
 
-        console.log(`Estado Atual: q${this.estadoAtual}`)
+        console.log(`Current State: q${this.currentState}`)
     }
 }

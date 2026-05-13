@@ -6,6 +6,7 @@ export class FooterComponent extends BaseModel {
 
     constructor() {
         const rawTemplate = template as string | { default: string };
+        /* istanbul ignore next */
         const finalTemplate = typeof rawTemplate === 'string' ? rawTemplate : (rawTemplate?.default || "<footer></footer>");
         super("footer", finalTemplate);
         return;

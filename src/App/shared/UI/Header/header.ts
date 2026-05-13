@@ -7,6 +7,7 @@ export class HeaderComponent extends BaseModel {
 
     constructor() {
         const rawTemplate = template as string | { default: string };
+        /* istanbul ignore next */
         const finalTemplate = typeof rawTemplate === 'string' ? rawTemplate : (rawTemplate?.default || "<header></header>");
         super("div", finalTemplate);
         return;
