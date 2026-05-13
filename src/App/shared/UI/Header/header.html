@@ -1,5 +1,6 @@
-<header class="flex items-center justify-around w-full h-28 backdrop-blur-2xl fixed top-0 left-0 z-50 shadow-sm">
-    <div class="flex gap-3 cursor-pointer">
+<header
+    class="grid grid-cols-[1fr_auto_1fr] items-center w-full h-28 backdrop-blur-2xl fixed top-0 left-0 z-50 shadow-sm px-10">
+    <div class="flex items-center gap-3 cursor-pointer">
         <img src="/fox-face.png" alt="logo" class="w-14 h-14 object-cover rounded-[100%]">
         <div class="flex flex-row items-center justify-center gap-1 ">
             <h1 class="text-2xl font-bold text-orange-700 cursor-pointer hover:text-zinc-400 transition-all">Fox
@@ -7,21 +8,32 @@
             <h1 class="text-2xl font-bold text-amber-700 cursor-pointer hover:text-amber-700 transition-all">Mother</h1>
         </div>
     </div>
-    <nav class="flex items-center justify-around gap-10">
-        <h2 class="text-2xl font-bold text-white/70 cursor-pointer hover:text-amber-500 transition-all">
-            <a href="/">Home</a>
-        </h2>
-        <h2 class="text-2xl font-bold text-white/70 cursor-pointer hover:text-amber-500 transition-all">
-            <a href="/about">About</a>
-        </h2>
-        <h2 class="text-2xl font-bold text-white/70 cursor-pointer hover:text-amber-500 transition-all">
-            <a href="/contact">Contact</a>
-        </h2>
-    </nav>
-    <div class="flex items-center justify-center gap-2">
+    <div class="flex items-center w-[500px] bg-[#d3d7df] px-4 py-2 rounded-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+            class="text-black/80 hover:text-lime-800 transition-all flex-shrink-0" viewBox="0 0 16 16">
+            <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018" />
+            <path
+                d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11" />
+        </svg>
+        <div class="flex-1">
+            <Axe id="primary_component"></Axe>
+        </div>
+    </div>
+    <div class="flex items-center justify-end gap-2">
         <button type="button"
             class="bg-transparent border border-white/20 text-white px-4 py-2 rounded-full cursor-pointer hover:text-zinc-400 transition-all">
-            <span class="text-xl">Configuration</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="text-white/80 hover:text-zinc-400 transition-all" viewBox="0 0 16 16">
+                <path
+                    d="M7.068.727c.243-.97 1.62-.97 1.864 0l.071.286a.96.96 0 0 0 1.622.434l.205-.211c.695-.719 1.888-.03 1.613.931l-.08.284a.96.96 0 0 0 1.187 1.187l.283-.081c.96-.275 1.65.918.931 1.613l-.211.205a.96.96 0 0 0 .434 1.622l.286.071c.97.243.97 1.62 0 1.864l-.286.071a.96.96 0 0 0-.434 1.622l.211.205c.719.695.03 1.888-.931 1.613l-.284-.08a.96.96 0 0 0-1.187 1.187l.081.283c.275.96-.918 1.65-1.613.931l-.205-.211a.96.96 0 0 0-1.622.434l-.071.286c-.243.97-1.62.97-1.864 0l-.071-.286a.96.96 0 0 0-1.622-.434l-.205.211c-.695.719-1.888.03-1.613-.931l.08-.284a.96.96 0 0 0-1.186-1.187l-.284.081c-.96.275-1.65-.918-.931-1.613l.211-.205a.96.96 0 0 0-.434-1.622l-.286-.071c-.97-.243-.97-1.62 0-1.864l.286-.071a.96.96 0 0 0 .434-1.622l-.211-.205c-.719-.695-.03-1.888.931-1.613l.284.08a.96.96 0 0 0 1.187-1.186l-.081-.284c-.275-.96.918-1.65 1.613-.931l.205.211a.96.96 0 0 0 1.622-.434zM12.973 8.5H8.25l-2.834 3.779A4.998 4.998 0 0 0 12.973 8.5m0-1a4.998 4.998 0 0 0-7.557-3.779l2.834 3.78zM5.048 3.967l-.087.065zm-.431.355A4.98 4.98 0 0 0 3.002 8c0 1.455.622 2.765 1.615 3.678L7.375 8zm.344 7.646.087.065z" />
+            </svg>
+        </button>
+        <button type="button"
+            class="bg-transparent border border-white/20 text-white px-4 py-2 rounded-full cursor-pointer hover:text-zinc-400 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="text-white/80 hover:text-zinc-400 transition-all" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+            </svg>
         </button>
     </div>
 </header>
