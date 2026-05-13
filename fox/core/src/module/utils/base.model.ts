@@ -4,7 +4,7 @@ export class BaseModel implements IBaseModel {
     private html: string
     private element: HTMLElement
     private context: Map<string, unknown> = new Map()
-    private axe: Map<string, string> = new Map()
+    protected axe: Map<string, string> = new Map()
     private mounted = false
 
     constructor(element: string, template: string) {
@@ -27,12 +27,12 @@ export class BaseModel implements IBaseModel {
             const value = this.context.get(key);
             const safeValue =
                 typeof value === "string" ? value :
-                typeof value === "number" || typeof value === "boolean" ? String(value) :
-                "";
+                    typeof value === "number" || typeof value === "boolean" ? String(value) :
+                        "";
             return this.escapeHtml(safeValue);
         })
     }
-    
+
     private compileChild(html: string): string {
         return html.replace(/<Axe\s+id="(.*?)"\s*><\/Axe>/g, (_, key: string) => {
             return this.axe.get(key) ?? ""
@@ -50,12 +50,14 @@ export class BaseModel implements IBaseModel {
         Object.entries(context).forEach(([key, value]) => {
             this.context.set(key, value)
         })
+        return;
     }
 
-    public addComponent(axe: ComponentMap): void {
+    public addComponent(axe: ComponentMap): boolean {
         Object.entries(axe).forEach(([key, value]) => {
             this.axe.set(key, value)
         })
+        return true;
     }
 
 

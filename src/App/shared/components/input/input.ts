@@ -5,19 +5,27 @@ export class InputHTML extends BaseModel {
     containerText: HTMLElement
     name: string
     type: string
-    label: string
     placeholder: string
     value: string
+    className: string
 
-    constructor(name: string, type: string, label: string, placeholder: string = "", value: string = "") {
+    constructor(name: string, type: string, placeholder: string = "", value: string = "", className: string = "") {
         /* istanbul ignore next */
         super("div", (typeof template === 'string' ? template : (template as unknown as { default: string })?.default) || "<div></div>")
         this.containerText = document.createElement("div")
         this.name = name
         this.type = type
-        this.label = label
         this.placeholder = placeholder
         this.value = value
+        this.className = className
+
+        this.addProps({
+            name: this.name,
+            type: this.type,
+            placeholder: this.placeholder,
+            value: this.value,
+            className: this.className
+        })
     }
 
     mountInput(domContainer: HTMLElement): void {
@@ -25,9 +33,9 @@ export class InputHTML extends BaseModel {
         this.addProps({
             name: this.name,
             type: this.type,
-            label: this.label,
             placeholder: this.placeholder,
-            value: this.value
+            value: this.value,
+            className: this.className
         })
 
         // getHTML() applies properties to the template and returns the ready string
