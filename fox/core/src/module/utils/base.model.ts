@@ -57,7 +57,6 @@ export class BaseModel implements IBaseModel {
         Object.entries(axe).forEach(([key, value]) => {
             this.axe.set(key, value)
         })
-        console.log(this.axe);
         return true;
     }
 
