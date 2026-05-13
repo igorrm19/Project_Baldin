@@ -2,6 +2,8 @@ import { InputHTML } from "../components/input/input";
 import { ButtonHTML } from "../components/button/button";
 import { ImageHTML } from "../components/image/image";
 import { TextHTML } from "../components/Text/text";
+import { HeaderComponent } from "../UI/Header/header";
+import { FooterComponent } from "../UI/Footer/footer";
 
 class AboutPage {
     private readonly container: HTMLElement;
@@ -18,14 +20,17 @@ class AboutPage {
     mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
+        const header = new HeaderComponent();
+        header.mount(this.container);
+
         const formBox = document.createElement("div");
         formBox.className = "about-form-box";
 
-        const header = document.createElement("div");
-        header.className = "flex items-center justify-center flex-col";
+        const headerBox = document.createElement("div");
+        headerBox.className = "flex items-center justify-center flex-col";
 
         const logo = new ImageHTML("/fox-face.png", "fox logo");
-        logo.mountImage(header);
+        logo.mountImage(headerBox);
 
         const titleHeader = document.createElement("div");
         titleHeader.className = "flex";
@@ -36,12 +41,12 @@ class AboutPage {
         const spanH1 = new TextHTML("Mother", "text-4xl text-amber-900 mb-1 font-medium");
         spanH1.mountText(titleHeader);
 
-        header.appendChild(titleHeader);
+        headerBox.appendChild(titleHeader);
 
         const subtitle = new TextHTML("Modify your preferences", "text-zinc-600 font-serif text-lg");
-        subtitle.mountText(header);
+        subtitle.mountText(headerBox);
 
-        formBox.appendChild(header);
+        formBox.appendChild(headerBox);
 
         const emailInput = new InputHTML("email", "email", "Email Address", "EMAIL_ADDRESS");
         const passInput = new InputHTML("password", "password", "Password", "********");
@@ -51,6 +56,10 @@ class AboutPage {
 
         const loginButton = new ButtonHTML("Save Settings", "button_save", "submit");
         loginButton.mountButton(formBox);
+
+        //Footer component
+        const footer = new FooterComponent();
+        footer.mount(this.container);
 
         this.container.appendChild(formBox);
     }
