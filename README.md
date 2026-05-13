@@ -3,6 +3,7 @@
 [![Quality Pipeline](https://github.com/igorrm23/Project_Baldim/actions/workflows/ci.yml/badge.svg)](https://github.com/igorrm23/Project_Baldim/actions)
 [![Language](https://img.shields.io/badge/Language-TypeScript-blue.svg)](https://www.typescriptlang.org/)
 [![Framework](https://img.shields.io/badge/Framework-Fox-orange.svg)](./fox)
+[![npm version](https://img.shields.io/npm/v/fox-framework.svg)](https://www.npmjs.com/package/fox-framework)
 
 Project Baldim is a state-of-the-art full-stack application featuring a custom-built frontend engine, a robust Express-based backend, and a dedicated core library. Built with performance, security, and scalability in mind.
 
@@ -16,7 +17,7 @@ The project is organized as an **npm workspace**, ensuring seamless integration 
 
 | Module | Responsibility | Technology |
 | :--- | :--- | :--- |
-| **`fox/`** | The "Fox Framework" - A custom lightweight component & routing engine. | TypeScript, Vite |
+| **`fox/`** | [Fox Framework](https://www.npmjs.com/package/fox-framework) - Available on npm as `fox-framework`. | TypeScript, Vite |
 | **`backEnd/`** | Serverless-ready API handling authentication and data persistence. | Express, Mongoose, Zod |
 | **`src/`** | The main application implementation using the Fox Framework. | TypeScript, HTML5, CSS3 |
 
@@ -54,6 +55,9 @@ The project is organized as an **npm workspace**, ensuring seamless integration 
 ```bash
 # Install dependencies for the entire workspace
 npm install
+
+# Or install the Fox Framework separately in your own project
+npm install fox-framework
 ```
 
 ### Development
