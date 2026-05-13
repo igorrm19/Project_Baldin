@@ -23,9 +23,9 @@ describe('HeaderComponent', () => {
         expect(header).toBeDefined();
     });
 
-    it('should mount and set innerHTML', async () => {
+    it('should mount and set innerHTML', () => {
         const header = new HeaderComponent();
-        await header.mount(parent);
+        header.mount(parent);
         expect(parent.innerHTML).toContain('div'); // HeaderComponent creates a div container
     });
 

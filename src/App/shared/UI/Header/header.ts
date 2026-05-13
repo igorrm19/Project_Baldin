@@ -14,7 +14,11 @@ export class HeaderComponent extends BaseModel {
         return;
     }
 
-    override async mount(parent: HTMLElement): Promise<void> {
+    override mount(parent: HTMLElement): void {
+        void this.init(parent);
+    }
+
+    private async init(parent: HTMLElement): Promise<void> {
         const inputSearch = new InputHTML("search-input", "text", "Search", "", "w-full px-7 py-4 rounded-lg focus:outline-none border-none placeholder-gray-500 bg-transparent text-[#1e1e1e]");
         const service = new LoginServices();
         let userName = "User";
