@@ -30,15 +30,15 @@ const createUserLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-router.get('/health', (_req, res): void => {
+router.get('/health', (_req: express.Request, res: express.Response): void => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-router.get('/', (_req, res): void => {
+router.get('/', (_req: express.Request, res: express.Response): void => {
     res.json({ message: 'Hello World!' });
 });
 
-router.get('/mongo-status', (_req, res) => {
+router.get('/mongo-status', (_req: express.Request, res: express.Response) => {
     res.json({
         connected: mongoose.connections[0]?.readyState === 1 as unknown,
         state: mongoose.connections[0]?.readyState
@@ -53,15 +53,15 @@ router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, u
 router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
 router.post('/login', validateLogin, loginLimiter, login); //successfull
 
-router.put("/users", (_req, res) => {
+router.put("/users", (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.delete("/users", (_req, res) => {
+router.delete("/users", (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Route not allowed, add an id" });
 });
 
-router.all('/users', (_req, res) => {
+router.all('/users', (_req: express.Request, res: express.Response) => {
     res.status(405).json({ error: "Method not allowed on /users collection" });
 });
 

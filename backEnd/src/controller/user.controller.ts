@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import User from '../model/user.model.js';
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken';
 import { MESSAGES_USER } from '../constants/user.constants.js';
 import { isErrorWithName, isMongoDupError } from '../utils/errorGuards.js';
 
