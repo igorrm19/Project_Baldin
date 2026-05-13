@@ -48,7 +48,7 @@ router.get('/mongo-status', (_req: express.Request, res: express.Response) => {
     });
 });
 
-router.get('/me', auth, getCurrentUser);
+router.get('/me', auth, userUpdateLimiter, getCurrentUser);
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers); //failure 404
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
 router.post('/users', validityCreateUser, createUserLimiter, createUser); //successfull
