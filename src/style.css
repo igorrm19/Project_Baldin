@@ -6,22 +6,28 @@
 
   /* Main page container */
   .responsive-page {
-    @apply min-h-screen w-full bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex items-center justify-center flex-col py-28 md:py-32 overflow-x-hidden;
+    @apply h-screen w-screen bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex items-center justify-center flex-col overflow-hidden;
+  }
+
+  /* Responsividade para a página principal no celular */
+  @media (max-width: 768px) {
+    .responsive-page {
+      @apply h-auto min-h-screen w-full py-8 overflow-y-auto;
+    }
   }
 
   /* Login/Registration Card */
   .responsive-card {
     @apply bg-slate-50 rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center transition-all duration-300;
 
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    min-height: fit-content;
+    width: 65vh;
+    height: 100%;
   }
 
+  /* Responsividade para o card no celular */
   @media (max-width: 768px) {
     .responsive-card {
-      @apply w-[92%] mx-4 p-6;
+      @apply w-[92%] h-auto min-h-fit mx-4 p-8;
     }
   }
 
@@ -29,13 +35,12 @@
   .responsive-form {
     @apply space-y-5 transition-all duration-300;
 
-    width: 100%;
-    max-width: 400px;
+    width: 55vh;
   }
 
   @media (max-width: 768px) {
     .responsive-form {
-      @apply px-0;
+      @apply w-full px-2;
     }
   }
 
@@ -43,13 +48,12 @@
   .about-form-box {
     @apply bg-slate-50 rounded-2xl shadow-2xl p-8 space-y-5 flex flex-col justify-center;
 
-    width: 100%;
-    max-width: 600px;
+    width: 65vh;
   }
 
   @media (max-width: 768px) {
     .about-form-box {
-      @apply w-[92%] mx-4 p-6;
+      @apply w-[92%] mx-4;
     }
   }
 
@@ -57,15 +61,13 @@
   .home-content-box {
     @apply flex items-center justify-center flex-col gap-2 p-8 rounded-lg bg-white;
 
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    min-height: 400px;
+    width: 50%;
+    height: 50%;
   }
 
   @media (max-width: 768px) {
     .home-content-box {
-      @apply w-[92%] h-auto min-h-[300px] mx-4 p-6;
+      @apply w-[92%] h-auto min-h-[300px] mx-4;
     }
   }
 }

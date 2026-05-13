@@ -35,5 +35,3 @@ document.addEventListener('DOMContentLoaded', () => {
   const automaton = new PushdownAutomaton("igor");
   automaton.view();
 });
-
-
