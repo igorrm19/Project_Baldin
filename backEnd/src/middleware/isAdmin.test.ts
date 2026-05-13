@@ -24,7 +24,7 @@ describe('isAdmin Middleware', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn().mockReturnThis()
         };
-        next = jest.fn() as unknown as NextFunction;
+        next = jest.fn();
     });
 
     it('should call next() if user is admin', () => {

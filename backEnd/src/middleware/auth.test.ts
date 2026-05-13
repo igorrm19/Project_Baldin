@@ -27,7 +27,7 @@ describe('Auth Middleware', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn().mockReturnThis()
         };
-        next = jest.fn() as unknown as NextFunction;
+        next = jest.fn();
         jest.clearAllMocks();
         process.env['JWT_SECRET'] = 'test-secret';
     });

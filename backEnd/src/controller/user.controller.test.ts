@@ -97,7 +97,7 @@ describe('User Controller', () => {
         it('should return 400 on CastError', async () => {
             req.params!['id'] = 'invalid';
             const error = new Error('CastError');
-            (error as unknown as Request).name = 'CastError';
+            error.name = 'CastError';
             (User.findById as jest.Mock).mockReturnValue({
                 select: jest.fn().mockRejectedValue(error)
             });
@@ -113,7 +113,7 @@ describe('User Controller', () => {
             req.body = { name: 'test', email: 'test@test.com', password: 'password' };
             (bcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword');
             const mockSavedUser = { _id: '123' };
-            (User.prototype.save as jest.Mock).mockResolvedValue(mockSavedUser);
+            jest.spyOn(User.prototype, 'save').mockResolvedValue(mockSavedUser);
             (User.findById as jest.Mock).mockReturnValue({
                 select: jest.fn().mockResolvedValue({ name: 'test', email: 'test@test.com' })
             });
@@ -132,9 +132,9 @@ describe('User Controller', () => {
         it('should return 400 on ValidationError', async () => {
             req.body = { name: 'test', email: 'test@test.com', password: 'password' };
             const error = new Error('ValidationError');
-            (error as unknown as Request).name = 'ValidationError';
+            error.name = 'ValidationError';
             (bcrypt.hash as jest.Mock).mockResolvedValue('hash');
-            (User.prototype.save as jest.Mock).mockRejectedValue(error);
+            jest.spyOn(User.prototype, 'save').mockRejectedValue(error);
 
             await createUser(req as unknown as Request, res as unknown as Response);
             expect(res.status).toHaveBeenCalledWith(400);
@@ -195,6 +195,7 @@ describe('User Controller', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.json).toHaveBeenCalledWith({
                 token: 'mockToken',
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 user: expect.objectContaining({ name: 'test' })
             });
         });
@@ -284,7 +285,7 @@ describe('User Controller', () => {
             req.params!['id'] = '123';
             req.user = { id: '123' };
             const error = new Error('ValidationError');
-            (error as unknown as Request).name = 'ValidationError';
+            error.name = 'ValidationError';
             (User.findByIdAndUpdate as jest.Mock).mockReturnValue({
                 select: jest.fn().mockRejectedValue(error)
             });
@@ -296,7 +297,7 @@ describe('User Controller', () => {
             req.params!['id'] = '123';
             req.user = { id: '123' };
             const error = new Error('Duplicate');
-            (error as unknown as Request).code = 11000;
+            (error as Error & { code?: number }).code = 11000;
             (User.findByIdAndUpdate as jest.Mock).mockReturnValue({
                 select: jest.fn().mockRejectedValue(error)
             });
@@ -308,7 +309,7 @@ describe('User Controller', () => {
             req.params!['id'] = '123';
             req.user = { id: '123' };
             const error = new Error('CastError');
-            (error as unknown as Request).name = 'CastError';
+            error.name = 'CastError';
             (User.findByIdAndUpdate as jest.Mock).mockReturnValue({
                 select: jest.fn().mockRejectedValue(error)
             });
@@ -325,13 +326,14 @@ describe('User Controller', () => {
             await deleteUser(req as unknown as Request, res as unknown as Response);
 
             expect(res.status).toHaveBeenCalledWith(200);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             expect(res.json).toHaveBeenCalledWith({ message: expect.any(String) });
         });
 
         it('should return 400 on CastError', async () => {
             req.params!['id'] = 'invalid';
             const error = new Error('CastError');
-            (error as unknown as Request).name = 'CastError';
+            error.name = 'CastError';
             (User.findByIdAndDelete as jest.Mock).mockRejectedValue(error);
 
             await deleteUser(req as unknown as Request, res as unknown as Response);

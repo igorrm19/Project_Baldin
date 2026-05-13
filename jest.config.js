@@ -17,7 +17,8 @@ export default {
         '!fox/**/test/**',
         '!fox/core/src/@types/**/*.ts',
         '!fox/core/src/module/dom/AFD/**',
-        '!src/vite-env.d.ts'
+        '!src/vite-env.d.ts',
+        '!backEnd/src/config/createAdmin.ts'
     ],
     coverageDirectory: 'coverage',
     coverageReporters: ['text', 'lcov'],
