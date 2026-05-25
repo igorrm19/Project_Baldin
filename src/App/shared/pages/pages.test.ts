@@ -1,6 +1,6 @@
 import { HomePage } from './homePage';
 import { MainPage } from './mainPage';
-import { AboutPage } from './aboutPage';
+import { AboutPage } from './UserConfigPage';
 import { CadastroPage } from './cadastroPage';
 
 describe('Pages', () => {
@@ -10,7 +10,7 @@ describe('Pages', () => {
     beforeEach(() => {
         parent = document.createElement('div');
         document.body.appendChild(parent);
-        logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        logSpy = jest.spyOn(console, 'log').mockImplementation(() => { });
     });
 
     afterEach(() => {
