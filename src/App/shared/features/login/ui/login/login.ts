@@ -53,7 +53,7 @@ export class Login extends Main<LoginProps> {
             setTimeout(() => {
                 history.pushState({}, "", "/home")
                 window.dispatchEvent(new Event('popstate'))
-            }, 800)
+            }, 500)
 
         } catch (error: unknown) {
             console.error("Login error:", error)
