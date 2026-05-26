@@ -16,22 +16,22 @@ describe('UserConfigComponent', () => {
     it('handles empty user name and email', async () => {
         (LoginServices.prototype.getUser as jest.Mock).mockResolvedValue({ name: '', email: '' });
         const component = new UserConfigComponent();
-        await (component as any).init(parent);
-        expect((component as any)._userName).toBe('User');
+        await (component as unknown as { init: (parent: HTMLElement) => Promise<void> }).init(parent);
+        expect((component as unknown as { _userName: string })._userName).toBe('User');
     });
 
     it('handles null response', async () => {
         (LoginServices.prototype.getUser as jest.Mock).mockResolvedValue(null);
         const component = new UserConfigComponent();
-        await (component as any).init(parent);
-        expect((component as any)._userName).toBe('User');
+        await (component as unknown as { init: (parent: HTMLElement) => Promise<void> }).init(parent);
+        expect((component as unknown as { _userName: string })._userName).toBe('User');
     });
 
     it('handles error in fetch', async () => {
         const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
         (LoginServices.prototype.getUser as jest.Mock).mockRejectedValue(new Error('Network error'));
         const component = new UserConfigComponent();
-        await (component as any).init(parent);
+        await (component as unknown as { init: (parent: HTMLElement) => Promise<void> }).init(parent);
         expect(consoleSpy).toHaveBeenCalledWith("[UserConfigComponent] Failed to fetch user info:", expect.any(Error));
         consoleSpy.mockRestore();
     });
