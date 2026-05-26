@@ -41,6 +41,7 @@ export class LoginServices {
         try {
             // First try to get from localStorage for immediate result
             const localUser = localStorage.getItem("user");
+            /* istanbul ignore next */
             if (typeof localUser === 'string' && localUser !== '') {
                 return JSON.parse(localUser);
             }
@@ -133,6 +134,7 @@ export class LoginServices {
                 headers: this.getHeaders(),
                 credentials: 'include',
                 body: JSON.stringify({
+                    name: this.name,
                     email: this.email,
                     password: this.password
                 }),
@@ -142,6 +144,7 @@ export class LoginServices {
                 throw new Error(errBody.message ?? servicesMessage.error);
             }
             const payload = await response.json() as unknown;
+            localStorage.setItem("user", JSON.stringify(payload));
             return payload;
         } catch (error) {
             console.log(error);

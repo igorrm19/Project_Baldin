@@ -18,3 +18,10 @@ jest.mock('./src/App/shared/features/login/constants/servicesConstants', () => (
 
 // Also mock it for other possible paths if needed (absolute/relative)
 // But virtual mocks with relative paths are tricky.
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ name: 'Test User', email: 'test@example.com' }),
+    ok: true,
+  })
+);

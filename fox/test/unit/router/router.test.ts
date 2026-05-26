@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { FoxRouter } from '../../../core/src/module/router/router';
 import type { Page } from '../../../core/src/module/router/@types/router.types';
 
@@ -40,7 +41,7 @@ describe('FoxRouter', () => {
         div.textContent = 'second';
         parent.replaceChildren(div);
       }
-      unmount() {}
+      unmount() { }
     }
 
     const router = new FoxRouter({ '/': FirstPage, '/second': SecondPage }, '#app');
@@ -67,7 +68,7 @@ describe('FoxRouter', () => {
   });
 
   it('throws when the target container cannot be found', () => {
-    const router = new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#missing');
+    const router = new FoxRouter({ '/': class implements Page { mount() { } unmount() { } } }, '#missing');
 
     expect(() => router.loadRoute('/')).toThrow('#missing not found in DOM');
   });
@@ -82,7 +83,7 @@ describe('FoxRouter', () => {
         div.textContent = 'home';
         parent.replaceChildren(div);
       }
-      unmount() {}
+      unmount() { }
     }
 
     class InternalPage implements Page {
@@ -92,7 +93,7 @@ describe('FoxRouter', () => {
         div.textContent = 'internal';
         parent.replaceChildren(div);
       }
-      unmount() {}
+      unmount() { }
     }
 
     const anchor = document.createElement('a');
@@ -121,7 +122,7 @@ describe('FoxRouter', () => {
         div.textContent = 'home';
         parent.replaceChildren(div);
       }
-      unmount() {}
+      unmount() { }
     }
 
     const router = new FoxRouter({ '/': DefaultPage }, '#app');
@@ -140,7 +141,7 @@ describe('FoxRouter', () => {
       mount(parent: HTMLElement) {
         parent.textContent = 'home';
       }
-      unmount() {}
+      unmount() { }
     }
     const router = new FoxRouter({ '/': HomePage }, '#app');
     router.start();
@@ -155,7 +156,7 @@ describe('FoxRouter', () => {
       mount(parent: HTMLElement) {
         parent.textContent = 'no unmount';
       }
-      unmount() {}
+      unmount() { }
     }
     const router = new FoxRouter({ '/': NoUnmountPage, '/next': NoUnmountPage }, '#app');
     router.start();
@@ -165,7 +166,7 @@ describe('FoxRouter', () => {
   });
 
   it('ignores clicks on anchors without href', () => {
-    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.textContent = 'home' } unmount() {} } }, '#app');
+    const router = new FoxRouter({ '/': class { mount(p: HTMLElement) { p.textContent = 'home' } unmount() { } } }, '#app');
     router.start();
 
     const anchor = document.createElement('a');
@@ -178,8 +179,8 @@ describe('FoxRouter', () => {
   });
 
   it('handles popstate event', () => {
-    const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation();
-    expect(new FoxRouter({ '/': class implements Page { mount() { } unmount() {} } }, '#app')).toBeDefined();
+    const spy = jest.spyOn(FoxRouter.prototype, 'loadRoute').mockImplementation(() => { });
+    expect(new FoxRouter({ '/': class implements Page { mount() { } unmount() { } } }, '#app')).toBeDefined();
     window.dispatchEvent(new Event('popstate'));
     expect(spy).toHaveBeenCalled();
     spy.mockRestore();
@@ -191,7 +192,7 @@ describe('FoxRouter', () => {
       mount(parent: HTMLElement) {
         parent.textContent = 'obj';
       }
-      unmount() {}
+      unmount() { }
     }
     const router = new FoxRouter({ '/obj': { page: ObjPage } }, '#app');
     router.start();
@@ -200,23 +201,22 @@ describe('FoxRouter', () => {
   });
 
   it('redirects to root when accessing private route without token', () => {
-    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const logSpy = jest.spyOn(console, 'warn').mockImplementation(() => { });
     class PrivatePage implements Page {
-      mount() {}
-      unmount() {}
+      mount() { }
+      unmount() { }
     }
     const router = new FoxRouter({ '/private': { page: PrivatePage, private: true } }, '#app');
-    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation();
-    
-    // Ensure no token
+    const navigateSpy = jest.spyOn(router, 'navigate').mockImplementation(() => { });
+
     localStorage.removeItem('token');
-    
+
     router.start();
     router.loadRoute('/private');
-    
+
     expect(logSpy).toHaveBeenCalledWith('Unauthorized access to private route, redirecting to login.');
     expect(navigateSpy).toHaveBeenCalledWith('/');
-    
+
     logSpy.mockRestore();
   });
 });

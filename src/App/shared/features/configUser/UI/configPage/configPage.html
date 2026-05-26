@@ -27,31 +27,64 @@
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
             <h3 class="text-xl font-bold">Full Name</h3>
             <input type="text" placeholder="{{user}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]" />
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
             <div
                 class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/15 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
                 <h3 class="mt-2 text-lg font-bold">Add Photo</h3>
-                <input type="file" accept="image/*" class="hidden" id="photoInput" />
+                <input type="file" accept="image/*" class="hidden" id="photoInput">
                 <label for="photoInput" class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg">
-                    <div
+                    <span
                         class="flex justify-center items-center cursor-pointer hover:text-amber-700 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                             class="bi bi-folder-fill" viewBox="0 0 16 16">
                             <path
                                 d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z" />
                         </svg>
-                    </div>
+                    </span>
                 </label>
             </div>
         </div>
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-3">
             <h3 class="text-xl font-bold">Email</h3>
             <input type="email" placeholder="{{emailUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]" />
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
             <h3 class="mt-10 text-lg font-bold"> Change password</h3>
-            <input type="password" placeholder="{{passwordUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]" />
+            <input type="text" placeholder="{{passwordUser}}"
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
         </div>
     </div>
-
+    <button type="button" onclick="editUserEmail()">Edit User Email</button>
 </div>
+
+<script>
+    import { LoginServices } from "../../login/services/loginServices";
+    const service = new LoginServices()
+
+    async function editUserEmail() {
+        const user = await service.getUser()
+        if (user) {
+            const inputElementEmail = document.querySelector("input[placeholder='{{emailUser}}'");
+            if (inputElementEmail) {
+                inputElementEmail.value = user.email;
+            }
+            console.log(user.email);
+        }
+    }
+    window.editUserEmail = editUserEmail;
+
+    async function editUserName() {
+        const user = await service.getUser()
+        if (user) {
+            const inputElement = document.querySelector("input[placeholder='{{user}}'");
+            if (inputElement) {
+                inputElement.value = user.name;
+            }
+            const inputElementEmail = document.querySelector("input[placeholder='{{emailUser}}'");
+            if (inputElementEmail) {
+                inputElementEmail.value = user.email;
+            }
+        }
+    }
+
+    window.addEventListener("load", editUserName);
+</script>

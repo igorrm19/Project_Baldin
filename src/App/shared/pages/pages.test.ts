@@ -1,6 +1,6 @@
 import { HomePage } from './homePage';
 import { MainPage } from './mainPage';
-import { AboutPage } from './UserConfigPage';
+import { UserConfigPage } from './UserConfigPage';
 import { CadastroPage } from './cadastroPage';
 
 describe('Pages', () => {
@@ -34,8 +34,8 @@ describe('Pages', () => {
         page.unmount();
     });
 
-    it('mounts AboutPage', () => {
-        const page = new AboutPage();
+    it('mounts UserConfigPage', () => {
+        const page = new UserConfigPage();
         page.mount(parent);
         expect(parent.querySelector('.responsive-page')).toBeTruthy();
         page.unmount();

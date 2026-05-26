@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { BaseModel } from '../../../core/src/module/utils/base.model';
 
 describe('BaseModel', () => {

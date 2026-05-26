@@ -41,8 +41,10 @@ export class BaseModel implements IBaseModel {
 
     private loadTemplate(): void {
         const html = this.compileChild(this.compileEngine(this.html));
-        const documentFragment = new DOMParser().parseFromString(html, 'text/html').body;
-        this.element.replaceChildren(...Array.from(documentFragment.childNodes));
+        const template = document.createElement('template');
+        // eslint-disable-next-line no-unsanitized/property
+        template.innerHTML = html;
+        this.element.replaceChildren(...Array.from(template.content.childNodes));
     }
 
 
@@ -75,6 +77,8 @@ export class BaseModel implements IBaseModel {
         }
         this.mounted = true;
         this.loadTemplate();
-        parent.appendChild(this.element.cloneNode(true));
+
+        const clonedElement = this.element.cloneNode(true) as HTMLElement;
+        parent.appendChild(clonedElement);
     }
 }
