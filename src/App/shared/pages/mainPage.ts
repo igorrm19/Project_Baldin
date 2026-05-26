@@ -22,8 +22,12 @@ export class MainPage {
         card.addComponent({
             primary_component: loginHTML,
         })
-        card.mount(this.container)
-        card.bindLoginButtons(this.container)
+        const wrapper = document.createElement("div");
+        wrapper.className = "flex flex-grow items-center justify-center w-full";
+        this.container.appendChild(wrapper);
+
+        card.mount(wrapper)
+        card.bindLoginButtons(wrapper)
     }
 
     unmount(): void {

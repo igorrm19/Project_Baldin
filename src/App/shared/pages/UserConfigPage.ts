@@ -18,16 +18,26 @@ class UserConfigPage {
     mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
+        const headerWrapper = document.createElement("div");
+        headerWrapper.className = "w-full z-50 sticky top-0";
+        this.container.appendChild(headerWrapper);
+
+        const configWrapper = document.createElement("div");
+        configWrapper.className = "flex flex-grow items-center justify-center w-full py-10";
+        this.container.appendChild(configWrapper);
+
+        const footerWrapper = document.createElement("div");
+        footerWrapper.className = "w-full mt-auto";
+        this.container.appendChild(footerWrapper);
+
         const header = new HeaderComponent();
-        void header.mount(this.container);
+        void header.mount(headerWrapper);
 
-        //Config component
         const config = new UserConfigComponent();
-        void config.mount(this.container);
+        void config.mount(configWrapper);
 
-        //Footer component
         const footer = new FooterComponent();
-        footer.mount(this.container);
+        footer.mount(footerWrapper);
 
     }
 

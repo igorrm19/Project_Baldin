@@ -16,13 +16,26 @@ export class HomePage {
     }
 
     mount(parent: HTMLElement): void {
+        parent.appendChild(this.container);
+
+        const headerWrapper = document.createElement("div");
+        headerWrapper.className = "w-full z-50 sticky top-0";
+        this.container.appendChild(headerWrapper);
+
+        const mainWrapper = document.createElement("main");
+        mainWrapper.className = "flex flex-grow items-center justify-center w-full";
+        this.container.appendChild(mainWrapper);
+
+        const footerWrapper = document.createElement("div");
+        footerWrapper.className = "w-full mt-auto";
+        this.container.appendChild(footerWrapper);
+
         const header = new HeaderComponent();
-        void header.mount(this.container);
+        void header.mount(headerWrapper);
 
         const footer = new FooterComponent();
-        footer.mount(this.container);
-
-        parent.appendChild(this.container);
+        footer.mount(footerWrapper);
+        
         return;
     }
 

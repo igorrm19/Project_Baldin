@@ -3,6 +3,8 @@ import { InputHTML } from "../../components/input/input"
 import template from "./header.html?raw"
 import { LoginServices } from "../../features/login/services/loginServices";
 
+export let userName: string | undefined = undefined;
+
 export class HeaderComponent extends BaseModel {
     protected override axe: Map<string, string> = new Map();
 
@@ -21,10 +23,9 @@ export class HeaderComponent extends BaseModel {
     private async init(parent: HTMLElement): Promise<void> {
         const inputSearch = new InputHTML("search-input", "text", "Search", "", "w-full px-7 py-4 rounded-lg focus:outline-none border-none placeholder-gray-500 bg-transparent text-[#1e1e1e]");
         const service = new LoginServices();
-        let userName = "User";
 
         try {
-            const userResponse = await service.getUser() as { name?: string } | null;
+            const userResponse = await service.getUser() as { name?: string, email?: string } | null;
             if (userResponse !== null && typeof userResponse.name === 'string' && userResponse.name !== '') {
                 userName = userResponse.name;
             }
@@ -36,7 +37,7 @@ export class HeaderComponent extends BaseModel {
             primary_component: inputSearch.getHTML()
         })
         this.addProps({
-            user: userName
+            user: userName,
         })
         super.mount(parent);
         this.onMount();
