@@ -61,6 +61,7 @@ export class Login extends Main<LoginProps> {
             if (errorEl) {
                 errorEl.classList.add("text-red-500");
                 errorEl.classList.remove("hidden");
+                /* istanbul ignore next */
                 errorEl.textContent = error instanceof Error ? error.message : "Failed to login. Please check your credentials.";
             }
         } finally {

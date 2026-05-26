@@ -3,7 +3,7 @@ import { actionStack } from '../fox/action.stack';
 
 jest.mock('../fox/core/src/module/router/router');
 jest.mock('./App/shared/pages/mainPage');
-jest.mock('./App/shared/pages/aboutPage');
+jest.mock('./App/shared/pages/UserConfigPage');
 jest.mock('./App/shared/pages/cadastroPage');
 jest.mock('./App/shared/pages/homePage');
 jest.mock('./convert.stringtoobject');

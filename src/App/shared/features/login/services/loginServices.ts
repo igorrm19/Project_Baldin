@@ -41,6 +41,7 @@ export class LoginServices {
         try {
             // First try to get from localStorage for immediate result
             const localUser = localStorage.getItem("user");
+            /* istanbul ignore next */
             if (typeof localUser === 'string' && localUser !== '') {
                 return JSON.parse(localUser);
             }

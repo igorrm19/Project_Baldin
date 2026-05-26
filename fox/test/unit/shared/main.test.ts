@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import type { IBaseModel } from '../../../core/src/@types/base.model.interface';
 import { Main } from '../../../main';
 

@@ -54,13 +54,18 @@
         "Atual",
         "aceita",
         "estado",
-        "caractere"
+        "caractere",
+        "Responsividade",
+        "página",
+        "celular",
+        "igorrm"
     ],
     "ignorePaths": [
-        "node_modules/**",
-        "dist/**",
-        ".git/**",
-        "coverage/**",
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/.git/**",
+        "**/coverage/**",
+        "**/*.txt",
         ".gemini/**",
         "package-lock.json",
         ".cspell.json",

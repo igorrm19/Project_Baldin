@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { parseInput } from '../../../core/src/module/dom/parseInput';
 
 describe('parseInput', () => {
