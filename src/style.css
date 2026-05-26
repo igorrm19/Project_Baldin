@@ -6,7 +6,12 @@
 
   /* Main page container */
   .responsive-page {
-    @apply h-screen w-screen bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex items-center justify-center flex-col overflow-hidden;
+    @apply min-h-screen w-full bg-gradient-to-br from-neutral-950 via-orange-800 to-orange-600 flex flex-col overflow-y-auto;
+  }
+
+  /* Pushes the outer footer element (created by BaseModel) to the bottom */
+  .responsive-page > footer {
+    @apply mt-auto w-full flex-shrink-0;
   }
 
   /* Responsividade para a página principal no celular */

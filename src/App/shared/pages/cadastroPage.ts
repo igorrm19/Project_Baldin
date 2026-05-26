@@ -34,9 +34,13 @@ export class CadastroPage extends Main<CadastroProps> {
             secondary_component: subtitle.getHTML(),
         });
 
-        cardLogin.mount(this.container);
+        const wrapper = document.createElement("div");
+        wrapper.className = "flex flex-grow items-center justify-center w-full py-10";
+        this.container.appendChild(wrapper);
 
-        cadastro.bindButtons(this.container);
+        cardLogin.mount(wrapper);
+
+        cadastro.bindButtons(wrapper);
     }
 
     unmount(): void {
