@@ -37,8 +37,8 @@ export default {
     passWithNoTests: true,
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     moduleNameMapper: {
-        '\\.html\\?raw$': '<rootDir>/__mocks__/rawLoaderMock.js',
-        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.js',
+        '\\.html\\?raw$': '<rootDir>/__mocks__/rawLoaderMock.cjs',
+        '^.+\\.css$': '<rootDir>/__mocks__/styleMock.cjs',
         '^(\\.\\.?/.*)\\.js$': '$1'
     }
 };

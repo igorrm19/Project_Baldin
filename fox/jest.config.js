@@ -20,8 +20,8 @@ export default {
     },
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.js$': '$1',
-        '\\.html\\?raw$': '<rootDir>/../__mocks__/rawLoaderMock.js',
-        '^.+\\.css$': '<rootDir>/../__mocks__/styleMock.js',
+        '\\.html\\?raw$': '<rootDir>/../__mocks__/rawLoaderMock.cjs',
+        '^.+\\.css$': '<rootDir>/../__mocks__/styleMock.cjs',
         '^@/(.*)$': '<rootDir>/$1'
     },
     collectCoverageFrom: [

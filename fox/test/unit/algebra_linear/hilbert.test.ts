@@ -1,7 +1,8 @@
+import { jest } from '@jest/globals';
 import { PushdownAutomaton } from '../../../core/src/module/dom/AFD/algebra_linear/hilbert.js';
 
 describe('PushdownAutomaton', () => {
-    let consoleSpyLog: jest.SpyInstance;
+    let consoleSpyLog: any;
 
     beforeEach(() => {
         consoleSpyLog = jest.spyOn(console, 'log').mockImplementation(() => {});
