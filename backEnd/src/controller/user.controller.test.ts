@@ -106,6 +106,18 @@ describe('User Controller', () => {
 
             expect(res.status).toHaveBeenCalledWith(400);
         });
+
+        it('should return 500 on unexpected error', async () => {
+            req.params!['id'] = '123';
+            const error = new Error('Unexpected');
+            (User.findById as jest.Mock).mockReturnValue({
+                select: jest.fn().mockRejectedValue(error)
+            });
+
+            await getUserById(req as unknown as Request, res as unknown as Response);
+
+            expect(res.status).toHaveBeenCalledWith(500);
+        });
     });
 
     describe('createUser', () => {
@@ -138,6 +150,26 @@ describe('User Controller', () => {
 
             await createUser(req as unknown as Request, res as unknown as Response);
             expect(res.status).toHaveBeenCalledWith(400);
+        });
+
+        it('should return 409 on MongoDupError', async () => {
+            req.body = { name: 'test', email: 'test@test.com', password: 'password' };
+            const error = new Error('Duplicate');
+            (error as Error & { code?: number }).code = 11000;
+            (bcrypt.hash as jest.Mock).mockResolvedValue('hash');
+            jest.spyOn(User.prototype, 'save').mockRejectedValue(error);
+
+            await createUser(req as unknown as Request, res as unknown as Response);
+            expect(res.status).toHaveBeenCalledWith(409);
+        });
+
+        it('should return 500 on unexpected error', async () => {
+            req.body = { name: 'test', email: 'test@test.com', password: 'password' };
+            (bcrypt.hash as jest.Mock).mockResolvedValue('hash');
+            jest.spyOn(User.prototype, 'save').mockRejectedValue(new Error('Fatal'));
+
+            await createUser(req as unknown as Request, res as unknown as Response);
+            expect(res.status).toHaveBeenCalledWith(500);
         });
     });
 
@@ -264,6 +296,27 @@ describe('User Controller', () => {
             expect(res.status).toHaveBeenCalledWith(400);
         });
 
+        it('should return 400 if name is invalid', async () => {
+            req.params!['id'] = '123';
+            req.body = { name: ' ' };
+            await updateUser(req as unknown as Request, res as unknown as Response);
+            expect(res.status).toHaveBeenCalledWith(400);
+        });
+
+        it('should return 400 if email is invalid', async () => {
+            req.params!['id'] = '123';
+            req.body = { email: ' ' };
+            await updateUser(req as unknown as Request, res as unknown as Response);
+            expect(res.status).toHaveBeenCalledWith(400);
+        });
+
+        it('should return 400 if password is invalid', async () => {
+            req.params!['id'] = '123';
+            req.body = { password: ' ' };
+            await updateUser(req as unknown as Request, res as unknown as Response);
+            expect(res.status).toHaveBeenCalledWith(400);
+        });
+
         it('should return 403 if updating different user', async () => {
             req.params!['id'] = '123';
             req.user = { id: '456' };
@@ -328,6 +381,15 @@ describe('User Controller', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             expect(res.json).toHaveBeenCalledWith({ message: expect.any(String) });
+        });
+
+        it('should return 404 if user not found', async () => {
+            req.params!['id'] = '123';
+            (User.findByIdAndDelete as jest.Mock).mockResolvedValue(null);
+
+            await deleteUser(req as unknown as Request, res as unknown as Response);
+
+            expect(res.status).toHaveBeenCalledWith(404);
         });
 
         it('should return 400 on CastError', async () => {

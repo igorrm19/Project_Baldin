@@ -49,9 +49,42 @@
             <input type="email" placeholder="{{emailUser}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]" />
             <h3 class="mt-10 text-lg font-bold"> Change password</h3>
-            <input type="password" placeholder="{{passwordUser}}"
+            <input type="text" placeholder="{{passwordUser}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]" />
         </div>
     </div>
-
+    <button onclick="editUserEmail()">Edit User Email</button>
 </div>
+
+<script>
+    import { LoginServices } from "../../login/services/loginServices";
+    const service = new LoginServices()
+
+    async function editUserEmail() {
+        const user = await service.getUser()
+        if (user) {
+            const inputElementEmail = document.querySelector("input[placeholder='{{emailUser}}'");
+            if (inputElementEmail) {
+                inputElementEmail.value = user.email;
+            }
+            console.log(user.email);
+        }
+    }
+    window.editUserEmail = editUserEmail;
+
+    async function editUserName() {
+        const user = await service.getUser()
+        if (user) {
+            const inputElement = document.querySelector("input[placeholder='{{user}}'");
+            if (inputElement) {
+                inputElement.value = user.name;
+            }
+            const inputElementEmail = document.querySelector("input[placeholder='{{emailUser}}'");
+            if (inputElementEmail) {
+                inputElementEmail.value = user.email;
+            }
+        }
+    }
+
+    window.addEventListener("load", editUserName);
+</script>

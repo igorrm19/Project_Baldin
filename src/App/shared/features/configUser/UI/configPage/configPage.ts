@@ -14,21 +14,22 @@ class UserConfigComponent extends BaseModel {
         super("div", templete)
     }
 
-    override mount(parent: HTMLElement) {
+    override mount(parent: HTMLElement): void {
         void this.init(parent);
     }
 
-    private async init(parent: HTMLElement) {
+    private async init(parent: HTMLElement): Promise<void> {
         const randomColor = Math.floor(Math.random() * ColorsUser.length);
+        // eslint-disable-next-line security/detect-object-injection
         const color = ColorsUser[randomColor];
 
         const service = new LoginServices();
         try {
             const userResponse = await service.getUser() as { name?: string, email?: string } | null;
-            if (userResponse?.name) {
+            if (userResponse?.name != null && userResponse.name !== "") {
                 this._userName = userResponse.name;
             }
-            if (userResponse?.email) {
+            if (userResponse?.email != null && userResponse.email !== "") {
                 this._userEmail = userResponse.email;
             }
         } catch (error) {

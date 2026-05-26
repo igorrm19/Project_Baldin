@@ -1,0 +1,100 @@
+
+> project_baldim@0.0.0 lint
+> eslint . --max-warnings=0
+
+
+/home/igorrm23/Desktop/Project_Baldim/backEnd/src/config/DBconfig.test.ts
+  17:34  error  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  17:39  error  Unsafe member access [0] on an `any` value  @typescript-eslint/no-unsafe-member-access
+  30:34  error  Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  30:39  error  Unsafe member access [0] on an `any` value  @typescript-eslint/no-unsafe-member-access
+
+/home/igorrm23/Desktop/Project_Baldim/backEnd/src/routes/user.router.test.ts
+   8:38  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+   8:38  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+   8:38  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+   8:42  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+   8:54  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+   9:41  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+   9:41  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+   9:41  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+   9:45  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+   9:57  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  10:40  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  10:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  10:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  10:44  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  10:56  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  11:40  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  11:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  11:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  11:44  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  11:56  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  12:40  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  12:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  12:40  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  12:44  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  12:56  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  13:35  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  13:35  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  13:35  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  13:39  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  13:51  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  14:44  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  14:44  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  14:44  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  14:48  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  14:60  error  Unsafe member access .send on an `any` value                                       @typescript-eslint/no-unsafe-member-access
+  18:72  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  18:72  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  19:75  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  19:75  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  20:79  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  20:79  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  22:55  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  22:55  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  23:55  error  Unsafe return of a value of type `any`                                             @typescript-eslint/no-unsafe-return
+  23:55  error  Unsafe call of an `any` typed value                                                @typescript-eslint/no-unsafe-call
+  39:30  error  Unsafe member access .status on an `any` value                                     @typescript-eslint/no-unsafe-member-access
+  45:30  error  Unsafe member access .message on an `any` value                                    @typescript-eslint/no-unsafe-member-access
+  49:34  error  Unexpected any. Specify a different type                                           @typescript-eslint/no-explicit-any
+  52:30  error  Unsafe member access .connected on an `any` value                                  @typescript-eslint/no-unsafe-member-access
+  56:34  error  Unexpected any. Specify a different type                                           @typescript-eslint/no-explicit-any
+  59:30  error  Unsafe member access .connected on an `any` value                                  @typescript-eslint/no-unsafe-member-access
+  65:30  error  Unsafe member access .error on an `any` value                                      @typescript-eslint/no-unsafe-member-access
+  71:30  error  Unsafe member access .error on an `any` value                                      @typescript-eslint/no-unsafe-member-access
+  77:30  error  Unsafe member access .error on an `any` value                                      @typescript-eslint/no-unsafe-member-access
+  87:16  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+  88:16  error  This assertion is unnecessary since it does not change the type of the expression  @typescript-eslint/no-unnecessary-type-assertion
+  88:31  error  Unsafe member access .error on an `any` value                                      @typescript-eslint/no-unsafe-member-access
+
+/home/igorrm23/Desktop/Project_Baldim/backEnd/src/validity/validityLogin.test.ts
+  31:13  error  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+
+/home/igorrm23/Desktop/Project_Baldim/backEnd/src/validity/validityUser.test.ts
+  24:29  error  Unsafe member access .name on an `any` value  @typescript-eslint/no-unsafe-member-access
+  32:17  error  Unsafe assignment of an `any` value           @typescript-eslint/no-unsafe-assignment
+  44:29  error  Unsafe member access .name on an `any` value  @typescript-eslint/no-unsafe-member-access
+  52:17  error  Unsafe assignment of an `any` value           @typescript-eslint/no-unsafe-assignment
+
+/home/igorrm23/Desktop/Project_Baldim/fox/core/src/module/utils/base.model.ts
+  45:9  error  Unsafe assignment to innerHTML  no-unsanitized/property
+
+/home/igorrm23/Desktop/Project_Baldim/src/App/shared/features/configUser/UI/configPage/configPage.ts
+  17:5   error  Missing return type on function                                                                    @typescript-eslint/explicit-function-return-type
+  21:5   error  Missing return type on function                                                                    @typescript-eslint/explicit-function-return-type
+  23:23  error  Variable Assigned to Object Injection Sink                                                         security/detect-object-injection
+  28:17  error  Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly  @typescript-eslint/strict-boolean-expressions
+  31:17  error  Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly  @typescript-eslint/strict-boolean-expressions
+
+/home/igorrm23/Desktop/Project_Baldim/src/App/shared/pages/pages.test.ts
+  38:15  error  Unsafe assignment of an error typed value                        @typescript-eslint/no-unsafe-assignment
+  38:22  error  Unsafe construction of a type that could not be resolved         @typescript-eslint/no-unsafe-call
+  39:9   error  Unsafe call of a type that could not be resolved                 @typescript-eslint/no-unsafe-call
+  39:14  error  Unsafe member access .mount on a type that cannot be resolved    @typescript-eslint/no-unsafe-member-access
+  41:9   error  Unsafe call of a type that could not be resolved                 @typescript-eslint/no-unsafe-call
+  41:14  error  Unsafe member access .unmount on a type that cannot be resolved  @typescript-eslint/no-unsafe-member-access
+
+✖ 78 problems (78 errors, 0 warnings)
+  2 errors and 0 warnings potentially fixable with the `--fix` option.
+
