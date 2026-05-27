@@ -46,7 +46,6 @@ class UserConfigComponent extends BaseModel {
         super.mount(parent)
         return;
     }
-
 }
 
 export { UserConfigComponent };
