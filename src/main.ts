@@ -6,10 +6,10 @@ import { test } from './convert.stringtoobject';
 import { html } from './App/shared/features/login/ui/cardLogin/card';
 import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
 import { PushdownAutomaton } from '../fox/core/src/module/dom/AFD/algebra_linear/hilbert';
+import Index from "../index.html?raw"
 
 import { actionStack } from '../fox/action.stack';
 
-console.log(parseHTML(html))
 test()
 
 actionStack.subscribe((item) => {
@@ -29,6 +29,10 @@ const routes = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  const data = parseHTML(Index)
+  console.log(data)
+
   const router = new FoxRouter(routes);
   router.start();
 

@@ -9,7 +9,6 @@
     "typecheck": "tsc --noEmit",
     "build": "vite build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.60.0",
@@ -37,6 +36,15 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.59.0",
-    "vite": "^7.3.2"
-  }
+    "vite": "^7.3.3"
+  },
+  "description": "A lightweight, high-performance component and routing engine for modern web applications.",
+  "main": "jest.config.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
