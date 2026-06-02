@@ -20,7 +20,8 @@ function createTree(node: Node): ParsedHTMLNode {
                 acc[attr.name] = attr.value;
                 return acc;
             }, {} as Record<string, string>),
-            children: [...element.childNodes].map(createTree)
+            children: [...element.childNodes].map(createTree),
+            avaliationFitness: 0
         };
     }
 

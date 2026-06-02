@@ -4,7 +4,8 @@ import { MainPage } from './App/shared/pages/mainPage';
 import { UserConfigPage } from './App/shared/pages/UserConfigPage';
 import { actionStack } from '../fox/action.stack';
 import generarAleatorio from '../fox/core/src/module/fox-copiler-ascHtml/main';
-import { headerGeneration } from '../fox/core/src/module/fox-copiler-ascHtml/input/header';
+import { view } from '../fox/core/src/module/fox-copiler-ascHtml/input/header';
+
 
 actionStack.subscribe((item) => {
   if (item.action === 'click') {
@@ -22,6 +23,7 @@ const routes = {
   "/home": { page: HomePage, private: true },
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const router = new FoxRouter(routes);
@@ -33,6 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     generarAleatorio(app.innerHTML)
   }
 
-  console.log(headerGeneration)
+  view()
 
 });

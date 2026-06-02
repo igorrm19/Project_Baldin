@@ -13,4 +13,5 @@ export interface ParsedHTMLNode {
     nodeType?: number;
     attributes?: Attr[] | null;
     ownerDocument?: Document | null;
+    avaliationFitness?: number | null;
 }
