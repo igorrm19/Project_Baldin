@@ -27,6 +27,29 @@ export default function fitness(
             }
         }
 
+        if (node.tag?.toLowerCase() === "nav") {
+            tag.nav = 5;
+
+            const hasList = node.children?.some(
+                child =>
+                    child.type === "element" &&
+                    (child.tag?.toLowerCase() === "ul" || child.tag?.toLowerCase() === "ol")
+            );
+
+            if (hasList) {
+                tag.ol = 5;
+                tag.ul = 5;
+
+                const hasLi = node.children?.some(
+                    child =>
+                        child.type === "element" &&
+                        child.tag?.toLowerCase() === "li");
+
+                if (hasLi) {
+                    tag.li = 5;
+                }
+            }
+        }
 
         //Percorre todos os elemntos do node.children
         node.children?.forEach(walk);
