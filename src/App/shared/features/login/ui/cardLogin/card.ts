@@ -41,7 +41,6 @@ export class CardLogin extends Main<CardProps> {
         const loginHTML = login.getHTML()
         // Test parseHTML inside the method
         parseHTML(loginHTML).forEach(div => {
-            console.log(div.parent?.innerText)
             this.name = div.parent?.innerText ?? ""
 
         })

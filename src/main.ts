@@ -2,15 +2,10 @@ import '../src/style.css'
 import { FoxRouter } from '../fox/core/src/module/router/router';
 import { MainPage } from './App/shared/pages/mainPage';
 import { UserConfigPage } from './App/shared/pages/UserConfigPage';
-import { test } from './convert.stringtoobject';
-import { html } from './App/shared/features/login/ui/cardLogin/card';
-import { parseHTML } from '../fox/core/src/module/dom/parserDiv';
-import { PushdownAutomaton } from '../fox/core/src/module/dom/AFD/algebra_linear/hilbert';
-
 import { actionStack } from '../fox/action.stack';
+import generarAleatorio from '../fox/core/src/module/fox-copiler-ascHtml/main';
+import { view } from '../fox/core/src/module/fox-copiler-ascHtml/input/header';
 
-console.log(parseHTML(html))
-test()
 
 actionStack.subscribe((item) => {
   if (item.action === 'click') {
@@ -28,10 +23,19 @@ const routes = {
   "/home": { page: HomePage, private: true },
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
+
   const router = new FoxRouter(routes);
   router.start();
 
-  const automaton = new PushdownAutomaton("igor");
-  automaton.view();
+  const app = document.querySelector("#app")
+
+  if (app?.innerHTML) {
+    generarAleatorio(app.innerHTML)
+  }
+
+  view()
+  //test
+
 });
