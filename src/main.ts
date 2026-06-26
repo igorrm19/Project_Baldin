@@ -36,6 +36,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   view()
-  //test
 
 });

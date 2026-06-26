@@ -14,20 +14,21 @@ export default function fitness(
 
 
     function walk(node: ParsedHTMLNode) {
+        const nodeTag = node.tag?.toLowerCase()
 
         //Pula outros tipos de nó que não seja element
         if (node.type !== "element") {
             return;
         }
 
-        if (node.tag?.toLowerCase() === "header") {
+        if (nodeTag === "header") {
             tag.header = 15;
             if (firstTag?.tag?.toLowerCase() === "header" && lastTag?.tag?.toLowerCase() === "header") {
                 tag.header = 20;
             }
         }
 
-        if (node.tag?.toLowerCase() === "nav") {
+        if (nodeTag === "nav") {
             tag.nav = 5;
 
             const hasList = node.children?.some(
