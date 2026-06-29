@@ -31,23 +31,30 @@ export default function fitness(
         if (nodeTag === "nav") {
             tag.nav = 5;
 
-            const hasList = node.children?.some(
+            const hasOlUl = node.children?.some(
                 child =>
                     child.type === "element" &&
-                    (child.tag?.toLowerCase() === "ul" || child.tag?.toLowerCase() === "ol")
-            );
+                    child.tag?.toLowerCase() === "ol" || child.tag?.toLowerCase() === "ul")
 
-            if (hasList) {
+            if (hasOlUl) {
                 tag.ol = 5;
-                tag.ul = 5;
 
-                const hasLi = node.children?.some(
+                const hasLi = node.children?.filter(
                     child =>
                         child.type === "element" &&
                         child.tag?.toLowerCase() === "li");
 
                 if (hasLi) {
                     tag.li = 5;
+
+                    const hasA = node.children?.filter(
+                        child =>
+                            child.type === "element" &&
+                            child.tag?.toLowerCase() === "a");
+
+                    if (hasA) {
+                        tag.a = 5;
+                    }
                 }
             }
         }
