@@ -1,5 +1,6 @@
 import type { ParsedHTMLNode } from "../perse/@types/parseHTMLType";
 import { tag } from "./@types/tagArray";
+import { nodeChildrenORTwe, nodeChildrenOROne } from "../utils/nodeChildren";
 
 export default function fitness(
     tree: ParsedHTMLNode[]
@@ -11,7 +12,6 @@ export default function fitness(
     //puxa o primeiro e ultimo nó
     const firstTag = tree[0];
     const lastTag = tree[tree.length - 1];
-
 
     function walk(node: ParsedHTMLNode) {
         const nodeTag = node.tag?.toLowerCase()
@@ -31,26 +31,17 @@ export default function fitness(
         if (nodeTag === "nav") {
             tag.nav = 5;
 
-            const hasOlUl = node.children?.some(
-                child =>
-                    child.type === "element" &&
-                    child.tag?.toLowerCase() === "ol" || child.tag?.toLowerCase() === "ul")
+            const hasOlUl = nodeChildrenORTwe(node.children || [], "ol", "ul");
 
             if (hasOlUl) {
                 tag.ol = 5;
 
-                const hasLi = node.children?.filter(
-                    child =>
-                        child.type === "element" &&
-                        child.tag?.toLowerCase() === "li");
+                const hasLi = nodeChildrenOROne(node.children || [], "li");
 
                 if (hasLi) {
                     tag.li = 5;
 
-                    const hasA = node.children?.filter(
-                        child =>
-                            child.type === "element" &&
-                            child.tag?.toLowerCase() === "a");
+                    const hasA = nodeChildrenOROne(node.children || [], "a");
 
                     if (hasA) {
                         tag.a = 5;
