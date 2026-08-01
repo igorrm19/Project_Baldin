@@ -15,6 +15,7 @@ export default function fitness(
 
     function walk(node: ParsedHTMLNode) {
         const nodeTag = node.tag?.toLowerCase()
+        const children = node.children || [];
 
         //Pula outros tipos de nó que não seja element
         if (node.type !== "element") {
@@ -31,17 +32,17 @@ export default function fitness(
         if (nodeTag === "nav") {
             tag.nav = 5;
 
-            const hasOlUl = nodeChildrenORTwe(node.children || [], "ol", "ul");
+            const hasOlUl = nodeChildrenORTwe(children, "ol", "ul");
 
             if (hasOlUl) {
                 tag.ol = 5;
 
-                const hasLi = nodeChildrenOROne(node.children || [], "li");
+                const hasLi = nodeChildrenOROne(children, "li");
 
                 if (hasLi) {
                     tag.li = 5;
 
-                    const hasA = nodeChildrenOROne(node.children || [], "a");
+                    const hasA = nodeChildrenOROne(children, "a");
 
                     if (hasA) {
                         tag.a = 5;

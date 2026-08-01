@@ -40,9 +40,3 @@ export function nodeChildrenOROne(node: ParsedHTMLNode[], tagUm: string): boolea
     return hasNode;
 }
 
-
-// const hasLi = node.children?.some(
-//     child =>
-//         child.type === "element" &&
-//         child.tag?.toLowerCase() === "li");
-
