@@ -49,3 +49,4 @@ class UserConfigComponent extends BaseModel {
 }
 
 export { UserConfigComponent };
+
