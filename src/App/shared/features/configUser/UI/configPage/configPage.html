@@ -31,9 +31,10 @@
                 class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
                 <h3 class="mt-2 text-lg font-bold">Add Photo</h3>
                 <input type="file" accept="image/*" class="hidden" id="photoInput">
-                <label for="photoInput" class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg">
+                <label for="photoInput"
+                    class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all">
                     <span
-                        class="flex justify-center items-center cursor-pointer hover:text-amber-700 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)]">
+                        class="flex justify-center items-center cursor-pointer h-14 p-2 rounded-full w-[calc(70%-1rem)]">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                             class="bi bi-folder-fill" viewBox="0 0 16 16">
                             <path
@@ -50,6 +51,10 @@
             <h3 class="mt-10 text-lg font-bold"> Change password</h3>
             <input type="text" placeholder="{{passwordUser}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
+            <button
+                class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800">
+                <span class="text-lg font-bold">Save Changes</span>
+            </button>
         </div>
     </div>
 </div>
