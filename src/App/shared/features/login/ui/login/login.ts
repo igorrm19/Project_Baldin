@@ -104,8 +104,6 @@ export class Login extends Main<LoginProps> {
                 this.passwordValue = data.value ?? ""
             }
 
-            console.log("Email:", this.emailValue, "Password:", this.passwordValue)
-
             const output = domContainer.querySelector("#email-input-value")
 
             if (output) {
