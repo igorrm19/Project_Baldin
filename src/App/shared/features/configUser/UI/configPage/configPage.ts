@@ -56,9 +56,17 @@ class UserConfigComponent extends BaseModel {
             }
 
             try {
-
                 this.isSubmitting = true;
-                const service = new LoginServices();
+
+                // CORREÇÃO: Passando os dados modificados no construtor da classe de serviço
+                // Ordem do construtor: LoginServices(email, password, name)
+                const service = new LoginServices(
+                    this._userEmail,
+                    this._userPassword,
+                    this._userName
+                );
+
+                // Agora o putUser() terá acesso às propriedades corretas para enviar no body
                 const userResponse = await service.putUser() as { name?: string, email?: string } | null;
 
                 if (userResponse?.name != null && userResponse.name !== "") {
@@ -67,30 +75,29 @@ class UserConfigComponent extends BaseModel {
                 if (userResponse?.email != null && userResponse.email !== "") {
                     this._userEmail = userResponse.email;
                 }
+
                 this.addProps({
                     user: this._userName,
                     emailUser: this._userEmail,
                     passwordUser: this._userPassword,
-                })
+                });
 
-                alert("Deu certo")
-
+                alert("Deu certo");
 
             } catch (error) {
                 console.error("[UserConfigComponent] Failed to update user info:", error);
-                alert("Deu errado")
+                alert("Deu errado");
                 throw error;
 
             } finally {
-                alert("Deu muito errado")
                 this.isSubmitting = false;
             }
-
         }
+
 
         this.bindButtons = (domContainer: HTMLElement): void => {
             this.activeDomContainer = domContainer;
-            parseButton(domContainer, [])
+            parseButton(domContainer, [{ id: "saveButton", callback: this.saveNewInfoUser.bind(this) }])
 
             parseInput(domContainer, (data) => {
                 if (data.id === "userName") {
