@@ -1,4 +1,4 @@
-# 🚀 Project Baldim
+# 🚀 Project Fox
 
 [![Quality Pipeline](https://github.com/igorrm23/Project_Baldim/actions/workflows/ci.yml/badge.svg)](https://github.com/igorrm23/Project_Baldim/actions)
 [![Language](https://img.shields.io/badge/Language-TypeScript-blue.svg)](https://www.typescriptlang.org/)
