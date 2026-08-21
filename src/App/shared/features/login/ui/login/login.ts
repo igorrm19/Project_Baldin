@@ -55,6 +55,7 @@ export class Login extends Main<LoginProps> {
                 window.dispatchEvent(new Event('popstate'))
             }, 500)
 
+
         } catch (error: unknown) {
             console.error("Login error:", error)
 
