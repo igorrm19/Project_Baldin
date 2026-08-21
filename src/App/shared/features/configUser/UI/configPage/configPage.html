@@ -15,7 +15,8 @@
                 class="w-36 h-36 rounded-full bg-slate-200 outline outline-black outline-2">
 
             <div class="flex flex-col justify-center items-start ml-4">
-                <h2 class="text-2xl font-bold text-slate-200 hover:text-zinc-400">{{user}}
+                <h2 class="text-2xl font-bold text-slate-200 hover:text-zinc-400">
+                    {{user}}
                 </h2>
                 <h3 class="text-lg font-medium text-slate-500 hover:text-amber-700">
                     {{emailUser}}</h3>
@@ -25,13 +26,15 @@
     <form
         class="flex justify-center items-center  text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-[calc(85%-300px)] mt-60 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
-            <label class="text-xl font-bold">Full Name</label>
+            <label class="text-xl">Full
+                Name</label>
             <input type="text" aria-label="Edit user name" placeholder="{{user}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)]">
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
             <div
                 class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
-                <label class="mt-2 text-lg font-bold">Add Photo</label>
-                <input type="file" accept="image/*" tabindex="0" e role="button" class="hidden" id="photoInput">
+                <label class="mt-2 text-lg font-bold">Add
+                    Photo</label>
+                <input type="file" accept="image/*" class="hidden" id="photoInput">
                 <label for="photoInput"
                     class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all">
                     <span
@@ -46,15 +49,18 @@
             </div>
         </div>
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-3">
-            <h3 class="text-xl font-bold">Email</h3>
+            <label class="text-xl font-bold">
+                Email</label>
             <input id="emailUser" type="email" placeholder="{{emailUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
-            <h3 class="mt-10 text-lg font-bold"> Change password</h3>
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] ">
+            <label class="mt-10 text-lg">
+                Change password</label>
             <input id="passwordUser" type="text" placeholder="{{passwordUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)]">
+                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
             <button
-                class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800">
-                <span class="text-lg font-bold">Save Changes</span>
+                class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-lime-800">
+                <span class="text-lg">Save
+                    Changes</span>
             </button>
         </div>
     </form>
