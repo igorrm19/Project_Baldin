@@ -138,6 +138,7 @@ class UserConfigComponent extends BaseModel {
         }
 
         super.mount(parent)
+        this.bindButtons(parent)
         return;
     }
 }
