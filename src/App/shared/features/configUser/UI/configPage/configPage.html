@@ -13,23 +13,24 @@
         <div class="flex justify-start items-end w-full h-full ml-[10rem] mb-[-10rem]">
             <img src="./../../../../../../../public/anonimoUser.png" alt=""
                 class="w-36 h-36 rounded-full bg-slate-200 outline outline-black outline-2">
+
             <div class="flex flex-col justify-center items-start ml-4">
-                <h2 class="text-2xl font-bold text-slate-200 cursor-pointer hover:text-zinc-400 transition-all">{{user}}
+                <h2 class="text-2xl font-bold text-slate-200 hover:text-zinc-400">{{user}}
                 </h2>
-                <h3 class="text-lg font-medium text-slate-500 cursor-pointer hover:text-amber-700 transition-all">
+                <h3 class="text-lg font-medium text-slate-500 hover:text-amber-700">
                     {{emailUser}}</h3>
             </div>
         </div>
     </div>
-    <div
-        class="flex justify-center items-center  text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-[calc(85%-300px)] mt-60 rounded-xl">
+    <form
+        class="flex justify-center items-center  text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-[calc(85%-300px)] mt-60 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
-            <h3 class="text-xl font-bold">Full Name</h3>
-            <input type="text" placeholder="{{user}}"
+            <label class="text-xl font-bold">Full Name</label>
+            <input type="text" aria-label="Edit user name" placeholder="{{user}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)]">
             <div
                 class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
-                <h3 class="mt-2 text-lg font-bold">Add Photo</h3>
+                <label class="mt-2 text-lg font-bold">Add Photo</label>
                 <input type="file" accept="image/*" class="hidden" id="photoInput">
                 <label for="photoInput"
                     class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all">
@@ -56,5 +57,5 @@
                 <span class="text-lg font-bold">Save Changes</span>
             </button>
         </div>
-    </div>
+    </form>
 </div>
