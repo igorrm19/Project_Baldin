@@ -56,9 +56,11 @@ class UserConfigComponent extends BaseModel {
             }
 
             try {
+
                 this.isSubmitting = true;
                 const service = new LoginServices();
                 const userResponse = await service.putUser() as { name?: string, email?: string } | null;
+
                 if (userResponse?.name != null && userResponse.name !== "") {
                     this._userName = userResponse.name;
                 }
@@ -71,11 +73,16 @@ class UserConfigComponent extends BaseModel {
                     passwordUser: this._userPassword,
                 })
 
+                alert("Deu certo")
+
 
             } catch (error) {
                 console.error("[UserConfigComponent] Failed to update user info:", error);
+                alert("Deu errado")
                 throw error;
+
             } finally {
+                alert("Deu muito errado")
                 this.isSubmitting = false;
             }
 
