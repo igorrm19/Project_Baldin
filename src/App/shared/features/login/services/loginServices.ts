@@ -129,7 +129,25 @@ export class LoginServices {
 
     async putUser(): Promise<unknown> {
         try {
-            const response = await fetch(this.url, {
+            // 1. Tenta recuperar o objeto do usuário que já está salvo no localStorage
+            const localUserStr = localStorage.getItem("user");
+            if (!localUserStr) {
+                throw new Error("Nenhum dado de usuário encontrado no localStorage.");
+            }
+
+            const userObj = JSON.parse(localUserStr) as { _id?: string; id?: string };
+            const userId = userObj._id ?? userObj.id;
+
+            if (!userId) {
+                throw new Error("ID do usuário não foi encontrado nos dados locais.");
+            }
+
+            // 2. Monta a URL correta incluindo o ID obtido (ex: http://localhost:3000/users/ID_AQUI)
+            const updateUrl = `${this.url}/${userId}`;
+
+            console.log("[LoginServices] Enviando PUT para a URL:", updateUrl);
+
+            const response = await fetch(updateUrl, {
                 method: "PUT",
                 headers: this.getHeaders(),
                 credentials: 'include',
@@ -139,21 +157,25 @@ export class LoginServices {
                     password: this.password
                 }),
             });
+
             if (!response.ok) {
                 const errBody = await response.json().catch(() => ({})) as { message?: string };
                 throw new Error(errBody.message ?? servicesMessage.error);
             }
+
             const payload = await response.json() as unknown;
             localStorage.setItem("user", JSON.stringify(payload));
             return payload;
         } catch (error) {
-            console.log(error);
+            console.log("[LoginServices] Erro capturado no PUT:", error);
             if (error instanceof Error && error.message !== "Network error") throw error;
             throw new Error(servicesMessage.error, { cause: error });
         } finally {
             this.wipeCredentials();
         }
     }
+
+
 
     async deleteUser(): Promise<unknown> {
         try {

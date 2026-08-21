@@ -28,7 +28,7 @@
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
             <label class="text-xl">Full
                 Name</label>
-            <input type="text" aria-label="Edit user name" placeholder="{{user}}"
+            <input id="userName" type="text" aria-label="Edit user name" placeholder="{{user}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
             <div
                 class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
@@ -51,13 +51,13 @@
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-3">
             <label class="text-xl font-bold">
                 Email</label>
-            <input id="emailUser" type="email" placeholder="{{emailUser}}"
+            <input id="userEmail" type="email" placeholder="{{emailUser}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] ">
             <label class="mt-10 text-lg">
                 Change password</label>
-            <input id="passwordUser" type="text" placeholder="{{passwordUser}}"
+            <input id="userPassword" type="password" placeholder="{{passwordUser}}"
                 class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
-            <button
+            <button id="saveButton" type="button"
                 class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-lime-800">
                 <span class="text-lg">Save
                     Changes</span>

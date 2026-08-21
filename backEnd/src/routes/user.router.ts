@@ -52,7 +52,7 @@ router.get('/me', userUpdateLimiter, auth, getCurrentUser);
 router.get('/users', userUpdateLimiter, auth, isAdmin, getUsers); //failure 404
 router.get('/users/:id', userUpdateLimiter, auth, getUserById);
 router.post('/users', createUserLimiter, validityCreateUser, createUser); //successfull
-router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, isAdmin, updateUser); //failure 500
+router.put('/users/:id', userUpdateLimiter, validityUpdateUser, auth, updateUser); //failure 500
 router.delete('/users/:id', userUpdateLimiter, auth, isAdmin, deleteUser);
 router.post('/login', loginLimiter, validateLogin, login); //successfull
 
