@@ -175,8 +175,6 @@ export class LoginServices {
         }
     }
 
-
-
     async deleteUser(): Promise<unknown> {
         try {
             const response = await fetch(this.url, {
