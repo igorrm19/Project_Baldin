@@ -82,11 +82,37 @@ class UserConfigComponent extends BaseModel {
                     passwordUser: this._userPassword,
                 });
 
-                alert("Deu certo");
+                const outputStatus = document.querySelector("#Status")
+                if (outputStatus) {
+                    /* istanbul ignore next */
+
+                    outputStatus.textContent = "sucesso"
+                    outputStatus.classList = "text-green-500 m-2"
+
+                    setTimeout(() => {
+                        outputStatus.textContent = ""
+                        outputStatus.classList = "hidden"
+                    }, 3000)
+                }
+
 
             } catch (error) {
+                const outputStatus = document.querySelector("#Status")
+                if (outputStatus) {
+                    /* istanbul ignore next */
+                    outputStatus.textContent = "Failed"
+                    outputStatus.classList = "text-red-500 m2"
+                }
+
+                setTimeout(() => {
+                    if (outputStatus) {
+                        outputStatus.textContent = ""
+                        outputStatus.classList = "hidden"
+                    }
+
+                }, 3000)
+
                 console.error("[UserConfigComponent] Failed to update user info:", error);
-                alert("Deu errado");
                 throw error;
 
             } finally {
@@ -110,30 +136,6 @@ class UserConfigComponent extends BaseModel {
                     this._userPassword = data.value ?? ""
                 }
 
-                this.addProps({
-                    user: this._userName,
-                    emailUser: this._userEmail,
-                    passwordUser: this._userPassword,
-                })
-
-                console.log("User name: ", this._userName, "User email: ", this._userEmail, "User password: ", this._userPassword)
-
-                const outputUserName = domContainer.querySelector("#user-name-value")
-                const outputUserEmail = domContainer.querySelector("#user-email-value")
-                const outputUserPassword = domContainer.querySelector("#user-password-value")
-
-                if (outputUserName) {
-                    /* istanbul ignore next */
-                    outputUserName.textContent = this._userName || "Value not found"
-                }
-                if (outputUserEmail) {
-                    /* istanbul ignore next */
-                    outputUserEmail.textContent = this._userEmail || "Value not found"
-                }
-                if (outputUserPassword) {
-                    /* istanbul ignore next */
-                    outputUserPassword.textContent = this._userPassword || "Value not found"
-                }
             })
         }
 
