@@ -66,7 +66,6 @@ class UserConfigComponent extends BaseModel {
                     this._userName
                 );
 
-                // Agora o putUser() terá acesso às propriedades corretas para enviar no body
                 const userResponse = await service.putUser() as { name?: string, email?: string } | null;
 
                 if (userResponse?.name != null && userResponse.name !== "") {
