@@ -7,8 +7,21 @@ import connectDB from './src/config/DBconfig.js';
 
 const app = express();
 
+const allowedOrigins = new Set([
+    'https://project-baldin.vercel.app',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+]);
+
 app.use(cors({
-    origin: process.env['NODE_ENV'] === 'production' ? 'https://project-baldin.vercel.app' : true,
+    origin: (origin, callback) => {
+        if (!origin) {
+            callback(null, true);
+            return;
+        }
+
+        callback(null, allowedOrigins.has(origin));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
