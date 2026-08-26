@@ -69,6 +69,11 @@ export class BaseModel implements IBaseModel {
         return html
     }
 
+    public unmount(): void {
+        console.log("[BaseModel] Unmounting component and clearing DOM references");
+        this.element.innerHTML = "";
+        return;
+    }
 
     public mount(parent: HTMLElement): void {
         if (this.mounted) {
@@ -81,4 +86,5 @@ export class BaseModel implements IBaseModel {
         const clonedElement = this.element.cloneNode(true) as HTMLElement;
         parent.appendChild(clonedElement);
     }
+
 }

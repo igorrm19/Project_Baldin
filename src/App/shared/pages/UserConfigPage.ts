@@ -42,7 +42,7 @@ class UserConfigPage {
     }
 
     unmount(): void {
-        console.log("[Router] Unmounting AboutPage and clearing listeners");
+        this.container.innerHTML = "";
     }
 }
 

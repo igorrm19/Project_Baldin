@@ -5,4 +5,5 @@ export interface IBaseModel {
     addComponent(component: ComponentMap): void;
     getHTML(): string;
     mount?(parent: HTMLElement): void;
+    unmount?(): void;
 }

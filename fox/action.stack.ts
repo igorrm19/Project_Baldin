@@ -39,6 +39,7 @@ class ActionStack {
 
     clear(): void {
         this.stack = [];
+        this.listeners = [];
     }
 }
 

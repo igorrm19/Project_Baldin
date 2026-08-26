@@ -94,7 +94,6 @@ class UserConfigComponent extends BaseModel {
                     }, 3000)
                 }
 
-
             } catch (error) {
                 const outputStatus = document.querySelector("#Status")
                 if (outputStatus) {
@@ -118,7 +117,6 @@ class UserConfigComponent extends BaseModel {
                 this.isSubmitting = false;
             }
         }
-
 
         this.bindButtons = (domContainer: HTMLElement): void => {
             this.activeDomContainer = domContainer;
