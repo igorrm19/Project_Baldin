@@ -1,16 +1,74 @@
+<style>
+  @media (max-width: 1024px) {
+    section.flex-col {
+      width: 95vw !important;
+      height: auto !important;
+      min-height: 80vh !important;
+      justify-content: flex-start !important;
+      padding-bottom: 2rem !important;
+      overflow-y: auto !important;
+    }
+    section.flex-col > div.fixed {
+      position: relative !important;
+      height: auto !important;
+      padding: 2rem 1rem !important;
+      border-radius: 1.5rem 1.5rem 0 0 !important;
+    }
+    section.flex-col > div.fixed > div {
+      margin: 0 !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+    section.flex-col > div.fixed > div > img {
+      width: 6rem !important;
+      height: 6rem !important;
+    }
+    section.flex-col > div.fixed > div > div {
+      margin-left: 0 !important;
+      margin-top: 1rem !important;
+      align-items: center !important;
+    }
+    form.border {
+      flex-direction: column !important;
+      width: 90% !important;
+      height: auto !important;
+      margin-top: 1rem !important;
+      padding: 2rem 1rem !important;
+      gap: 2rem !important;
+    }
+    form.border > div {
+      width: 100% !important;
+      margin-top: 0 !important;
+    }
+    form.border input[type="text"], 
+    form.border input[type="email"], 
+    form.border input[type="password"], 
+    form.border button, 
+    form.border > div > div {
+      width: 100% !important;
+    }
+    form.border > div > div {
+      height: auto !important;
+      padding: 1.5rem !important;
+    }
+    form.border label[for="photoInput"], form.border label[for="photoInput"] span {
+      width: 100% !important;
+    }
+  }
+</style>
 <section class="
   flex justify-center items-center
   flex-col
-  h-[calc(80vh-56px)]
+  min-h-[calc(80vh-56px)] h-auto pb-10 relative
   w-[calc(80vw-48px)]
   rounded-3xl
   bg-orange-900/35
   border border-white/10
   backdrop-blur-xl
-
+  overflow-hidden
   shadow-[0_10px_40px_rgba(0,0,0,0.45)]
 ">
-    <div class="flex flex-col justify-center items-center gap-2 {{color}} w-full h-48 fixed top-0 left-0">
+    <div class="flex flex-col justify-center items-center gap-2 {{color}} w-full h-48 absolute top-0 left-0">
         <div class="flex justify-start items-end w-full h-full ml-[10rem] mb-[-10rem]">
             <img src="./../../../../../../../public/anonimoUser.png" alt=""
                 class="w-36 h-36 rounded-full bg-slate-200 outline outline-black outline-2">
@@ -25,7 +83,7 @@
         </div>
     </div>
     <form
-        class="flex justify-center items-center  text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-[calc(85%-300px)] mt-60 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+        class="flex justify-center items-center text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-auto mt-60 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)] pb-6">
         <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
             <label class="text-xl">Full
                 Name</label>
