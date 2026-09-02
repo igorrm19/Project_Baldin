@@ -7,6 +7,7 @@ export class FoxRouter {
     private containerElement: HTMLElement | null = null;
     private currentPage: Page | null = null;
 
+
     constructor(routes: Record<string, RouteConfig | PageClass>, containerSelector: string = "#app") {
         this.routes = new Map();
         for (const [path, config] of Object.entries(routes)) {
@@ -18,7 +19,11 @@ export class FoxRouter {
         }
         this.containerSelector = containerSelector;
 
-        window.addEventListener("popstate", () => this.loadRoute(window.location.pathname));
+        window.addEventListener("popstate", () => this.handLoadPopstate());
+    }
+
+    private handLoadPopstate(): void {
+        this.loadRoute(window.location.pathname)
     }
 
     public navigate(path: string): void {
@@ -44,7 +49,7 @@ export class FoxRouter {
         if (this.currentPage !== null && typeof this.currentPage.unmount === "function") {
             this.currentPage.unmount();
         }
-        
+
         actionStack.clear();
 
         const PageCtor = routeConfig.page;
@@ -80,5 +85,15 @@ export class FoxRouter {
     public start(): void {
         this.setupLinkInterception();
         this.loadRoute(window.location.pathname);
+    }
+
+    public clear(): void {
+        const currentPath = window.location.pathname
+
+        history.replaceState({}, "", currentPath)
+        actionStack.clear();
+
+        console.log(`Histórico limpo! Você está seguro na página: ${currentPath}`);
+
     }
 }

@@ -115,7 +115,7 @@ export class Login extends Main<LoginProps> {
     }
 
     unmount(): void {
-        this.activeDomContainer = undefined;
+        //this.activeDomContainer = undefined;
         this.loginContainer.innerHTML = "";
     }
 }
