@@ -1,4 +1,5 @@
-import type { IBaseModel, ComponentMap } from "../../@types/base.model.interface"
+import type { IBaseModel, ComponentMap } from "../../@types/base.model.interface";
+import { actionStack } from "../../../../action.stack";
 
 export class BaseModel implements IBaseModel {
     private html: string
@@ -6,6 +7,7 @@ export class BaseModel implements IBaseModel {
     private context: Map<string, unknown> = new Map()
     protected axe: Map<string, string> = new Map()
     private mounted = false
+    private mountedElement?: HTMLElement | undefined;
 
     constructor(element: string, template: string) {
         this.element = document.createElement(element)
@@ -70,8 +72,13 @@ export class BaseModel implements IBaseModel {
     }
 
     public unmount(): void {
+        if (!this.mounted) {
+            return;
+        }
         console.log("[BaseModel] Unmounting component and clearing DOM references");
-        this.element.innerHTML = "";
+        actionStack.clear()
+        this.mountedElement?.remove()
+        this.mountedElement = undefined
         return;
     }
 
@@ -83,8 +90,8 @@ export class BaseModel implements IBaseModel {
         this.mounted = true;
         this.loadTemplate();
 
-        const clonedElement = this.element.cloneNode(true) as HTMLElement;
-        parent.appendChild(clonedElement);
+        this.mountedElement = this.element.cloneNode(true) as HTMLElement;
+        parent.appendChild(this.mountedElement);
     }
 
 }
