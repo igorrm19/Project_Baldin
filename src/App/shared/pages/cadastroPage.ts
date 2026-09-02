@@ -44,6 +44,6 @@ export class CadastroPage extends Main<CadastroProps> {
     }
 
     unmount(): void {
-        console.log("[Router] Unmounting CadastroPage and clearing listeners");
+        this.container.innerHTML = "";
     }
 }

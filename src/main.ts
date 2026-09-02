@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const router = new FoxRouter(routes);
   router.start();
 
+
   const app = document.querySelector("#app")
 
   if (app?.innerHTML) {
@@ -36,5 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   view()
+
+  setInterval(() => {
+    router.clear()
+
+  }, 10000);
+
 
 });

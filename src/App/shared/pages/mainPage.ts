@@ -31,6 +31,6 @@ export class MainPage {
     }
 
     unmount(): void {
-        console.log("[Router] Unmounting MainPage and clearing listeners");
+        this.container.innerHTML = "";
     }
 }

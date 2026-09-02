@@ -35,13 +35,13 @@ export class HomePage {
 
         const footer = new FooterComponent();
         footer.mount(footerWrapper);
-        
+
+
         return;
     }
 
     unmount(): void {
-        console.log("[Router] Unmounting HomePage and clearing listeners");
-        return;
+        this.container.innerHTML = "";
     }
 }
 

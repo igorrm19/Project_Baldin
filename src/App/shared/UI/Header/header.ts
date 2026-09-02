@@ -7,6 +7,7 @@ export let userName: string | undefined = undefined;
 
 export class HeaderComponent extends BaseModel {
     protected override axe: Map<string, string> = new Map();
+    private cleanupEffects: (() => void)[] = [];
 
     constructor() {
         const rawTemplate = template as string | { default: string };
@@ -40,11 +41,17 @@ export class HeaderComponent extends BaseModel {
             user: userName,
         })
         super.mount(parent);
-        this.onMount();
     }
 
-    onMount(): void {
-        console.log("[HeaderComponent] Header component mounted");
-        return;
+    override unmount(): void {
+        console.log(`Iniciando a limpeza de ${this.cleanupEffects.length} eventos...`);
+
+        // Executa cada função de remoção guardada
+        this.cleanupEffects.forEach(unsubsribe => unsubsribe());
+
+        // Zera o array
+        this.cleanupEffects = [];
+
+        console.log("Todos os eventos foram removidos com sucesso!");
     }
 }
