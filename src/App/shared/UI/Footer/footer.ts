@@ -14,13 +14,11 @@ export class FooterComponent extends BaseModel {
 
     override mount(parent: HTMLElement): void {
         super.mount(parent);
-        this.onMount();
         return;
     }
 
-    onMount(): void {
-        console.log("[FooterComponent] Footer component mounted");
-        return;
+    override unmount(): void {
+        super.unmount()
     }
 }
 

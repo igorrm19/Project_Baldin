@@ -43,7 +43,4 @@ export class CadastroPage extends Main<CadastroProps> {
         cadastro.bindButtons(wrapper);
     }
 
-    unmount(): void {
-        this.container.innerHTML = "";
-    }
 }

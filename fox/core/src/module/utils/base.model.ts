@@ -72,10 +72,12 @@ export class BaseModel implements IBaseModel {
     }
 
     public unmount(): void {
+        console.log("[BaseModel] Unmounting component and clearing DOM references");
+
         if (!this.mounted) {
             return;
         }
-        console.log("[BaseModel] Unmounting component and clearing DOM references");
+
         actionStack.clear()
         this.mountedElement?.remove()
         this.mountedElement = undefined

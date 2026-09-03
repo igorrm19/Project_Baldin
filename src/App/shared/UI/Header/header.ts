@@ -44,14 +44,6 @@ export class HeaderComponent extends BaseModel {
     }
 
     override unmount(): void {
-        console.log(`Iniciando a limpeza de ${this.cleanupEffects.length} eventos...`);
-
-        // Executa cada função de remoção guardada
-        this.cleanupEffects.forEach(unsubsribe => unsubsribe());
-
-        // Zera o array
-        this.cleanupEffects = [];
-
-        console.log("Todos os eventos foram removidos com sucesso!");
+        super.unmount()
     }
 }

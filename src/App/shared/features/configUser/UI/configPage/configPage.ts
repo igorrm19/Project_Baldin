@@ -140,6 +140,10 @@ class UserConfigComponent extends BaseModel {
         this.bindButtons(parent)
         return;
     }
+
+    override unmount(): void {
+        super.unmount()
+    }
 }
 
 export { UserConfigComponent };

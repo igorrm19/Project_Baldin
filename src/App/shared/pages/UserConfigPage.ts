@@ -40,10 +40,6 @@ class UserConfigPage {
         footer.mount(footerWrapper);
 
     }
-
-    unmount(): void {
-        this.container.innerHTML = "";
-    }
 }
 
 export { UserConfigPage };

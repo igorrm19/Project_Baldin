@@ -27,4 +27,8 @@ export class ImageHTML extends BaseModel {
         this.containerImage.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerImage)
     }
+
+    override unmount(): void {
+        super.unmount()
+    }
 }

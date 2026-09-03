@@ -25,4 +25,8 @@ export class TextHTML extends BaseModel {
         this.containerText.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerText)
     }
+
+    override unmount(): void {
+        super.unmount()
+    }
 }

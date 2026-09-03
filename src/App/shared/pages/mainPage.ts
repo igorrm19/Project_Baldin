@@ -29,8 +29,4 @@ export class MainPage {
         card.mount(wrapper)
         card.bindLoginButtons(wrapper)
     }
-
-    unmount(): void {
-        this.container.innerHTML = "";
-    }
 }
