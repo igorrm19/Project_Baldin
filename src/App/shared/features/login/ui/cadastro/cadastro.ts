@@ -96,4 +96,5 @@ export class Cadastro extends Main<CardProps> {
     handleAdminAccess(): void {
         console.log("Admin access triggered")
     }
+
 }

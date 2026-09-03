@@ -31,4 +31,8 @@ export class ButtonHTML extends BaseModel {
         this.containerButton.replaceChildren(...Array.from(fragment.childNodes));
         domContainer.appendChild(this.containerButton)
     }
+
+    override unmount(): void {
+        super.unmount()
+    }
 }
