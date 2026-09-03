@@ -8,26 +8,31 @@
       padding-bottom: 2rem !important;
       overflow-y: auto !important;
     }
-    section.flex-col > div.fixed {
+
+    section.flex-col>div.fixed {
       position: relative !important;
       height: auto !important;
       padding: 2rem 1rem !important;
       border-radius: 1.5rem 1.5rem 0 0 !important;
     }
-    section.flex-col > div.fixed > div {
+
+    section.flex-col>div.fixed>div {
       margin: 0 !important;
       flex-direction: column !important;
       align-items: center !important;
     }
-    section.flex-col > div.fixed > div > img {
+
+    section.flex-col>div.fixed>div>img {
       width: 6rem !important;
       height: 6rem !important;
     }
-    section.flex-col > div.fixed > div > div {
+
+    section.flex-col>div.fixed>div>div {
       margin-left: 0 !important;
       margin-top: 1rem !important;
       align-items: center !important;
     }
+
     form.border {
       flex-direction: column !important;
       width: 90% !important;
@@ -36,22 +41,27 @@
       padding: 2rem 1rem !important;
       gap: 2rem !important;
     }
-    form.border > div {
+
+    form.border>div {
       width: 100% !important;
       margin-top: 0 !important;
     }
-    form.border input[type="text"], 
-    form.border input[type="email"], 
-    form.border input[type="password"], 
-    form.border button, 
-    form.border > div > div {
+
+    form.border input[type="text"],
+    form.border input[type="email"],
+    form.border input[type="password"],
+    form.border button,
+    form.border>div>div {
       width: 100% !important;
     }
-    form.border > div > div {
+
+    form.border>div>div {
       height: auto !important;
       padding: 1.5rem !important;
     }
-    form.border label[for="photoInput"], form.border label[for="photoInput"] span {
+
+    form.border label[for="photoInput"],
+    form.border label[for="photoInput"] span {
       width: 100% !important;
     }
   }
@@ -68,60 +78,59 @@
   overflow-hidden
   shadow-[0_10px_40px_rgba(0,0,0,0.45)]
 ">
-    <div class="flex flex-col justify-center items-center gap-2 {{color}} w-full h-48 absolute top-0 left-0">
-        <div class="flex justify-start items-end w-full h-full ml-[10rem] mb-[-10rem]">
-            <img src="./../../../../../../../public/anonimoUser.png" alt=""
-                class="w-36 h-36 rounded-full bg-slate-200 outline outline-black outline-2">
+  <div class="flex flex-col justify-center items-center gap-2 {{color}} w-full h-48 absolute top-0 left-0">
+    <div class="flex justify-start items-end w-full h-full ml-[10rem] mb-[-10rem]">
+      <img src="./../../../../../../../public/anonimoUser.png" alt=""
+        class="w-36 h-36 rounded-full bg-slate-200 outline outline-black outline-2">
 
-            <div class="flex flex-col justify-center items-start ml-4">
-                <h2 class="text-2xl font-bold text-slate-200 hover:text-zinc-400">
-                    {{user}}
-                </h2>
-                <h3 class="text-lg font-medium text-slate-500 hover:text-amber-700">
-                    {{emailUser}}</h3>
-            </div>
-        </div>
+      <div class="flex flex-col justify-center items-start ml-4">
+        <h2 class="text-2xl font-bold text-slate-200 hover:text-zinc-400">
+          {{user}}
+        </h2>
+        <h3 class="text-lg font-medium text-slate-500 hover:text-amber-700">
+          {{emailUser}}</h3>
+      </div>
     </div>
-    <form
-        class="flex justify-center items-center text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-auto mt-60 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)] pb-6">
-        <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
-            <label class="text-xl">Full
-                Name</label>
-            <input id="userName" type="text" aria-label="Edit user name" placeholder="{{user}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
-            <div
-                class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
-                <label class="mt-2 text-lg font-bold">Add
-                    Photo</label>
-                <input type="file" accept="image/*" class="hidden" id="photoInput">
-                <label for="photoInput"
-                    class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all">
-                    <span
-                        class="flex justify-center items-center cursor-pointer h-14 p-2 rounded-full w-[calc(70%-1rem)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                            class="bi bi-folder-fill" viewBox="0 0 16 16" aria-label="Upload profile photo">
-                            <path
-                                d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z" />
-                        </svg>
-                    </span>
-                </label>
-            </div>
-        </div>
-        <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-3">
-            <label class="text-xl font-bold">
-                Email</label>
-            <input id="userEmail" type="email" placeholder="{{emailUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] ">
-            <label class="mt-10 text-lg">
-                Change password</label>
-            <input id="userPassword" type="password" placeholder="{{passwordUser}}"
-                class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
-            <button id="saveButton" type="button"
-                class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-lime-800">
-                <span class="text-lg">Save
-                    Changes</span>
-            </button>
-        </div>
-    </form>
-    <p id="Status"></p>
+  </div>
+  <form
+    class="flex justify-center items-center text-slate-100 border border-slate-900/20 bg-transparent/25 p-2 w-2/3 h-auto mt-80 rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.45)] pb-6">
+    <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-1">
+      <label class="text-xl">Full
+        Name</label>
+      <input id="userName" type="text" aria-label="Edit user name" placeholder="{{user}}"
+        class="text-slate-200 text-center border border-slate-900/20 bg-transparent/25 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
+      <div
+        class="flex flex-col justify-center items-center gap-2 border border-slate-900/20 bg-transparent/35 p-4 rounded-lg w-[calc(70%-1rem)] h-60 mt-7">
+        <label class="mt-2 text-lg font-bold">Add
+          Photo</label>
+        <input type="file" accept="image/*" class="hidden" id="photoInput">
+        <label for="photoInput"
+          class="flex w-[calc(70%-1rem)] justify-center bg-lime-800 rounded-lg hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all">
+          <span class="flex justify-center items-center cursor-pointer h-14 p-2 rounded-full w-[calc(70%-1rem)]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-folder-fill"
+              viewBox="0 0 16 16" aria-label="Upload profile photo">
+              <path
+                d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z" />
+            </svg>
+          </span>
+        </label>
+      </div>
+    </div>
+    <div class="flex justify-start items-center flex-col w-full h-full mt-10 gap-3">
+      <label class="text-xl font-bold">
+        Email</label>
+      <input id="userEmail" type="email" placeholder="{{emailUser}}"
+        class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] ">
+      <label class="mt-10 text-lg">
+        Change password</label>
+      <input id="userPassword" type="password" placeholder="{{passwordUser}}"
+        class="text-slate-200 text-center border border-slate-900/20 bg-transparent/15 p-4 rounded-full w-[calc(70%-1rem)] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-600 focus-visible:ring-offset-2">
+      <button id="saveButton" type="button"
+        class="flex justify-center items-center cursor-pointer hover:text-green-200 hover:border-green-200 hover:bg-green-800/75 transition-all h-14 p-2 rounded-full w-[calc(70%-1rem)] mt-10 bg-lime-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-lime-800">
+        <span class="text-lg">Save
+          Changes</span>
+      </button>
+    </div>
+  </form>
+  <p id="Status"></p>
 </section>
