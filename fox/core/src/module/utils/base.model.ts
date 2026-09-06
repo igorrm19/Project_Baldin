@@ -81,6 +81,7 @@ export class BaseModel implements IBaseModel {
         actionStack.clear()
         this.mountedElement?.remove()
         this.mountedElement = undefined
+        this.mounted = false
         return;
     }
 

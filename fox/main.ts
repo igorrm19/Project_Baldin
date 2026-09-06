@@ -36,5 +36,9 @@ export class Main<P extends Record<string, unknown>> implements IBaseModel {
     mount(parent: HTMLElement): void {
         this.baseModel.mount?.(parent);
     }
+
+    unmount(): void {
+        this.baseModel.unmount()
+    }
 }
 
