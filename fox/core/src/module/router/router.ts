@@ -6,6 +6,22 @@ export class FoxRouter {
     private containerSelector: string;
     private containerElement: HTMLElement | null = null;
     private currentPage: Page | null = null;
+    private started = false;
+    private readonly handlePopstate = (): void => this.handLoadPopstate();
+    private readonly handleDocumentClick = (event: Event): void => {
+        const target = event.target as HTMLElement;
+        const anchor = target.closest("a");
+
+        if (anchor && anchor.href) {
+            const url = new URL(anchor.href);
+            const isInternal = url.origin === window.location.origin;
+
+            if (isInternal) {
+                event.preventDefault();
+                this.navigate(url.pathname);
+            }
+        }
+    };
 
 
     constructor(routes: Record<string, RouteConfig | PageClass>, containerSelector: string = "#app") {
@@ -19,7 +35,6 @@ export class FoxRouter {
         }
         this.containerSelector = containerSelector;
 
-        window.addEventListener("popstate", () => this.handLoadPopstate());
     }
 
     private handLoadPopstate(): void {
@@ -66,25 +81,31 @@ export class FoxRouter {
     }
 
     private setupLinkInterception(): void {
-        document.addEventListener("click", (event) => {
-            const target = event.target as HTMLElement;
-            const anchor = target.closest("a");
-
-            if (anchor && anchor.href) {
-                const url = new URL(anchor.href);
-                const isInternal = url.origin === window.location.origin;
-
-                if (isInternal) {
-                    event.preventDefault();
-                    this.navigate(url.pathname);
-                }
-            }
-        });
+        document.addEventListener("click", this.handleDocumentClick);
     }
 
     public start(): void {
+        if (this.started) {
+            return;
+        }
+
+        this.started = true;
+        window.addEventListener("popstate", this.handlePopstate);
         this.setupLinkInterception();
         this.loadRoute(window.location.pathname);
+    }
+
+    public stop(): void {
+        if (!this.started) {
+            return;
+        }
+
+        window.removeEventListener("popstate", this.handlePopstate);
+        document.removeEventListener("click", this.handleDocumentClick);
+        this.currentPage?.unmount?.();
+        this.currentPage = null;
+        this.containerElement = null;
+        this.started = false;
     }
 
     public clear(): void {

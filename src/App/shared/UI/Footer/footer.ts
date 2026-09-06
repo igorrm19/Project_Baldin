@@ -3,6 +3,7 @@ import template from "./footer.html?raw"
 
 export class FooterComponent extends BaseModel {
     protected override axe: Map<string, string> = new Map();
+    private mounting = false;
 
     constructor() {
         const rawTemplate = template as string | { default: string };
@@ -13,11 +14,13 @@ export class FooterComponent extends BaseModel {
     }
 
     override mount(parent: HTMLElement): void {
+        this.mounting = true;
         super.mount(parent);
         return;
     }
 
     override unmount(): void {
+        this.mounting = false;
         super.unmount()
     }
 }
