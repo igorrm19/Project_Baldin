@@ -43,4 +43,8 @@ export class CadastroPage extends Main<CadastroProps> {
         cadastro.bindButtons(wrapper);
     }
 
+    override unmount(): void {
+        super.unmount()
+    }
+
 }
