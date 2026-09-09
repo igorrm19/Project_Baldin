@@ -1,12 +1,16 @@
 import { HeaderComponent } from "../UI/Header/header";
 import { FooterComponent } from "../UI/Footer/footer";
 import { UserConfigComponent } from "../features/configUser/UI/configPage/configPage";
+import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
+import { Main } from "../../../../fox/main";
 
+type UserConfig = Record<string, unknown>
 
-class UserConfigPage {
+class UserConfigPage extends Main<UserConfig> {
     private readonly container: HTMLElement;
 
     constructor() {
+        super(new BaseModel("div", ""), {})
         this.container = document.createElement('div');
         this.setupStyles();
     }
@@ -15,7 +19,7 @@ class UserConfigPage {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement): void {
+    override mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
         const headerWrapper = document.createElement("div");
@@ -39,6 +43,10 @@ class UserConfigPage {
         const footer = new FooterComponent();
         footer.mount(footerWrapper);
 
+    }
+
+    override unmount() {
+        super.unmount()
     }
 }
 

@@ -1,10 +1,14 @@
 import { CardLogin, html } from "../features/login/ui/cardLogin/card";
 import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
+import { Main } from "../../../../fox/main";
 
-export class MainPage {
+type MainProps = Record<string, unknown>
+
+export class MainPage extends Main<MainProps> {
     container: HTMLDivElement;
 
     constructor() {
+        super(new BaseModel("div", ""), {})
         this.container = document.createElement("div");
         this.setupStyles();
     }
@@ -13,7 +17,7 @@ export class MainPage {
         this.container.classList.add("responsive-page");
     }
 
-    mount(parent: HTMLElement): void {
+    override mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
 
@@ -28,5 +32,9 @@ export class MainPage {
 
         card.mount(wrapper)
         card.bindLoginButtons(wrapper)
+    }
+
+    override unmount() {
+        super.unmount()
     }
 }
