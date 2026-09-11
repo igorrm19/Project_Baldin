@@ -5,7 +5,7 @@ describe('BaseModel', () => {
   it('renders template props and child components correctly', () => {
     const parent = document.createElement('div');
     const model = new BaseModel('div', '<div>{{ message }}</div><Axe id="slot"></Axe>');
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => { });
 
     model.addProps({ message: 'Hello' });
     model.addComponent({ slot: '<span>slot content</span>' });

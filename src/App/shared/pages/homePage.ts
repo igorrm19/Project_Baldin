@@ -1,10 +1,15 @@
 import { FooterComponent } from "../UI/Footer/footer";
 import { HeaderComponent } from "../UI/Header/header";
+import { Main } from "../../../../fox/main";;
+import { BaseModel } from "../../../../fox/core/src/module/utils/base.model";
 
-export class HomePage {
+type cadastroProps = Record<string, unknown>
+
+export class HomePage extends Main<cadastroProps> {
     private readonly container: HTMLElement;
 
     constructor() {
+        super(new BaseModel("div", ""), {});
         this.container = document.createElement("div");
         this.setupStyles();
         return;
@@ -15,7 +20,7 @@ export class HomePage {
         return;
     }
 
-    mount(parent: HTMLElement): void {
+    override mount(parent: HTMLElement): void {
         parent.appendChild(this.container);
 
         const headerWrapper = document.createElement("div");
@@ -38,6 +43,10 @@ export class HomePage {
 
 
         return;
+    }
+
+    override unmount(): void {
+        super.unmount()
     }
 
 }

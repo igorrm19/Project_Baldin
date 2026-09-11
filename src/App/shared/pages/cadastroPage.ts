@@ -3,6 +3,7 @@ import { Cadastro, html as registrationHTML } from "../features/login/ui/cadastr
 import { CardLogin, html as cardHTML } from "../features/login/ui/cardLogin/card";
 import { TextHTML } from "../components/Text/text";
 import { Main } from "../../../../fox/main";
+import { containerChild, containerMount } from "../utils/functionsDOM"
 
 export type CadastroProps = Record<string, unknown>;
 
@@ -34,13 +35,14 @@ export class CadastroPage extends Main<CadastroProps> {
             secondary_component: subtitle.getHTML(),
         });
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "flex flex-grow items-center justify-center w-full py-10";
-        this.container.appendChild(wrapper);
+        const wrapperChild = containerChild("flex flex-grow items-center justify-center w-full py-10", this.container);
 
-        cardLogin.mount(wrapper);
+        containerMount(cardLogin, wrapperChild)
+        cadastro.bindButtons(wrapperChild);
+    }
 
-        cadastro.bindButtons(wrapper);
+    override unmount(): void {
+        super.unmount()
     }
 
 }
