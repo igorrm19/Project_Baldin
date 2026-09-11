@@ -30,7 +30,6 @@ class UserConfigPage extends Main<UserConfig> {
         containerMount(new HeaderComponent(), headerChild)
         containerMount(new UserConfigComponent(), configChild)
         containerMount(new FooterComponent(), footerChild)
-
     }
 
     override unmount() {
